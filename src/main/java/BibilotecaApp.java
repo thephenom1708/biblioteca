@@ -1,4 +1,4 @@
-import com.tw.pathashala69.biblioteca.Library;
+import com.tw.pathashala69.biblioteca.Biblioteca;
 
 public class BibilotecaApp {
     public static void main(String[] args) {
@@ -6,6 +6,6 @@ public class BibilotecaApp {
     }
 
     private static void startApplication() {
-        System.out.println(Library.welcome());
+        System.out.println(Biblioteca.welcome());
     }
 }
