@@ -23,8 +23,7 @@ public class BibilotecaApp {
 
     private static List<Book> getBooks() throws IOException {
         ClassLoader classLoader = BibilotecaApp.class.getClassLoader();
-        File file = new File(classLoader.getResource("io/books.csv" ).getFile());
+        File file = new File(classLoader.getResource("io/books.csv").getFile());
         return BookParser.parseFile(file);
     }
 }
-

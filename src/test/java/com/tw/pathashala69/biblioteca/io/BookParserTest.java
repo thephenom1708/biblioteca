@@ -13,17 +13,21 @@ import static org.hamcrest.Matchers.is;
 
 class BookParserTest {
 
+    Book book1, book2, book3;
     List<Book> books;
 
     @BeforeEach
     public void setup() {
-        books = List.of(new Book("Harry Potter" ), new Book("Alchemist" ), new Book("The Secret" ));
+        book1 = new Book("Harry Potter", "J. K. Rowling", 2019);
+        book2 = new Book("Alchemist", "Paulo Coelho", 2015);
+        book3 = new Book("The Secret", "Rhonda Byrne", 2004);
+        books = List.of(book1, book2, book3);
     }
 
     @Test
     public void shouldReturnBookByParsingParameters() {
-        Book expectedBook = new Book("Harry Potter" );
-        String[] bookParameters = { "Harry Potter" };
+        Book expectedBook = book1;
+        String[] bookParameters = { "Harry Potter", "J. K. Rowling", "2019" };
 
         Book actualBook = BookParser.parse(bookParameters);
 
@@ -32,8 +36,8 @@ class BookParserTest {
 
     @Test
     public void shouldReturnBookParametersByParsingCommaSeparatedLineIsGiven() {
-        String line = "Harry Potter";
-        String[] expectedBookParameters = { "Harry Potter" };
+        String line = "Harry Potter,J. K. Rowling,2019";
+        String[] expectedBookParameters = { "Harry Potter", "J. K. Rowling", "2019" };
 
         String[] actualBookParameters = BookParser.parseParameters(line);
 
@@ -43,7 +47,7 @@ class BookParserTest {
     @Test
     public void shouldReturnListOfBooksByParsingLinesFromCSVFile() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File inputFile = new File(classLoader.getResource("io/books.csv" ).getFile());
+        File inputFile = new File(classLoader.getResource("io/books.csv").getFile());
 
         List<Book> actualBooks = BookParser.parseFile(inputFile);
 
