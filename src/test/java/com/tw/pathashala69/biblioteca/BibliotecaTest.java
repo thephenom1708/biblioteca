@@ -10,11 +10,10 @@ class BibliotecaTest {
 
     @Test
     public void shouldReturnWelcomeMessageWhenCustomerStartsApplication() {
-        Biblioteca biblioteca = new Biblioteca();
         String expectedWelcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book " +
                 "titles in Bangalore!";
 
-        String actualWelcomeMessage = biblioteca.welcome();
+        String actualWelcomeMessage = Biblioteca.welcome();
 
         assertThat(actualWelcomeMessage, is(equalTo(expectedWelcomeMessage)));
     }
