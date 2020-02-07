@@ -10,7 +10,7 @@ import java.util.List;
 public class BookParser {
 
     public static Book parse(String[] bookParameters) {
-        return new Book(bookParameters[0]);
+        return new Book(bookParameters[0], bookParameters[1], Integer.parseInt(bookParameters[2]));
     }
 
     public static String[] parseParameters(String line) {

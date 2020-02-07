@@ -2,6 +2,8 @@ import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.Library;
 import com.tw.pathashala69.biblioteca.io.BookParser;
+import com.tw.pathashala69.biblioteca.menu.MainMenu;
+import com.tw.pathashala69.biblioteca.menu.MenuItem;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +20,19 @@ public class BibilotecaApp {
         List<Book> books = library.books();
 
         System.out.println("\nList of All Books: ");
-        books.forEach(book -> System.out.println(book));
+        books.forEach(System.out::println);
+
+        MainMenu mainMenu = new MainMenu(makeMenuItems());
+        mainMenu.printMenu(System.out);
+    }
+
+    private static List<MenuItem> makeMenuItems() {
+        return null;
     }
 
     private static List<Book> getBooks() throws IOException {
         ClassLoader classLoader = BibilotecaApp.class.getClassLoader();
-        File file = new File(classLoader.getResource("io/books.csv" ).getFile());
+        File file = new File(classLoader.getResource("io/books.csv").getFile());
         return BookParser.parseFile(file);
     }
 }
-

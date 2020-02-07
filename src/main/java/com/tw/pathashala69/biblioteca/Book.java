@@ -5,9 +5,13 @@ import java.util.Objects;
 //Job: Represents Book
 public class Book {
     private final String name;
+    private final String author;
+    private final int yearOfPublication;
 
-    public Book(String name) {
+    public Book(String name, String author, int yearOfPublication) {
         this.name = name;
+        this.author = author;
+        this.yearOfPublication = yearOfPublication;
     }
 
     @Override
@@ -25,6 +29,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return name;
+        return String.format("|%-25s|", name) + String.format("%-25s|", author) + String.format("%d|", yearOfPublication);
     }
 }
