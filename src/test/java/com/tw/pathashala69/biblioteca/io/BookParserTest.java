@@ -18,11 +18,20 @@ class BookParserTest {
     }
 
     @Test
-    public void shouldReturnBookByParsingName() {
+    public void shouldReturnBookByParsingParameters() {
         Book expectedBook = new Book("Harry Potter" );
+        String[] bookParameters = {"Harry Potter"};
 
-        Book actualBook = parser.parse("Harry Potter" );
+        Book actualBook = parser.parse(bookParameters);
 
         assertThat(actualBook, is(equalTo(expectedBook)));
+    }
+
+    @Test
+    public void shouldReturnBookParametersByParsingCommaSeparatedLineIsGiven() {
+        String line = "Harry Potter";
+        String[] expectedBookParameters = {"Harry Potter"};
+
+        String[] actualBookParameters = parser.parseParameters(line);
     }
 }
