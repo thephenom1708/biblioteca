@@ -13,13 +13,11 @@ import static org.hamcrest.Matchers.is;
 
 class BookParserTest {
 
-    BookParser parser;
     List<Book> books;
 
     @BeforeEach
     public void setup() {
         books = List.of(new Book("Harry Potter" ), new Book("Alchemist" ), new Book("The Secret" ));
-        parser = new BookParser();
     }
 
     @Test
@@ -27,7 +25,7 @@ class BookParserTest {
         Book expectedBook = new Book("Harry Potter" );
         String[] bookParameters = { "Harry Potter" };
 
-        Book actualBook = parser.parse(bookParameters);
+        Book actualBook = BookParser.parse(bookParameters);
 
         assertThat(actualBook, is(equalTo(expectedBook)));
     }
@@ -37,7 +35,7 @@ class BookParserTest {
         String line = "Harry Potter";
         String[] expectedBookParameters = { "Harry Potter" };
 
-        String[] actualBookParameters = parser.parseParameters(line);
+        String[] actualBookParameters = BookParser.parseParameters(line);
 
         assertThat(actualBookParameters, is(equalTo(expectedBookParameters)));
     }
@@ -47,7 +45,7 @@ class BookParserTest {
         ClassLoader classLoader = getClass().getClassLoader();
         File inputFile = new File(classLoader.getResource("io/books.csv" ).getFile());
 
-        List<Book> actualBooks = parser.parseFile(inputFile);
+        List<Book> actualBooks = BookParser.parseFile(inputFile);
 
         assertThat(actualBooks, is(equalTo(books)));
     }
