@@ -1,9 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.action.BookListView;
-
-import java.util.List;
 
 //Job: Represents view all books menu item
 public class BookListItem implements MenuItem {

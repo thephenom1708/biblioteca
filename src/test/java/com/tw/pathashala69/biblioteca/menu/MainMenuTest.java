@@ -1,6 +1,7 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -11,15 +12,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class MainMenuTest {
 
     private MainMenu mainMenu;
     private List<MenuItem> menuItems;
-    private BookListItem testBookListItem;
     private ByteArrayOutputStream outStream;
+    BookListItem testBookListItem;
 
     @BeforeEach
     void setUp() {
@@ -45,5 +45,13 @@ class MainMenuTest {
         System.setOut(new PrintStream(System.out));
 
         assertTrue(new String(outStream.toByteArray()).contains("1. View all Books [B]"));
+    }
+
+    @Test
+    @DisplayName("Execute BookList Item when input string is B")
+    public void shouldExecuteBookListItemWhenInputIsB() {
+        mainMenu.execute();
+
+        verify(testBookListItem, times(1)).onSelect();
     }
 }

@@ -26,4 +26,8 @@ public class MainMenu {
         }
         stream.println();
     }
+
+    public void execute() {
+        menuItems.get(0).onSelect();
+    }
 }
