@@ -42,6 +42,6 @@ class MainMenuTest {
         System.setOut(new PrintStream(outStream));
         mainMenu.printMenu(System.out);
         System.setOut(new PrintStream(System.out));
-        assertTrue(new String(outStream.toByteArray()).contains("[B]. View all Books"));
+        assertTrue(new String(outStream.toByteArray()).contains("1. View all Books [B]"));
     }
 }

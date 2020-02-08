@@ -19,9 +19,11 @@ public class MainMenu {
 
     public void printMenu(PrintStream stream) {
         stream.println("\n" + Message.MAIN_MENU_MESSAGE);
-        menuItems.forEach(item -> {
-            stream.println("[" + item.symbol() + "]. " + item.present());
-        });
+        int counter = 1;
+        for (MenuItem item : menuItems) {
+            stream.println(counter + ". " + item.present() + " [" + item.symbol() + "]");
+            counter++;
+        }
         stream.println();
     }
 }

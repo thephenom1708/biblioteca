@@ -2,6 +2,7 @@ import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.Library;
 import com.tw.pathashala69.biblioteca.io.BookParser;
+import com.tw.pathashala69.biblioteca.menu.BookList;
 import com.tw.pathashala69.biblioteca.menu.MainMenu;
 import com.tw.pathashala69.biblioteca.menu.MenuItem;
 
@@ -16,18 +17,15 @@ public class BibilotecaApp {
 
     private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
-        Library library = new Library(getBooks());
-        List<Book> books = library.books();
-
-        System.out.println("\nList of All Books: ");
-        books.forEach(System.out::println);
 
         MainMenu mainMenu = new MainMenu(makeMenuItems());
         mainMenu.printMenu(System.out);
     }
 
     private static List<MenuItem> makeMenuItems() {
-        return null;
+        BookList bookList = new BookList();
+        List<MenuItem> menuItems = List.of(bookList);
+        return menuItems;
     }
 
     private static List<Book> getBooks() throws IOException {
