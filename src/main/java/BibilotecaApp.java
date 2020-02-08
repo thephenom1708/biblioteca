@@ -2,7 +2,7 @@ import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.Library;
 import com.tw.pathashala69.biblioteca.Message;
-import com.tw.pathashala69.biblioteca.action.BookListView;
+import com.tw.pathashala69.biblioteca.action.BookListViewAction;
 import com.tw.pathashala69.biblioteca.io.BookParser;
 import com.tw.pathashala69.biblioteca.menu.BookListItem;
 import com.tw.pathashala69.biblioteca.menu.InvalidMenuOptionException;
@@ -55,7 +55,7 @@ public class BibilotecaApp {
     }
 
     private static List<MenuItem> makeMenuItems(Library library) {
-        BookListItem bookListItem = new BookListItem(new BookListView(library.books()));
+        BookListItem bookListItem = new BookListItem(new BookListViewAction(library.books()));
         return List.of(bookListItem);
     }
 

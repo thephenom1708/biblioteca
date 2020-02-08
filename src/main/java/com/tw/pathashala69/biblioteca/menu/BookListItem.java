@@ -1,27 +1,13 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.action.BookListView;
+import com.tw.pathashala69.biblioteca.action.BookListViewAction;
 
 //Job: Represents view all books menu item
-public class BookListItem implements MenuItem {
-    private final BookListView bookListView;
+public class BookListItem extends BaseMenuItem {
+    public static final String NAME = "List of books";
+    public static final String SYMBOL = "B";
 
-    public BookListItem(BookListView view) {
-        this.bookListView = view;
-    }
-
-    @Override
-    public String present() {
-        return "List of books";
-    }
-
-    @Override
-    public String symbol() {
-        return "B";
-    }
-
-    @Override
-    public void onSelect() {
-       bookListView.perform();
+    public BookListItem(BookListViewAction bookListViewAction) {
+        super(NAME, SYMBOL, bookListViewAction);
     }
 }

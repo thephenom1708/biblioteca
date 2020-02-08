@@ -4,11 +4,11 @@ import com.tw.pathashala69.biblioteca.Book;
 
 import java.util.List;
 
-// Job: Action to be performed when booklist menu item is selected
-public class BookListView implements Action {
+// Job: View details of all books
+public class BookListViewAction implements Action {
     public List<Book> books;
 
-    public BookListView(List<Book> books) {
+    public BookListViewAction(List<Book> books) {
         this.books = books;
     }
 

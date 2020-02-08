@@ -1,18 +1,10 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-public class QuitItem implements MenuItem {
-    @Override
-    public String present() {
-        return "Quit";
-    }
+import com.tw.pathashala69.biblioteca.action.QuitAction;
 
-    @Override
-    public String symbol() {
-        return "Q";
-    }
+public class QuitItem extends BaseMenuItem {
 
-    @Override
-    public void onSelect() {
-
+    public QuitItem(QuitAction quitAction) {
+        super("Quit", "Q", quitAction);
     }
 }

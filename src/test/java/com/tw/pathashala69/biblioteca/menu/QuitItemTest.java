@@ -1,20 +1,23 @@
 package com.tw.pathashala69.biblioteca.menu;
 
+import com.tw.pathashala69.biblioteca.action.QuitAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class QuitItemTest {
 
-    QuitItem quitItem;
+    private QuitItem quitItem;
+    private QuitAction quitAction;
 
     @BeforeEach
     void setUp() {
-        quitItem = new QuitItem();
+        quitAction = mock(QuitAction.class);
+        quitItem = new QuitItem(quitAction);
     }
 
     @Test
@@ -25,5 +28,12 @@ class QuitItemTest {
     @Test
     public void shouldReturnSymbol() {
         assertThat(quitItem.symbol(), is(equalTo("Q")));
+    }
+
+    @Test
+    public void shouldPerformQuitViewWhenSelected() {
+        quitItem.onSelect();
+
+        verify(quitAction, times(1)).perform();
     }
 }

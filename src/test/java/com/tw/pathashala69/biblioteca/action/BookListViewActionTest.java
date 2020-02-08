@@ -8,21 +8,21 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-class BookListViewTest {
+class BookListViewActionTest {
 
     Book book = mock(Book.class);
     List<Book> books;
-    BookListView bookListView;
+    BookListViewAction bookListViewAction;
 
     @BeforeEach
     void setUp() {
         books = List.of(book, book, book);
-        bookListView = new BookListView(books);
+        bookListViewAction = new BookListViewAction(books);
     }
 
     @Test
     public void shouldPrintAllBooksWhenPerformed() {
-        bookListView.perform();
+        bookListViewAction.perform();
 
         verify(book, times(3)).print(System.out);
     }

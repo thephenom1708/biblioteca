@@ -1,6 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.action.BookListView;
+import com.tw.pathashala69.biblioteca.action.BookListViewAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ import static org.mockito.Mockito.*;
 
 class BookListItemTest {
 
-    BookListView bookListView;
+    BookListViewAction bookListViewAction;
     BookListItem bookListItem;
 
     @BeforeEach
     void setUp() {
-        bookListView = mock(BookListView.class);
-        bookListItem = new BookListItem(bookListView);
+        bookListViewAction = mock(BookListViewAction.class);
+        bookListItem = new BookListItem(bookListViewAction);
     }
 
     @Test
@@ -34,6 +34,6 @@ class BookListItemTest {
     public void shouldListAvailableBooksOnSelected() {
         bookListItem.onSelect();
 
-        verify(bookListView, times(1)).perform();
+        verify(bookListViewAction, times(1)).perform();
     }
 }

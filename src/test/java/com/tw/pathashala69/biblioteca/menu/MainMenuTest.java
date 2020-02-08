@@ -20,15 +20,21 @@ class MainMenuTest {
     private MainMenu mainMenu;
     private List<MenuItem> menuItems;
     private ByteArrayOutputStream outStream;
-    BookListItem testBookListItem;
+    private BookListItem testBookListItem;
+    private QuitItem testQuitItem;
 
     @BeforeEach
     void setUp() {
         outStream = new ByteArrayOutputStream();
         testBookListItem = mock(BookListItem.class);
-        menuItems = List.of(testBookListItem);
+        testQuitItem = mock(QuitItem.class);
+
+        menuItems = List.of(testBookListItem, testQuitItem);
+
         when(testBookListItem.symbol()).thenReturn("B");
         when(testBookListItem.present()).thenReturn("List of books");
+        when(testQuitItem.symbol()).thenReturn("Q");
+        when(testQuitItem.present()).thenReturn("Quit");
 
         mainMenu = new MainMenu(menuItems);
     }
@@ -49,7 +55,7 @@ class MainMenuTest {
     }
 
     @Test
-    @DisplayName("Execute BookList Item when input string is B")
+    @DisplayName("View list of books when input string is B")
     public void shouldExecuteBookListItemWhenInputIsB() throws InvalidMenuOptionException {
         mainMenu.execute("B");
 
@@ -59,5 +65,13 @@ class MainMenuTest {
     @Test
     public void shouldThrowExceptionIfInvalidInputIsGiven() {
         assertThrows(InvalidMenuOptionException.class, () -> mainMenu.execute("A"));
+    }
+
+    @Test
+    @DisplayName("Quit application when input string is Q")
+    public void shouldExecuteQuitItemWhenInputIsQ() throws InvalidMenuOptionException {
+        mainMenu.execute("Q");
+
+        verify(testQuitItem, times(1)).onSelect();
     }
 }
