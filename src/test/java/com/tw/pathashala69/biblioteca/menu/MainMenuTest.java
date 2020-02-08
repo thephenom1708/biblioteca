@@ -18,16 +18,16 @@ class MainMenuTest {
 
     private MainMenu mainMenu;
     private List<MenuItem> menuItems;
-    private BookList testBookList;
+    private BookListItem testBookListItem;
     private ByteArrayOutputStream outStream;
 
     @BeforeEach
     void setUp() {
         outStream = new ByteArrayOutputStream();
-        testBookList = mock(BookList.class);
-        menuItems = List.of(testBookList);
-        when(testBookList.symbol()).thenReturn("B");
-        when(testBookList.present()).thenReturn("View all Books");
+        testBookListItem = mock(BookListItem.class);
+        menuItems = List.of(testBookListItem);
+        when(testBookListItem.symbol()).thenReturn("B");
+        when(testBookListItem.present()).thenReturn("View all Books");
 
         mainMenu = new MainMenu(menuItems);
     }
@@ -40,8 +40,10 @@ class MainMenuTest {
     @Test
     public void shouldPrintListOfAllMenuItems() {
         System.setOut(new PrintStream(outStream));
+
         mainMenu.printMenu(System.out);
         System.setOut(new PrintStream(System.out));
+
         assertTrue(new String(outStream.toByteArray()).contains("1. View all Books [B]"));
     }
 }

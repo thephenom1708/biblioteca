@@ -1,8 +1,9 @@
 import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.Library;
+import com.tw.pathashala69.biblioteca.action.BookListView;
 import com.tw.pathashala69.biblioteca.io.BookParser;
-import com.tw.pathashala69.biblioteca.menu.BookList;
+import com.tw.pathashala69.biblioteca.menu.BookListItem;
 import com.tw.pathashala69.biblioteca.menu.MainMenu;
 import com.tw.pathashala69.biblioteca.menu.MenuItem;
 
@@ -18,14 +19,15 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
 
-        MainMenu mainMenu = new MainMenu(makeMenuItems());
+        Library library = new Library(getBooks());
+
+        MainMenu mainMenu = new MainMenu(makeMenuItems(library));
         mainMenu.printMenu(System.out);
     }
 
-    private static List<MenuItem> makeMenuItems() {
-        BookList bookList = new BookList();
-        List<MenuItem> menuItems = List.of(bookList);
-        return menuItems;
+    private static List<MenuItem> makeMenuItems(Library library) {
+        BookListItem bookListItem = new BookListItem(new BookListView(library.books()));
+        return List.of(bookListItem);
     }
 
     private static List<Book> getBooks() throws IOException {

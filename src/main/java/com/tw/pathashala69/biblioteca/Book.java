@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca;
 
+import java.io.PrintStream;
 import java.util.Objects;
 
 //Job: Represents Book
@@ -12,6 +13,10 @@ public class Book {
         this.name = name;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
+    }
+
+    public void print(PrintStream stream) {
+        stream.println(this);
     }
 
     @Override
