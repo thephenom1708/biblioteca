@@ -1,11 +1,8 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.action.BookListView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -25,7 +22,7 @@ class BookListItemTest {
 
     @Test
     public void shouldReturnName() {
-        assertThat(bookListItem.present(), is(equalTo("View all Books")));
+        assertThat(bookListItem.present(), is(equalTo("List of books")));
     }
 
     @Test

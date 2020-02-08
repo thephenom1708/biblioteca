@@ -11,6 +11,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -27,7 +28,7 @@ class MainMenuTest {
         testBookListItem = mock(BookListItem.class);
         menuItems = List.of(testBookListItem);
         when(testBookListItem.symbol()).thenReturn("B");
-        when(testBookListItem.present()).thenReturn("View all Books");
+        when(testBookListItem.present()).thenReturn("List of books");
 
         mainMenu = new MainMenu(menuItems);
     }
@@ -44,14 +45,19 @@ class MainMenuTest {
         mainMenu.printMenu(System.out);
         System.setOut(new PrintStream(System.out));
 
-        assertTrue(new String(outStream.toByteArray()).contains("1. View all Books [B]"));
+        assertTrue(new String(outStream.toByteArray()).contains("1. List of books [B]"));
     }
 
     @Test
     @DisplayName("Execute BookList Item when input string is B")
-    public void shouldExecuteBookListItemWhenInputIsB() {
-        mainMenu.execute();
+    public void shouldExecuteBookListItemWhenInputIsB() throws InvalidMenuOptionException {
+        mainMenu.execute("B");
 
         verify(testBookListItem, times(1)).onSelect();
+    }
+
+    @Test
+    public void shouldThrowExceptionIfInvalidInputIsGiven() {
+        assertThrows(InvalidMenuOptionException.class, () -> mainMenu.execute("A"));
     }
 }

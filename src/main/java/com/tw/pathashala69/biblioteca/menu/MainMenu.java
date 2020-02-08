@@ -18,16 +18,21 @@ public class MainMenu {
     }
 
     public void printMenu(PrintStream stream) {
-        stream.println("\n" + Message.MAIN_MENU_MESSAGE);
         int counter = 1;
         for (MenuItem item : menuItems) {
             stream.println(counter + ". " + item.present() + " [" + item.symbol() + "]");
             counter++;
         }
-        stream.println();
+        stream.println(Message.ENTER_COMMAND_MESSAGE);
     }
 
-    public void execute() {
-        menuItems.get(0).onSelect();
+    public void execute(String input) throws InvalidMenuOptionException {
+        for (MenuItem item : menuItems) {
+            if (input.equalsIgnoreCase(item.symbol())) {
+                item.onSelect();
+                return;
+            }
+        }
+        throw new InvalidMenuOptionException();
     }
 }

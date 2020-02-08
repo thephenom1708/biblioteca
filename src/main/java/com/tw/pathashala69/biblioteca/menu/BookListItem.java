@@ -12,7 +12,7 @@ public class BookListItem implements MenuItem {
 
     @Override
     public String present() {
-        return "View all Books";
+        return "List of books";
     }
 
     @Override
