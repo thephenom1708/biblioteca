@@ -3,11 +3,9 @@ import com.tw.pathashala69.biblioteca.Book;
 import com.tw.pathashala69.biblioteca.Library;
 import com.tw.pathashala69.biblioteca.Message;
 import com.tw.pathashala69.biblioteca.action.BookListViewAction;
+import com.tw.pathashala69.biblioteca.action.QuitAction;
 import com.tw.pathashala69.biblioteca.io.BookParser;
-import com.tw.pathashala69.biblioteca.menu.BookListItem;
-import com.tw.pathashala69.biblioteca.menu.InvalidMenuOptionException;
-import com.tw.pathashala69.biblioteca.menu.MainMenu;
-import com.tw.pathashala69.biblioteca.menu.MenuItem;
+import com.tw.pathashala69.biblioteca.menu.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +34,7 @@ public class BibilotecaApp {
             } catch (InvalidMenuOptionException e) {
                 System.out.println(Message.INVALID_OPTION_MESSAGE);
             }
-        }while (isRunning());
+        } while (isRunning());
     }
 
     private static void menuTitle() {
@@ -56,7 +54,8 @@ public class BibilotecaApp {
 
     private static List<MenuItem> makeMenuItems(Library library) {
         BookListItem bookListItem = new BookListItem(new BookListViewAction(library.books()));
-        return List.of(bookListItem);
+        QuitItem quitItem = new QuitItem(new QuitAction());
+        return List.of(bookListItem, quitItem);
     }
 
     private static List<Book> getBooks() throws IOException {
