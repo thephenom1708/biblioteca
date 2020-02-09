@@ -9,4 +9,5 @@ public class Message {
     public static final String BOOK_FORMAT = "| %-41s | %-41s | %-8s |";
     public static final String BOOKS_LIST_OPTION = "List of books";
     public static final String QUIT_OPTION = "Quit";
+    public static final String CHECKOUT_BOOK_OPTION = "Checkout Book";
 }

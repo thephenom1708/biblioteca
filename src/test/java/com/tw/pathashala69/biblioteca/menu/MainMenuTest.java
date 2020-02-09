@@ -21,18 +21,22 @@ class MainMenuTest {
     private List<MenuItem> menuItems;
     private ByteArrayOutputStream outStream;
     private BookListItem testBookListItem;
+    private CheckoutBookItem testCheckoutBookItem;
     private QuitItem testQuitItem;
 
     @BeforeEach
     void setUp() {
         outStream = new ByteArrayOutputStream();
         testBookListItem = mock(BookListItem.class);
+        testCheckoutBookItem = mock(CheckoutBookItem.class);
         testQuitItem = mock(QuitItem.class);
 
-        menuItems = List.of(testBookListItem, testQuitItem);
+        menuItems = List.of(testBookListItem, testCheckoutBookItem, testQuitItem);
 
         when(testBookListItem.symbol()).thenReturn("B");
         when(testBookListItem.present()).thenReturn("List of books");
+        when(testCheckoutBookItem.present()).thenReturn("Checkout Book");
+        when(testCheckoutBookItem.symbol()).thenReturn("CB");
         when(testQuitItem.symbol()).thenReturn("Q");
         when(testQuitItem.present()).thenReturn("Quit");
 
@@ -73,5 +77,13 @@ class MainMenuTest {
         mainMenu.execute("Q");
 
         verify(testQuitItem, times(1)).onSelect();
+    }
+
+    @Test
+    @DisplayName("Checkout book when input string is CB")
+    public void shouldExecuteCheckoutBookItemWhenInputIsCB() throws InvalidMenuOptionException {
+        mainMenu.execute("CB");
+
+        verify(testCheckoutBookItem, times(1)).onSelect();
     }
 }
