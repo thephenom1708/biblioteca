@@ -27,6 +27,7 @@ public class BibilotecaApp {
         MainMenu mainMenu = biblioteca.mainMenu();
 
         do {
+            clearScreen();
             menuTitle();
             mainMenu.printMenu(System.out);
             String input = userInput();
@@ -58,5 +59,10 @@ public class BibilotecaApp {
         File file = new File(classLoader.getResource("io/books.csv").getFile());
         List<Book> bookList = BookParser.parseFile(file);
         return new Books(bookList);
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
