@@ -26,6 +26,7 @@ public class ReturnBookAction implements Action {
             bookToReturn = library.books().searchByName(bookName);
             library.returnBook(bookToReturn);
         } catch (BookNotFoundException e) {
+            OutputManager.output(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE, System.out);
             return;
         }
 

@@ -21,6 +21,7 @@ class ReturnBookActionTest {
 
     String data;
     private Book book;
+    private Books books;
     private Library library;
     private ReturnBookAction returnBookAction;
     private ByteArrayOutputStream outStream;
@@ -34,12 +35,11 @@ class ReturnBookActionTest {
         System.setOut(new PrintStream(outStream));
 
         book = mock(Book.class);
-        Books books = mock(Books.class);
+        books = mock(Books.class);
 
         when(books.add(book)).thenReturn(true);
         when(books.searchByName(data)).thenReturn(book);
 
-        books.add(book);
         library = mock(Library.class);
         when(library.books()).thenReturn(books);
 
@@ -54,6 +54,8 @@ class ReturnBookActionTest {
 
     @Test
     public void shouldReturnSelectedBook() {
+        books.add(book);
+
         returnBookAction.perform();
 
         verify(library, times(1)).returnBook(book);
@@ -61,8 +63,19 @@ class ReturnBookActionTest {
 
     @Test
     public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
+        books.add(book);
+
         returnBookAction.perform();
 
         assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESS_MESSAGE));
+    }
+
+    @Test
+    public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
+        when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+
+        returnBookAction.perform();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
     }
 }

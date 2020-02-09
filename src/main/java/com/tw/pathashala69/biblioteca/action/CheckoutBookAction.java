@@ -6,7 +6,6 @@ import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import com.tw.pathashala69.biblioteca.io.InputManager;
 import com.tw.pathashala69.biblioteca.io.OutputManager;
 import com.tw.pathashala69.biblioteca.models.Book;
-import com.tw.pathashala69.biblioteca.models.Books;
 import com.tw.pathashala69.biblioteca.models.Library;
 
 public class CheckoutBookAction implements Action {

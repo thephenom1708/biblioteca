@@ -15,4 +15,5 @@ public class Message {
     public static final String CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE = "Sorry, that book is not available!";
     public static final String RETURN_BOOK_OPTION = "Return Book";
     public static final String RETURN_BOOK_SUCCESS_MESSAGE = "Thank you for returning the book!";
+    public static final String RETURN_BOOK_UNSUCCESSFUL_MESSAGE = "That is not a valid book to return!";
 }
