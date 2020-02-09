@@ -1,14 +1,14 @@
 package com.tw.pathashala69.biblioteca.action;
 
-import com.tw.pathashala69.biblioteca.models.Book;
+import com.tw.pathashala69.biblioteca.models.Books;
 
 import java.util.List;
 
 // Job: View details of all books
 public class BookListViewAction implements Action {
-    public List<Book> books;
+    Books books;
 
-    public BookListViewAction(List<Book> books) {
+    public BookListViewAction(Books books) {
         this.books = books;
     }
 

@@ -1,18 +1,14 @@
 package com.tw.pathashala69.biblioteca.models;
 
-import com.tw.pathashala69.biblioteca.models.Book;
-
-import java.util.List;
-
 //Job: Represents Library
 public class Library {
-    private final List<Book> books;
+    private final Books books;
 
-    public Library(List<Book> books) {
+    public Library(Books books) {
         this.books = books;
     }
 
-    public List<Book> books() {
+    public Books books() {
         return books;
     }
 }

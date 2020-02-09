@@ -1,11 +1,12 @@
 import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.models.Book;
-import com.tw.pathashala69.biblioteca.models.Library;
-import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.action.BookListViewAction;
 import com.tw.pathashala69.biblioteca.action.QuitAction;
+import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.io.BookParser;
 import com.tw.pathashala69.biblioteca.menu.*;
+import com.tw.pathashala69.biblioteca.models.Book;
+import com.tw.pathashala69.biblioteca.models.Books;
+import com.tw.pathashala69.biblioteca.models.Library;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,9 +59,10 @@ public class BibilotecaApp {
         return List.of(bookListItem, quitItem);
     }
 
-    private static List<Book> getBooks() throws IOException {
+    private static Books getBooks() throws IOException {
         ClassLoader classLoader = BibilotecaApp.class.getClassLoader();
         File file = new File(classLoader.getResource("io/books.csv").getFile());
-        return BookParser.parseFile(file);
+        List<Book> bookList = BookParser.parseFile(file);
+        return new Books(bookList);
     }
 }
