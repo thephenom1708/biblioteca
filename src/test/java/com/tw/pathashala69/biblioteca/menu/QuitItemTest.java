@@ -1,6 +1,7 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.action.QuitAction;
+import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ class QuitItemTest {
     }
 
     @Test
-    public void shouldPerformQuitViewWhenSelected() {
+    public void shouldPerformQuitViewWhenSelected() throws BookNotFoundException {
         quitItem.onSelect();
 
         verify(quitAction, times(1)).perform();

@@ -1,7 +1,7 @@
 import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.action.BookListViewAction;
-import com.tw.pathashala69.biblioteca.action.QuitAction;
 import com.tw.pathashala69.biblioteca.constants.Message;
+import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.io.BookParser;
 import com.tw.pathashala69.biblioteca.menu.*;
 import com.tw.pathashala69.biblioteca.models.Book;
@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class BibilotecaApp {
     private static boolean applicationStatus = true;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, BookNotFoundException {
         startApplication();
     }
 
-    private static void startApplication() throws IOException {
+    private static void startApplication() throws IOException, BookNotFoundException {
         System.out.println(Biblioteca.welcome());
 
         Biblioteca biblioteca = new Biblioteca(new Library(getBooks()));

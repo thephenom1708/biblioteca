@@ -4,7 +4,7 @@ import com.tw.pathashala69.biblioteca.models.Books;
 
 // Job: View details of all books
 public class BookListViewAction implements Action {
-    Books books;
+    private final Books books;
 
     public BookListViewAction(Books books) {
         this.books = books;

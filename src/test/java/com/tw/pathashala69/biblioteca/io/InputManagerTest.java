@@ -22,7 +22,7 @@ class InputManagerTest {
     public void ShouldReturnUserInputAsString() {
         System.setIn(inStream);
 
-        String actualInput = InputManager.input(System.in, "Any Key");
+        String actualInput = InputManager.input(System.in);
         System.setIn(System.in);
 
         assertTrue(actualInput.contains("ABCD"));

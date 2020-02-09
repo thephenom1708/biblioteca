@@ -1,6 +1,7 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.action.BookListViewAction;
+import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ class BookListItemTest {
     }
 
     @Test
-    public void shouldListAvailableBooksOnSelected() {
+    public void shouldListAvailableBooksOnSelected() throws BookNotFoundException {
         bookListItem.onSelect();
 
         verify(bookListViewAction, times(1)).perform();

@@ -26,7 +26,7 @@ public class Biblioteca {
 
     public MainMenu mainMenu() {
         BookListItem bookListItem = new BookListItem(new BookListViewAction(library.books()));
-        CheckoutBookItem checkoutBookItem = new CheckoutBookItem(new CheckoutBookAction());
+        CheckoutBookItem checkoutBookItem = new CheckoutBookItem(new CheckoutBookAction(library.books()));
         QuitItem quitItem = new QuitItem(new QuitAction());
         return new MainMenu(List.of(bookListItem, checkoutBookItem, quitItem));
     }
