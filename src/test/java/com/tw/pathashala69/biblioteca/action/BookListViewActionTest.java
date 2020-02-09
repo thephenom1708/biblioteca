@@ -22,9 +22,21 @@ class BookListViewActionTest {
     }
 
     @Test
-    public void shouldPrintAllBooksWhenPerformed() {
+    public void shouldPrintBooksWhenPerformed() {
         bookListViewAction.perform();
 
         verify(book, times(1)).print(System.out);
+    }
+
+    @Test
+    public void shouldPrintOnlyAvailableBooksWhenPerformed() {
+        Book newBook = mock(Book.class);
+        books.add(newBook);
+        books.checkout(newBook);
+
+        bookListViewAction.perform();
+
+        verify(book, times(1)).print(System.out);
+        verify(newBook, times(0)).print(System.out);
     }
 }
