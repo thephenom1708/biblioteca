@@ -6,19 +6,20 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 class LibraryTest {
 
-    Books books;
-    Library library;
+    private Book book;
+    private Books books;
+    private Library library;
 
     @BeforeEach
     public void setup() {
-        books = new Books();
-        books.add(mock(Book.class));
-        books.add(mock(Book.class));
-        books.add(mock(Book.class));
+        book = mock(Book.class);
+        books = mock(Books.class);
+        books.add(book);
+
         library = new Library(books);
     }
 
@@ -29,6 +30,8 @@ class LibraryTest {
 
     @Test
     public void shouldCheckoutBook() {
+        library.checkout(book);
 
+        verify(books, times(1)).checkout(book);
     }
 }

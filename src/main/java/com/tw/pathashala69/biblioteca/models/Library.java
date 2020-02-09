@@ -11,4 +11,8 @@ public class Library {
     public Books books() {
         return books;
     }
+
+    public void checkout(Book book) {
+        books.checkout(book);
+    }
 }
