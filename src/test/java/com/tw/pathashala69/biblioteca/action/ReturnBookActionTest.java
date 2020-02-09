@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.action;
 
+import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import com.tw.pathashala69.biblioteca.models.Book;
 import com.tw.pathashala69.biblioteca.models.Books;
@@ -13,28 +14,27 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class ReturnBookActionTest {
 
     String data;
     private Book book;
-    private Books books;
     private Library library;
     private ReturnBookAction returnBookAction;
-    private ByteArrayInputStream inStream;
     private ByteArrayOutputStream outStream;
 
     @BeforeEach
     void setUp() throws BookNotFoundException {
         data = "Harry Potter";
-        inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+        ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
         outStream = new ByteArrayOutputStream();
         System.setIn(inStream);
         System.setOut(new PrintStream(outStream));
 
         book = mock(Book.class);
-        books = mock(Books.class);
+        Books books = mock(Books.class);
 
         when(books.add(book)).thenReturn(true);
         when(books.searchByName(data)).thenReturn(book);
@@ -57,5 +57,12 @@ class ReturnBookActionTest {
         returnBookAction.perform();
 
         verify(library, times(1)).returnBook(book);
+    }
+
+    @Test
+    public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
+        returnBookAction.perform();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESS_MESSAGE));
     }
 }

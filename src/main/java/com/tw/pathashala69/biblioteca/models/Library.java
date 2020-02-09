@@ -20,6 +20,5 @@ public class Library {
 
     public void returnBook(Book book) {
         books.returnBook(book);
-        System.out.println("lib");
     }
 }

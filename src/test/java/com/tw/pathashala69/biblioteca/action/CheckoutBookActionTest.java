@@ -25,13 +25,12 @@ class CheckoutBookActionTest {
     private Books books;
     private Library library;
     private CheckoutBookAction checkoutBookAction;
-    private ByteArrayInputStream inStream;
     private ByteArrayOutputStream outStream;
 
     @BeforeEach
     void setUp() throws BookNotFoundException {
         data = "Harry Potter";
-        inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+        ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
         outStream = new ByteArrayOutputStream();
         System.setIn(inStream);
         System.setOut(new PrintStream(outStream));

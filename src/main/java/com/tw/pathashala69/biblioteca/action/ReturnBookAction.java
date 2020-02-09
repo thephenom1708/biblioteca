@@ -1,13 +1,13 @@
 package com.tw.pathashala69.biblioteca.action;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import com.tw.pathashala69.biblioteca.io.InputManager;
 import com.tw.pathashala69.biblioteca.io.OutputManager;
 import com.tw.pathashala69.biblioteca.models.Book;
 import com.tw.pathashala69.biblioteca.models.Library;
 
+//Job: Return book action
 public class ReturnBookAction implements Action {
     private final Library library;
 
@@ -26,7 +26,9 @@ public class ReturnBookAction implements Action {
             bookToReturn = library.books().searchByName(bookName);
             library.returnBook(bookToReturn);
         } catch (BookNotFoundException e) {
-            System.out.println("no");
+            return;
         }
+
+        OutputManager.output(Message.RETURN_BOOK_SUCCESS_MESSAGE, System.out);
     }
 }
