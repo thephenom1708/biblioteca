@@ -23,6 +23,7 @@ class MainMenuTest {
     private ByteArrayOutputStream outStream;
     private BookListItem testBookListItem;
     private CheckoutBookItem testCheckoutBookItem;
+    private ReturnBookItem testReturnBookItem;
     private QuitItem testQuitItem;
 
     @BeforeEach
@@ -30,14 +31,17 @@ class MainMenuTest {
         outStream = new ByteArrayOutputStream();
         testBookListItem = mock(BookListItem.class);
         testCheckoutBookItem = mock(CheckoutBookItem.class);
+        testReturnBookItem = mock(ReturnBookItem.class);
         testQuitItem = mock(QuitItem.class);
 
-        menuItems = List.of(testBookListItem, testCheckoutBookItem, testQuitItem);
+        menuItems = List.of(testBookListItem, testCheckoutBookItem, testReturnBookItem, testQuitItem);
 
         when(testBookListItem.symbol()).thenReturn("B");
         when(testBookListItem.present()).thenReturn("List of books");
         when(testCheckoutBookItem.present()).thenReturn("Checkout Book");
         when(testCheckoutBookItem.symbol()).thenReturn("CB");
+        when(testReturnBookItem.present()).thenReturn("Return Book");
+        when(testReturnBookItem.symbol()).thenReturn("RB");
         when(testQuitItem.symbol()).thenReturn("Q");
         when(testQuitItem.present()).thenReturn("Quit");
 
@@ -68,6 +72,22 @@ class MainMenuTest {
     }
 
     @Test
+    @DisplayName("Checkout book when input string is CB")
+    public void shouldExecuteCheckoutBookItemWhenInputIsCB() throws InvalidMenuOptionException {
+        mainMenu.execute("CB");
+
+        verify(testCheckoutBookItem, times(1)).onSelect();
+    }
+
+    @Test
+    @DisplayName("Return book when input string is RB")
+    public void shouldExecuteReturnBookItemWhenInputIsRB() throws InvalidMenuOptionException {
+        mainMenu.execute("RB");
+
+        verify(testReturnBookItem, times(1)).onSelect();
+    }
+
+    @Test
     public void shouldThrowExceptionIfInvalidInputIsGiven() {
         assertThrows(InvalidMenuOptionException.class, () -> mainMenu.execute("A"));
     }
@@ -78,13 +98,5 @@ class MainMenuTest {
         mainMenu.execute("Q");
 
         verify(testQuitItem, times(1)).onSelect();
-    }
-
-    @Test
-    @DisplayName("Checkout book when input string is CB")
-    public void shouldExecuteCheckoutBookItemWhenInputIsCB() throws InvalidMenuOptionException {
-        mainMenu.execute("CB");
-
-        verify(testCheckoutBookItem, times(1)).onSelect();
     }
 }
