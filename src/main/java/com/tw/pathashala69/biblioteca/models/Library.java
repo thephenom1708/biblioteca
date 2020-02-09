@@ -17,4 +17,9 @@ public class Library {
     public void checkout(Book book) throws BookNotAvailable {
         books.checkout(book);
     }
+
+    public void returnBook(Book book) {
+        books.returnBook(book);
+        System.out.println("lib");
+    }
 }

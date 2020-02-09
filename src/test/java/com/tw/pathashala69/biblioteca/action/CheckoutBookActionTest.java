@@ -48,6 +48,12 @@ class CheckoutBookActionTest {
         checkoutBookAction = new CheckoutBookAction(library);
     }
 
+    @AfterEach
+    void tearDown() {
+        System.setIn(System.in);
+        System.setOut(System.out);
+    }
+
     @Test
     public void shouldCheckoutSelectedBook() throws BookNotAvailable {
         books.add(book);
@@ -82,11 +88,5 @@ class CheckoutBookActionTest {
         checkoutBookAction.perform();
 
         assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
-    }
-
-    @AfterEach
-    public void tearDown() {
-        System.setIn(System.in);
-        System.setOut(System.out);
     }
 }

@@ -35,7 +35,7 @@ class BooksTest {
     }
 
     @Test
-    public void shouldReturnTrueIfBookIsCheckedOut() throws BookNotAvailable {
+    public void shouldReturnTrueOnIsCheckedOutIfBookIsCheckedOut() throws BookNotAvailable {
         books.checkout(book);
 
         assertTrue(books.isCheckedOut(book));
@@ -79,5 +79,14 @@ class BooksTest {
     @Test
     public void shouldThrowBookNotFoundExceptionIfNoBookFoundWithGivenName() {
         assertThrows(BookNotFoundException.class, () -> books.searchByName("Random Book"));
+    }
+
+    @Test
+    public void shouldReturnFalseOnIsCheckedOutIfBookIsReturned() throws BookNotAvailable {
+        books.checkout(book);
+
+        books.returnBook(book);
+
+        assertFalse(books.isCheckedOut(book));
     }
 }

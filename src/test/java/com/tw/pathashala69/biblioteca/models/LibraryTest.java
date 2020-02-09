@@ -35,4 +35,11 @@ class LibraryTest {
 
         verify(books, times(1)).checkout(book);
     }
+
+    @Test
+    public void shouldReturnBook() {
+        library.returnBook(book);
+
+        verify(books, times(1)).returnBook(book);
+    }
 }

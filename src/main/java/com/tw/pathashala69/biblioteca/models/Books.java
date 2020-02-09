@@ -35,6 +35,10 @@ public class Books extends ArrayList<Book> {
         checkoutStatus.put(book, true);
     }
 
+    public void returnBook(Book book) {
+        checkoutStatus.put(book, false);
+    }
+
     boolean isCheckedOut(Book book) {
         return checkoutStatus.get(book);
     }
