@@ -2,6 +2,7 @@ package com.tw.pathashala69.biblioteca.models;
 
 import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -82,11 +83,16 @@ class BooksTest {
     }
 
     @Test
-    public void shouldReturnFalseOnIsCheckedOutIfBookIsReturned() throws BookNotAvailable {
+    public void shouldReturnFalseOnIsCheckedOutIfBookIsReturned() throws BookNotAvailable, IllegalBookException {
         books.checkout(book);
 
         books.returnBook(book);
 
         assertFalse(books.isCheckedOut(book));
+    }
+
+    @Test
+    public void shouldThrowIllegalBookExceptionIfBookWasNotCheckedOutBefore() {
+        assertThrows(IllegalBookException.class, () -> books.returnBook(book));
     }
 }

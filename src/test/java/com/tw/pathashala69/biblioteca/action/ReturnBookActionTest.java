@@ -2,6 +2,7 @@ package com.tw.pathashala69.biblioteca.action;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
 import com.tw.pathashala69.biblioteca.models.Book;
 import com.tw.pathashala69.biblioteca.models.Books;
 import com.tw.pathashala69.biblioteca.models.Library;
@@ -53,7 +54,7 @@ class ReturnBookActionTest {
     }
 
     @Test
-    public void shouldReturnSelectedBook() {
+    public void shouldReturnSelectedBook() throws IllegalBookException {
         books.add(book);
 
         returnBookAction.perform();
@@ -73,6 +74,16 @@ class ReturnBookActionTest {
     @Test
     public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
         when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+
+        returnBookAction.perform();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
+    }
+
+    @Test
+    public void shouldPrintUnsuccessfulMessageWhenBookWasNotCheckedOutBefore() throws IllegalBookException {
+        books.add(book);
+        doThrow(IllegalBookException.class).when(library).returnBook(book);
 
         returnBookAction.perform();
 

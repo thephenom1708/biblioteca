@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class BibilotecaApp {
     private static boolean applicationStatus = true;
 
-    public static void main(String[] args) throws IOException, BookNotFoundException {
+    public static void main(String[] args) throws IOException {
         startApplication();
     }
 
-    private static void startApplication() throws IOException, BookNotFoundException {
+    private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
 
         Biblioteca biblioteca = new Biblioteca(new Library(getBooks()));

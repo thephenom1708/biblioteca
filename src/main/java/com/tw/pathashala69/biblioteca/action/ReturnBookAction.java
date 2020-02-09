@@ -2,6 +2,7 @@ package com.tw.pathashala69.biblioteca.action;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
 import com.tw.pathashala69.biblioteca.io.InputManager;
 import com.tw.pathashala69.biblioteca.io.OutputManager;
 import com.tw.pathashala69.biblioteca.models.Book;
@@ -25,11 +26,15 @@ public class ReturnBookAction implements Action {
         try {
             bookToReturn = library.books().searchByName(bookName);
             library.returnBook(bookToReturn);
-        } catch (BookNotFoundException e) {
-            OutputManager.output(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE, System.out);
+        } catch (BookNotFoundException | IllegalBookException e) {
+            returnUnsuccessful();
             return;
         }
 
         OutputManager.output(Message.RETURN_BOOK_SUCCESS_MESSAGE, System.out);
+    }
+
+    private void returnUnsuccessful() {
+        OutputManager.output(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE, System.out);
     }
 }

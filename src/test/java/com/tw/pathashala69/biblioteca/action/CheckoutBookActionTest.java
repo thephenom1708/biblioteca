@@ -81,8 +81,9 @@ class CheckoutBookActionTest {
     }
 
     @Test
-    public void shouldPrintUnsuccessfulMessageWhenBookIsAlreadyCheckedOut() throws BookNotFoundException {
-        when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+    public void shouldPrintUnsuccessfulMessageWhenBookIsAlreadyCheckedOut() throws BookNotAvailable {
+        books.add(book);
+        doThrow(BookNotAvailable.class).when(library).checkout(book);
 
         checkoutBookAction.perform();
 

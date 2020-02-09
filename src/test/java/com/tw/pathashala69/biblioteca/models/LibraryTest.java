@@ -1,6 +1,7 @@
 package com.tw.pathashala69.biblioteca.models;
 
 import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
+import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ class LibraryTest {
     }
 
     @Test
-    public void shouldReturnBook() {
+    public void shouldReturnBook() throws IllegalBookException {
         library.returnBook(book);
 
         verify(books, times(1)).returnBook(book);
