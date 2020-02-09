@@ -24,7 +24,8 @@ public class CheckoutBookAction implements Action {
         try {
             bookToCheckout = books.searchByName(bookName);
         } catch (BookNotFoundException e) {
-            e.printStackTrace();
+            OutputManager.output(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE, System.out);
+            return;
         }
 
         books.checkout(bookToCheckout);

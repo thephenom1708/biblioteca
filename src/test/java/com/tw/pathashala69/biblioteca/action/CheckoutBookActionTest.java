@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 class CheckoutBookActionTest {
 
+    String data;
     private Book book;
     private Books books;
     private CheckoutBookAction checkoutBookAction;
@@ -26,7 +27,7 @@ class CheckoutBookActionTest {
 
     @BeforeEach
     void setUp() throws BookNotFoundException {
-        String data = "Harry Potter";
+        data = "Harry Potter";
         inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
         outStream = new ByteArrayOutputStream();
         System.setIn(inStream);
@@ -57,6 +58,15 @@ class CheckoutBookActionTest {
         checkoutBookAction.perform();
 
         assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE));
+    }
+
+    @Test
+    public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BookNotFoundException {
+        when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+
+        checkoutBookAction.perform();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
     }
 
     @AfterEach
