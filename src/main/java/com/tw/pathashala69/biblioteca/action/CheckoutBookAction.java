@@ -18,15 +18,16 @@ public class CheckoutBookAction implements Action {
     public void perform() {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to checkout: ";
         OutputManager.output(outputMessage, System.out);
-        InputManager.input(System.in);
+        String bookName = InputManager.input(System.in);
 
         Book bookToCheckout = null;
         try {
-            bookToCheckout = books.searchByName("Harry Potter");
+            bookToCheckout = books.searchByName(bookName);
         } catch (BookNotFoundException e) {
             e.printStackTrace();
         }
 
         books.checkout(bookToCheckout);
+        OutputManager.output(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE, System.out);
     }
 }

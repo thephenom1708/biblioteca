@@ -11,4 +11,5 @@ public class Message {
     public static final String QUIT_OPTION = "Quit";
     public static final String CHECKOUT_BOOK_OPTION = "Checkout Book";
     public static final String ENTER_INPUT_MESSAGE = "Enter";
+    public static final String CHECKOUT_BOOK_SUCCESS_MESSAGE = "Checkout Successful! \nThank you! Enjoy the book";
 }
