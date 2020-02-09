@@ -13,9 +13,17 @@ public class Books extends ArrayList<Book> {
 
     public Books(List<Book> books) {
         books.forEach(book -> {
-           this.add(book);
-           checkoutStatus.put(book, false);
+            this.add(book);
+            checkoutStatus.put(book, false);
         });
+    }
+
+    @Override
+    public boolean add(Book book) {
+        boolean added = super.add(book);
+        if(added)
+            checkoutStatus.put(book, false);
+        return added;
     }
 
     public void checkout(Book book) {
@@ -24,5 +32,14 @@ public class Books extends ArrayList<Book> {
 
     public boolean isCheckedOut(Book book) {
         return checkoutStatus.get(book);
+    }
+
+    public Books available() {
+        Books availableBooks = new Books();
+        this.forEach(book -> {
+            if(!isCheckedOut(book))
+                availableBooks.add(book);
+        });
+        return availableBooks;
     }
 }

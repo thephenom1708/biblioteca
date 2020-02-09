@@ -11,14 +11,13 @@ import static org.mockito.Mockito.*;
 
 class BookListViewActionTest {
 
-    Book book = mock(Book.class);
-    Books books;
-    BookListViewAction bookListViewAction;
+    private Book book = mock(Book.class);
+    private Books books;
+    private BookListViewAction bookListViewAction;
 
     @BeforeEach
     void setUp() {
-        List<Book> bookList = List.of(book, book, book);
-        books = new Books(bookList);
+        books = new Books(List.of(book));
         bookListViewAction = new BookListViewAction(books);
     }
 
@@ -26,6 +25,6 @@ class BookListViewActionTest {
     public void shouldPrintAllBooksWhenPerformed() {
         bookListViewAction.perform();
 
-        verify(book, times(3)).print(System.out);
+        verify(book, times(1)).print(System.out);
     }
 }

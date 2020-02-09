@@ -1,7 +1,14 @@
 package com.tw.pathashala69.biblioteca;
 
+import com.tw.pathashala69.biblioteca.action.BookListViewAction;
+import com.tw.pathashala69.biblioteca.action.QuitAction;
 import com.tw.pathashala69.biblioteca.constants.Message;
+import com.tw.pathashala69.biblioteca.menu.BookListItem;
+import com.tw.pathashala69.biblioteca.menu.MainMenu;
+import com.tw.pathashala69.biblioteca.menu.QuitItem;
 import com.tw.pathashala69.biblioteca.models.Library;
+
+import java.util.List;
 
 //Job: Represents Library
 public class Biblioteca {
@@ -13,5 +20,11 @@ public class Biblioteca {
 
     public static String welcome() {
         return Message.WELCOME_MESSAGE;
+    }
+
+    public MainMenu mainMenu() {
+        BookListItem bookListItem = new BookListItem(new BookListViewAction(library.books()));
+        QuitItem quitItem = new QuitItem(new QuitAction());
+        return new MainMenu(List.of(bookListItem, quitItem));
     }
 }

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -30,5 +33,19 @@ class BooksTest {
         books.checkout(book);
 
         assertTrue(books.isCheckedOut(book));
+    }
+
+    @Test
+    public void shouldUpdateCheckedOutStatusToFalseWhenNewBookIsAdded() {
+        Book newBook = mock(Book.class);
+
+        books.add(newBook);
+
+        assertFalse(books.isCheckedOut(book));
+    }
+
+    @Test
+    public void shouldReturnListOfAvailableBooks() {
+        assertThat(books, is(equalTo(books.available())));
     }
 }

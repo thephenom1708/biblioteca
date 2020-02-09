@@ -23,8 +23,8 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
 
-        Library library = new Library(getBooks());
-        MainMenu mainMenu = new MainMenu(makeMenuItems(library));
+        Biblioteca biblioteca = new Biblioteca(new Library(getBooks()));
+        MainMenu mainMenu = biblioteca.mainMenu();
 
         do {
             menuTitle();
@@ -51,12 +51,6 @@ public class BibilotecaApp {
     private static String userInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().toUpperCase();
-    }
-
-    private static List<MenuItem> makeMenuItems(Library library) {
-        BookListItem bookListItem = new BookListItem(new BookListViewAction(library.books()));
-        QuitItem quitItem = new QuitItem(new QuitAction());
-        return List.of(bookListItem, quitItem);
     }
 
     private static Books getBooks() throws IOException {
