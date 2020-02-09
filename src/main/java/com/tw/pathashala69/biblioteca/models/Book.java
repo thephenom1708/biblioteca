@@ -7,14 +7,18 @@ import java.util.Objects;
 
 //Job: Represents Book
 public class Book {
-    private final String name;
+    private final String title;
     private final String author;
     private final int yearOfPublication;
 
-    public Book(String name, String author, int yearOfPublication) {
-        this.name = name;
+    public Book(String title, String author, int yearOfPublication) {
+        this.title = title;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
+    }
+
+    public String title() {
+        return title;
     }
 
     public void print(PrintStream stream) {
@@ -26,17 +30,16 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(name, book.name);
+        return Objects.equals(title, book.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(title);
     }
 
     @Override
     public String toString() {
-//        return String.format("|%-25s|", name) + String.format("%-25s|", author) + String.format("%d|", yearOfPublication);
-        return String.format(Message.BOOK_FORMAT, name, author, yearOfPublication);
+        return String.format(Message.BOOK_PRINT_FORMAT, title, author, yearOfPublication);
     }
 }

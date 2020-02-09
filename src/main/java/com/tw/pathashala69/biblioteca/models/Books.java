@@ -1,5 +1,7 @@
 package com.tw.pathashala69.biblioteca.models;
 
+import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,5 +43,13 @@ public class Books extends ArrayList<Book> {
                 availableBooks.add(book);
         });
         return availableBooks;
+    }
+
+    public Book searchByName(String name) throws BookNotFoundException {
+        for(Book book : this) {
+            if(book.title().equals(name))
+                return book;
+        }
+        throw new BookNotFoundException();
     }
 }
