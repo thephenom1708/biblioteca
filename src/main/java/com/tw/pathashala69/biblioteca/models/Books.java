@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.models;
 
+import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 
 import java.util.ArrayList;
@@ -28,11 +29,13 @@ public class Books extends ArrayList<Book> {
         return added;
     }
 
-    public void checkout(Book book) {
+    public void checkout(Book book) throws BookNotAvailable {
+        if(isCheckedOut(book))
+            throw new BookNotAvailable();
         checkoutStatus.put(book, true);
     }
 
-    public boolean isCheckedOut(Book book) {
+    boolean isCheckedOut(Book book) {
         return checkoutStatus.get(book);
     }
 

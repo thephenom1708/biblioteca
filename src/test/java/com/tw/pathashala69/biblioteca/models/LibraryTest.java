@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.models;
 
+import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class LibraryTest {
     }
 
     @Test
-    public void shouldCheckoutBook() {
+    public void shouldCheckoutBook() throws BookNotAvailable {
         library.checkout(book);
 
         verify(books, times(1)).checkout(book);

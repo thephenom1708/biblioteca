@@ -1,10 +1,9 @@
 package com.tw.pathashala69.biblioteca.models;
 
+import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -36,10 +35,17 @@ class BooksTest {
     }
 
     @Test
-    public void shouldReturnTrueIfBookIsCheckedOut() {
+    public void shouldReturnTrueIfBookIsCheckedOut() throws BookNotAvailable {
         books.checkout(book);
 
         assertTrue(books.isCheckedOut(book));
+    }
+
+    @Test
+    public void shouldThrowBookNotAvailableExceptionIfBookIsAlreadyCheckedOut() throws BookNotAvailable {
+        books.checkout(book);
+
+        assertThrows(BookNotAvailable.class, () -> books.checkout(book));
     }
 
     @Test

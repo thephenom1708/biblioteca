@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.action;
 
+import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.models.Book;
 import com.tw.pathashala69.biblioteca.models.Books;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ class BookListViewActionTest {
     }
 
     @Test
-    public void shouldPrintOnlyAvailableBooksWhenPerformed() {
+    public void shouldPrintOnlyAvailableBooksWhenPerformed() throws BookNotAvailable {
         Book newBook = mock(Book.class);
         books.add(newBook);
         books.checkout(newBook);

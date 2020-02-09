@@ -1,9 +1,11 @@
 package com.tw.pathashala69.biblioteca.action;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
+import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import com.tw.pathashala69.biblioteca.models.Book;
 import com.tw.pathashala69.biblioteca.models.Books;
+import com.tw.pathashala69.biblioteca.models.Library;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,7 @@ class CheckoutBookActionTest {
     String data;
     private Book book;
     private Books books;
+    private Library library;
     private CheckoutBookAction checkoutBookAction;
     private ByteArrayInputStream inStream;
     private ByteArrayOutputStream outStream;
@@ -39,16 +42,19 @@ class CheckoutBookActionTest {
         when(books.add(book)).thenReturn(true);
         when(books.searchByName(data)).thenReturn(book);
 
-        checkoutBookAction = new CheckoutBookAction(books);
+        library = mock(Library.class);
+        when(library.books()).thenReturn(books);
+
+        checkoutBookAction = new CheckoutBookAction(library);
     }
 
     @Test
-    public void shouldCheckoutSelectedBook() {
+    public void shouldCheckoutSelectedBook() throws BookNotAvailable {
         books.add(book);
 
         checkoutBookAction.perform();
 
-        verify(books, times(1)).checkout(book);
+        verify(library, times(1)).checkout(book);
     }
 
     @Test
@@ -62,6 +68,15 @@ class CheckoutBookActionTest {
 
     @Test
     public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BookNotFoundException {
+        when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+
+        checkoutBookAction.perform();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
+    }
+
+    @Test
+    public void shouldPrintUnsuccessfulMessageWhenBookIsAlreadyCheckedOut() throws BookNotFoundException {
         when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
 
         checkoutBookAction.perform();
