@@ -10,4 +10,5 @@ public class Message {
     public static final String BOOKS_LIST_OPTION = "List of books";
     public static final String QUIT_OPTION = "Quit";
     public static final String CHECKOUT_BOOK_OPTION = "Checkout Book";
+    public static final String ENTER_INPUT_MESSAGE = "Enter";
 }
