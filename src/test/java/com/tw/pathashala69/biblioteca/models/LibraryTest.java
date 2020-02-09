@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca;
+package com.tw.pathashala69.biblioteca.models;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

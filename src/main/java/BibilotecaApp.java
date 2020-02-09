@@ -1,7 +1,7 @@
 import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.Book;
-import com.tw.pathashala69.biblioteca.Library;
-import com.tw.pathashala69.biblioteca.Message;
+import com.tw.pathashala69.biblioteca.models.Book;
+import com.tw.pathashala69.biblioteca.models.Library;
+import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.action.BookListViewAction;
 import com.tw.pathashala69.biblioteca.action.QuitAction;
 import com.tw.pathashala69.biblioteca.io.BookParser;

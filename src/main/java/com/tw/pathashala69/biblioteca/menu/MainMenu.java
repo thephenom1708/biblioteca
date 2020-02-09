@@ -1,6 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.Message;
+import com.tw.pathashala69.biblioteca.constants.Message;
 
 import java.io.PrintStream;
 import java.util.List;

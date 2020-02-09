@@ -1,4 +1,6 @@
-package com.tw.pathashala69.biblioteca;
+package com.tw.pathashala69.biblioteca.models;
+
+import com.tw.pathashala69.biblioteca.constants.Message;
 
 import java.io.PrintStream;
 import java.util.Objects;
@@ -34,6 +36,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("|%-25s|", name) + String.format("%-25s|", author) + String.format("%d|", yearOfPublication);
+//        return String.format("|%-25s|", name) + String.format("%-25s|", author) + String.format("%d|", yearOfPublication);
+        return String.format(Message.BOOK_FORMAT, name, author, yearOfPublication);
     }
 }

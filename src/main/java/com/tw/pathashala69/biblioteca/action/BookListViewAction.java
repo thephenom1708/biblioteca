@@ -1,6 +1,6 @@
 package com.tw.pathashala69.biblioteca.action;
 
-import com.tw.pathashala69.biblioteca.Book;
+import com.tw.pathashala69.biblioteca.models.Book;
 
 import java.util.List;
 

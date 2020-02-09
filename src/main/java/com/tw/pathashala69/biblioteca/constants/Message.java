@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca;
+package com.tw.pathashala69.biblioteca.constants;
 
 //Job: Represents Different Messages
 public class Message {
@@ -6,4 +6,7 @@ public class Message {
     public static final String MAIN_MENU_MESSAGE = "Main Menu";
     public static final String ENTER_COMMAND_MESSAGE = "Enter your choice: ";
     public static final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
+    public static final String BOOK_FORMAT = "| %-41s | %-41s | %-8s |";
+    public static final String BOOKS_LIST_OPTION = "List of books";
+    public static final String QUIT_OPTION = "Quit";
 }

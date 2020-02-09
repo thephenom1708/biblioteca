@@ -1,6 +1,6 @@
 package com.tw.pathashala69.biblioteca.io;
 
-import com.tw.pathashala69.biblioteca.Book;
+import com.tw.pathashala69.biblioteca.models.Book;
 
 import java.io.*;
 import java.util.ArrayList;
