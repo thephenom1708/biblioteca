@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {
@@ -18,6 +20,27 @@ class BookTest {
     void setUp() {
         book = new Book("Harry Potter", "J. K. Rowling", 2019);
         outStream = new ByteArrayOutputStream();
+    }
+
+    @Test
+    public void shouldEquateTwoBooksWithSameTitle() {
+        Book book = new Book("Book1", "Some author", 2000);
+        Book anotherBook = new Book("Book1", "Some author", 2000);
+
+        assertThat(book, is(equalTo(anotherBook)));
+    }
+
+    @Test
+    public void shouldNotEquateTwoBooksWithDifferentTitle() {
+        Book book = new Book("Book1", "Some author", 2000);
+        Book anotherBook = new Book("Book2", "Some author", 2000);
+
+        assertThat(book, is(not(equalTo(anotherBook))));
+    }
+
+    @Test
+    public void shouldReturnTitleOfBook() {
+        assertThat(book.title(), is(equalTo("Harry Potter")));
     }
 
     @Test

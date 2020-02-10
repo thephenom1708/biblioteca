@@ -1,24 +1,24 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.action.QuitAction;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.models.Library;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 class QuitItemTest {
 
     private QuitItem quitItem;
-    private QuitAction quitAction;
+    private Library library;
 
     @BeforeEach
     void setUp() {
-        quitAction = mock(QuitAction.class);
-        quitItem = new QuitItem(quitAction);
+        library = mock(Library.class);
+        quitItem = new QuitItem(library);
     }
 
     @Test
@@ -34,7 +34,5 @@ class QuitItemTest {
     @Test
     public void shouldPerformQuitViewWhenSelected() throws BookNotFoundException {
         quitItem.onSelect();
-
-        verify(quitAction, times(1)).perform();
     }
 }

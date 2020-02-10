@@ -1,9 +1,13 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.action.BookListViewAction;
-import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
+import com.tw.pathashala69.biblioteca.models.Book;
+import com.tw.pathashala69.biblioteca.models.Books;
+import com.tw.pathashala69.biblioteca.models.Library;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -12,13 +16,20 @@ import static org.mockito.Mockito.*;
 
 class BookListItemTest {
 
-    BookListViewAction bookListViewAction;
-    BookListItem bookListItem;
+    private Library library;
+    private Book book;
+    private Books books;
+    private BookListItem bookListItem;
 
     @BeforeEach
     void setUp() {
-        bookListViewAction = mock(BookListViewAction.class);
-        bookListItem = new BookListItem(bookListViewAction);
+        book = mock(Book.class);
+        books = new Books(List.of(book));
+        library = mock(Library.class);
+
+        when(library.books()).thenReturn(books);
+
+        bookListItem = new BookListItem(library);
     }
 
     @Test
@@ -32,9 +43,14 @@ class BookListItemTest {
     }
 
     @Test
-    public void shouldListAvailableBooksOnSelected() throws BookNotFoundException {
+    public void shouldPrintAvailableBooksOnSelected() throws BookNotAvailable {
+        Book newBook = mock(Book.class);
+        books.add(newBook);
+        books.checkout(newBook);
+
         bookListItem.onSelect();
 
-        verify(bookListViewAction, times(1)).perform();
+        verify(book, times(1)).print(System.out);
+        verify(newBook, times(0)).print(System.out);
     }
 }

@@ -1,8 +1,8 @@
-package com.tw.pathashala69.biblioteca.action;
+package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
 import com.tw.pathashala69.biblioteca.models.Book;
 import com.tw.pathashala69.biblioteca.models.Books;
 import com.tw.pathashala69.biblioteca.models.Library;
@@ -18,13 +18,13 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-class CheckoutBookActionTest {
+class ReturnBookItemTest {
 
-    String data;
+    private String data;
     private Book book;
     private Books books;
     private Library library;
-    private CheckoutBookAction checkoutBookAction;
+    private ReturnBookItem returnBookItem;
     private ByteArrayOutputStream outStream;
 
     @BeforeEach
@@ -44,7 +44,7 @@ class CheckoutBookActionTest {
         library = mock(Library.class);
         when(library.books()).thenReturn(books);
 
-        checkoutBookAction = new CheckoutBookAction(library);
+        returnBookItem = new ReturnBookItem(library);
     }
 
     @AfterEach
@@ -54,39 +54,39 @@ class CheckoutBookActionTest {
     }
 
     @Test
-    public void shouldCheckoutSelectedBook() throws BookNotAvailable {
+    public void shouldReturnSelectedBook() throws IllegalBookException {
         books.add(book);
 
-        checkoutBookAction.perform();
+        returnBookItem.onSelect();
 
-        verify(library, times(1)).checkout(book);
+        verify(library, times(1)).returnBook(book);
     }
 
     @Test
-    public void shouldReturnTrueIfSuccessMessageIsPrintedWhenCheckoutIsSuccessful() {
+    public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
         books.add(book);
 
-        checkoutBookAction.perform();
+        returnBookItem.onSelect();
 
-        assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE));
+        assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESS_MESSAGE));
     }
 
     @Test
-    public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BookNotFoundException {
+    public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
         when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
 
-        checkoutBookAction.perform();
+        returnBookItem.onSelect();
 
-        assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
+        assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
     }
 
     @Test
-    public void shouldPrintUnsuccessfulMessageWhenBookIsAlreadyCheckedOut() throws BookNotAvailable {
+    public void shouldPrintUnsuccessfulMessageWhenBookWasNotCheckedOutBefore() throws IllegalBookException {
         books.add(book);
-        doThrow(BookNotAvailable.class).when(library).checkout(book);
+        doThrow(IllegalBookException.class).when(library).returnBook(book);
 
-        checkoutBookAction.perform();
+        returnBookItem.onSelect();
 
-        assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
+        assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
     }
 }
