@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.verification.VerificationModeFactory;
+import org.powermock.api.mockito.PowerMockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -93,7 +95,7 @@ class BibliotecaTest {
         public void shouldPrintListOfBooksToConsole() {
             Books anotherBooks = new Books(List.of(book, book1));
             Library library = mock(Library.class);
-            Biblioteca  biblioteca = new Biblioteca(library, System.out);
+            Biblioteca biblioteca = new Biblioteca(library, System.out);
             when(library.books()).thenReturn(anotherBooks);
 
             biblioteca.printAvailableBooks();
@@ -185,5 +187,14 @@ class BibliotecaTest {
 
             assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
         }
+    }
+
+    @Test
+    public void shouldQuitTheApplication() {
+        PowerMockito.mockStatic(System.class);
+
+        biblioteca.exit();
+        PowerMockito.verifyStatic(VerificationModeFactory.times(1));
+        System.exit(0);
     }
 }

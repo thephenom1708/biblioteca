@@ -1,20 +1,20 @@
 package com.tw.pathashala69.biblioteca.menu;
 
+import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.constants.Symbol;
-import com.tw.pathashala69.biblioteca.models.Library;
 
 public class QuitItem extends BaseMenuItem {
 
-    private final Library library;
+    private final Biblioteca biblioteca;
 
-    public QuitItem(Library library) {
+    public QuitItem(Biblioteca biblioteca) {
         super(Message.QUIT_OPTION, Symbol.Q);
-        this.library = library;
+        this.biblioteca = biblioteca;
     }
 
     @Override
     public void onSelect() {
-
+        biblioteca.exit();
     }
 }

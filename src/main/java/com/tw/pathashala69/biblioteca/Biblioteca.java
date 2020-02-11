@@ -35,7 +35,7 @@ public class Biblioteca {
         BookListItem bookListItem = new BookListItem(this);
         CheckoutBookItem checkoutBookItem = new CheckoutBookItem(this);
         ReturnBookItem returnBookItem = new ReturnBookItem(this);
-        QuitItem quitItem = new QuitItem(library);
+        QuitItem quitItem = new QuitItem(this);
         return new MainMenu(List.of(bookListItem, checkoutBookItem, returnBookItem, quitItem));
     }
 
@@ -73,6 +73,10 @@ public class Biblioteca {
             return;
         }
         returnBookSuccessful();
+    }
+
+    public void exit() {
+        System.exit(0);
     }
 
     private void checkoutBookSuccessful() {
