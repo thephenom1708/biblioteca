@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
+import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
@@ -24,6 +25,7 @@ class ReturnBookItemTest {
     private Book book;
     private Books books;
     private Library library;
+    private Biblioteca biblioteca;
     private ReturnBookItem returnBookItem;
     private ByteArrayOutputStream outStream;
 
@@ -44,7 +46,8 @@ class ReturnBookItemTest {
         library = mock(Library.class);
         when(library.books()).thenReturn(books);
 
-        returnBookItem = new ReturnBookItem(library);
+        biblioteca = mock(Biblioteca.class);
+        returnBookItem = new ReturnBookItem(biblioteca);
     }
 
     @AfterEach

@@ -21,13 +21,7 @@ class BookListItemTest {
 
     @BeforeEach
     void setUp() {
-        Book book = mock(Book.class);
-        Books books = new Books(List.of(book));
-        Library library = mock(Library.class);
         biblioteca = mock(Biblioteca.class);
-
-        when(library.books()).thenReturn(books);
-
         bookListItem = new BookListItem(biblioteca);
     }
 
