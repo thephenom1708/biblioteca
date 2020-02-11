@@ -1,7 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ class CheckoutBookItemTest {
     }
 
     @Test
-    public void shouldCheckoutSelectedBookOnSelection() throws BookNotAvailable {
+    public void shouldCheckoutSelectedBookOnSelection() {
         checkoutBookItem.onSelect();
 
         verify(biblioteca, times(1)).checkoutBook();

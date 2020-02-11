@@ -59,6 +59,22 @@ public class Biblioteca {
         checkoutBookSuccessful();
     }
 
+    public void returnBook() {
+        String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to Return: ";
+        OutputManager.output(outputMessage, System.out);
+        String bookName = InputManager.input(System.in);
+
+        Book bookToReturn;
+        try {
+            bookToReturn = library.books().searchByName(bookName);
+            library.returnBook(bookToReturn);
+        } catch (BookNotFoundException | IllegalBookException e) {
+            returnBookUnsuccessful();
+            return;
+        }
+        returnBookSuccessful();
+    }
+
     private void checkoutBookSuccessful() {
         OutputManager.output(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE, System.out);
     }

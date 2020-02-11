@@ -145,4 +145,45 @@ class BibliotecaTest {
         }
     }
 
+    @Nested
+    class ReturnBook {
+        @Test
+        public void shouldReturnSelectedBook() throws IllegalBookException {
+            books.add(book);
+            when(book.title()).thenReturn(data);
+
+            biblioteca.returnBook();
+
+            verify(library, times(1)).returnBook(book);
+        }
+
+        @Test
+        public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
+            books.add(book);
+            when(book.title()).thenReturn(data);
+
+            biblioteca.returnBook();
+
+            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESS_MESSAGE));
+        }
+
+        @Test
+        public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
+            when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+
+            biblioteca.returnBook();
+
+            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
+        }
+
+        @Test
+        public void shouldPrintUnsuccessfulMessageWhenBookWasNotCheckedOutBefore() throws IllegalBookException {
+            books.add(book);
+            doThrow(IllegalBookException.class).when(library).returnBook(book);
+
+            biblioteca.returnBook();
+
+            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
+        }
+    }
 }
