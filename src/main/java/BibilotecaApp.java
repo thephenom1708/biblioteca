@@ -1,6 +1,5 @@
 import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
 import com.tw.pathashala69.biblioteca.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.io.BookParser;
 import com.tw.pathashala69.biblioteca.menu.*;
@@ -23,7 +22,7 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
 
-        Biblioteca biblioteca = new Biblioteca(new Library(getBooks()));
+        Biblioteca biblioteca = new Biblioteca(new Library(getBooks()), System.out);
         MainMenu mainMenu = biblioteca.mainMenu();
 
         do {

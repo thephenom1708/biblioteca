@@ -1,17 +1,17 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 public class BaseMenuItem implements MenuItem {
-    private String name;
+    private String title;
     private String symbol;
 
-    public BaseMenuItem(String name, String symbol) {
-        this.name = name;
+    public BaseMenuItem(String title, String symbol) {
+        this.title = title;
         this.symbol = symbol;
     }
 
     @Override
     public String present() {
-        return name;
+        return title;
     }
 
     @Override
