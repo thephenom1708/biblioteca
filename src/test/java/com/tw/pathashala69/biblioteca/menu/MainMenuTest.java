@@ -5,22 +5,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class MainMenuTest {
 
     private MainMenu mainMenu;
     private List<MenuItem> menuItems;
-    private ByteArrayOutputStream outStream;
     private BookListItem testBookListItem;
     private CheckoutBookItem testCheckoutBookItem;
     private ReturnBookItem testReturnBookItem;
@@ -28,7 +24,6 @@ class MainMenuTest {
 
     @BeforeEach
     void setUp() {
-        outStream = new ByteArrayOutputStream();
         testBookListItem = mock(BookListItem.class);
         testCheckoutBookItem = mock(CheckoutBookItem.class);
         testReturnBookItem = mock(ReturnBookItem.class);
@@ -51,16 +46,6 @@ class MainMenuTest {
     @Test
     public void shouldReturnListOfAllMenuItems() {
         assertThat(mainMenu.menuItems(), is(equalTo(menuItems)));
-    }
-
-    @Test
-    public void shouldPrintListOfAllMenuItems() {
-        System.setOut(new PrintStream(outStream));
-
-        mainMenu.printMenu(System.out);
-        System.setOut(new PrintStream(System.out));
-
-        assertTrue(new String(outStream.toByteArray()).contains("1. List of books [B]"));
     }
 
     @Test

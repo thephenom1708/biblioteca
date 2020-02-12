@@ -1,9 +1,7 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 
-import java.io.PrintStream;
 import java.util.List;
 
 // Job: Stores the list of all Menu Items
@@ -16,15 +14,6 @@ public class MainMenu {
 
     public List<MenuItem> menuItems() {
         return menuItems;
-    }
-
-    public void printMenu(PrintStream stream) {
-        int counter = 1;
-        for (MenuItem item : menuItems) {
-            stream.println(counter + ". " + item.present() + " [" + item.symbol() + "]");
-            counter++;
-        }
-        stream.println(Message.ENTER_COMMAND_MESSAGE);
     }
 
     public void execute(String input) throws InvalidMenuOptionException {

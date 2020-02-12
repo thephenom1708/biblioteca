@@ -9,24 +9,23 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BookListItemTest {
 
+    private Books books;
     private Biblioteca biblioteca;
     private BookListItem bookListItem;
 
     @BeforeEach
     void setUp() {
         biblioteca = mock(Biblioteca.class);
+        books = mock(Books.class);
         Library library = mock(Library.class);
-        Books books = mock(Books.class);
 
         when(biblioteca.library()).thenReturn(library);
         when(library.books()).thenReturn(books);
         when(books.available()).thenReturn(books);
-
 
         bookListItem = new BookListItem(biblioteca);
     }
@@ -41,10 +40,10 @@ class BookListItemTest {
         assertThat(bookListItem.symbol(), is(equalTo("B")));
     }
 
-//    @Test
-//    public void shouldPrintAvailableBooksOnSelection() {
-//        bookListItem.onSelect();
-//
-//        verify(biblioteca, times(1)).printBooks(biblioteca.library().books().available());
-//    }
+    @Test
+    public void shouldPrintAvailableBooksOnSelection() {
+        bookListItem.onSelect();
+
+        verify(biblioteca, times(1)).printBooks(books.available());
+    }
 }

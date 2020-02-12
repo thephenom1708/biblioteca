@@ -104,6 +104,13 @@ class BibliotecaTest {
     @Nested
     class CheckoutBook {
         @Test
+        public void shouldReturnHarryPotterAsCheckoutBookInput() {
+            String input = biblioteca.checkoutBookInput();
+
+            assertThat(input, is(equalTo("Harry Potter")));
+        }
+
+        @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenCheckoutIsSuccessful() {
             books.add(book);
             when(book.title()).thenReturn(data);
@@ -113,6 +120,7 @@ class BibliotecaTest {
             assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE));
         }
 
+        @SuppressWarnings("unchecked")
         @Test
         public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BookNotFoundException {
             when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
@@ -126,6 +134,13 @@ class BibliotecaTest {
     @Nested
     class ReturnBook {
         @Test
+        public void shouldReturnHarryPotterAsReturnBookInput() {
+            String input = biblioteca.returnBookInput();
+
+            assertThat(input, is(equalTo("Harry Potter")));
+        }
+
+        @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
             books.add(book);
             when(book.title()).thenReturn(data);
@@ -135,6 +150,7 @@ class BibliotecaTest {
             assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESS_MESSAGE));
         }
 
+        @SuppressWarnings("unchecked")
         @Test
         public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
             when(books.searchByName(data)).thenThrow(BookNotFoundException.class);

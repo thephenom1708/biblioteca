@@ -5,10 +5,8 @@ import com.tw.pathashala69.biblioteca.core.models.Books;
 import com.tw.pathashala69.biblioteca.core.models.Library;
 import com.tw.pathashala69.biblioteca.io.InputManager;
 import com.tw.pathashala69.biblioteca.io.OutputManager;
-import com.tw.pathashala69.biblioteca.menu.*;
 
 import java.io.PrintStream;
-import java.util.List;
 
 //Job: Represents Menu for Biblioteca
 public class Biblioteca implements UserInterface {
@@ -26,14 +24,6 @@ public class Biblioteca implements UserInterface {
 
     public static String welcome() {
         return Message.WELCOME_MESSAGE;
-    }
-
-    public MainMenu mainMenu() {
-        BookListItem bookListItem = new BookListItem(this);
-        CheckoutBookItem checkoutBookItem = new CheckoutBookItem(this);
-        ReturnBookItem returnBookItem = new ReturnBookItem(this);
-        QuitItem quitItem = new QuitItem(this);
-        return new MainMenu(List.of(bookListItem, checkoutBookItem, returnBookItem, quitItem));
     }
 
     @Override
