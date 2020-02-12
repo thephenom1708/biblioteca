@@ -1,0 +1,23 @@
+image: openjdk:12
+
+stages:
+    - build
+    - test
+
+before_script:
+    - echo "Start CI"
+    - chmod +x gradlew
+
+build:
+    stage: build
+    script:
+        - ./gradlew clean assemble
+    allow_failure: false
+
+test:
+    stage: test
+    script:
+        - ./gradlew check
+
+after_script:
+  - echo "End CI"
