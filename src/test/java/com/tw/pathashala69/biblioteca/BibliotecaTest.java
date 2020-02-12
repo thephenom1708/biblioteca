@@ -1,18 +1,14 @@
 package com.tw.pathashala69.biblioteca;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
-import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
-import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
-import com.tw.pathashala69.biblioteca.models.Book;
-import com.tw.pathashala69.biblioteca.models.Books;
-import com.tw.pathashala69.biblioteca.models.Library;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Books;
+import com.tw.pathashala69.biblioteca.core.models.Library;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.verification.VerificationModeFactory;
-import org.powermock.api.mockito.PowerMockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -98,7 +94,7 @@ class BibliotecaTest {
             Biblioteca biblioteca = new Biblioteca(library, System.out);
             when(library.books()).thenReturn(anotherBooks);
 
-            biblioteca.printAvailableBooks();
+            biblioteca.printBooks(anotherBooks);
 
             verify(book, times(1)).print(System.out);
             verify(book1, times(1)).print(System.out);
@@ -108,21 +104,11 @@ class BibliotecaTest {
     @Nested
     class CheckoutBook {
         @Test
-        public void shouldCheckoutSelectedBook() throws BookNotAvailable {
-            books.add(book);
-            when(book.title()).thenReturn(data);
-
-            biblioteca.checkoutBook();
-
-            verify(library, times(1)).checkout(book);
-        }
-
-        @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenCheckoutIsSuccessful() {
             books.add(book);
             when(book.title()).thenReturn(data);
 
-            biblioteca.checkoutBook();
+            biblioteca.onCheckoutBookSuccess();
 
             assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE));
         }
@@ -131,17 +117,7 @@ class BibliotecaTest {
         public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BookNotFoundException {
             when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
 
-            biblioteca.checkoutBook();
-
-            assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
-        }
-
-        @Test
-        public void shouldPrintUnsuccessfulMessageWhenBookIsAlreadyCheckedOut() throws BookNotAvailable {
-            books.add(book);
-            doThrow(BookNotAvailable.class).when(library).checkout(book);
-
-            biblioteca.checkoutBook();
+            biblioteca.onCheckoutBookUnsuccessful();
 
             assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
         }
@@ -150,21 +126,11 @@ class BibliotecaTest {
     @Nested
     class ReturnBook {
         @Test
-        public void shouldReturnSelectedBook() throws IllegalBookException {
-            books.add(book);
-            when(book.title()).thenReturn(data);
-
-            biblioteca.returnBook();
-
-            verify(library, times(1)).returnBook(book);
-        }
-
-        @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
             books.add(book);
             when(book.title()).thenReturn(data);
 
-            biblioteca.returnBook();
+            biblioteca.onReturnBookSuccess();
 
             assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESS_MESSAGE));
         }
@@ -173,28 +139,10 @@ class BibliotecaTest {
         public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
             when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
 
-            biblioteca.returnBook();
+            biblioteca.onReturnBookUnsuccessful();
 
             assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
         }
 
-        @Test
-        public void shouldPrintUnsuccessfulMessageWhenBookWasNotCheckedOutBefore() throws IllegalBookException {
-            books.add(book);
-            doThrow(IllegalBookException.class).when(library).returnBook(book);
-
-            biblioteca.returnBook();
-
-            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
-        }
-    }
-
-    @Test
-    public void shouldQuitTheApplication() {
-        PowerMockito.mockStatic(System.class);
-
-        biblioteca.exit();
-        PowerMockito.verifyStatic(VerificationModeFactory.times(1));
-        System.exit(0);
     }
 }

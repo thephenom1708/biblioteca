@@ -1,7 +1,7 @@
-package com.tw.pathashala69.biblioteca.models;
+package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
-import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotAvailable;
+import com.tw.pathashala69.biblioteca.core.exception.IllegalBookException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

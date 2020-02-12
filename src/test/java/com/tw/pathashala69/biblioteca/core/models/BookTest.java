@@ -1,6 +1,5 @@
-package com.tw.pathashala69.biblioteca.models;
+package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.models.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +8,7 @@ import java.io.PrintStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BookTest {
 

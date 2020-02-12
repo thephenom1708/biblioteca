@@ -1,11 +1,12 @@
 import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.exception.InvalidMenuOptionException;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.io.BookParser;
 import com.tw.pathashala69.biblioteca.menu.*;
-import com.tw.pathashala69.biblioteca.models.Book;
-import com.tw.pathashala69.biblioteca.models.Books;
-import com.tw.pathashala69.biblioteca.models.Library;
+import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Books;
+import com.tw.pathashala69.biblioteca.core.models.Library;
 
 import java.io.File;
 import java.io.IOException;

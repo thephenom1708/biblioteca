@@ -1,8 +1,8 @@
-package com.tw.pathashala69.biblioteca.models;
+package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
-import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
-import com.tw.pathashala69.biblioteca.exception.IllegalBookException;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotAvailable;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.core.exception.IllegalBookException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

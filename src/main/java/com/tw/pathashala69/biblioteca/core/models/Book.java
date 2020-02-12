@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca.models;
+package com.tw.pathashala69.biblioteca.core.models;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
 

@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
+import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ class BaseMenuItemTest {
     }
 
     @Test
-    void shouldPerformSelectionTaskOnSelected() {
+    void shouldPerformSelectionTaskOnSelected() throws BookNotFoundException {
         menuItem.onSelect();
     }
 }

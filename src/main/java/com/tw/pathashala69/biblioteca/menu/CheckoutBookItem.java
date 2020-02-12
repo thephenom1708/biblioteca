@@ -3,12 +3,10 @@ package com.tw.pathashala69.biblioteca.menu;
 import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.constants.Symbol;
-import com.tw.pathashala69.biblioteca.exception.BookNotAvailable;
-import com.tw.pathashala69.biblioteca.exception.BookNotFoundException;
-import com.tw.pathashala69.biblioteca.io.InputManager;
-import com.tw.pathashala69.biblioteca.io.OutputManager;
-import com.tw.pathashala69.biblioteca.models.Book;
-import com.tw.pathashala69.biblioteca.models.Library;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotAvailable;
+import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Library;
 
 //Job: Represents checkout book item
 public class CheckoutBookItem extends BaseMenuItem {
@@ -21,6 +19,17 @@ public class CheckoutBookItem extends BaseMenuItem {
 
     @Override
     public void onSelect() {
-        biblioteca.checkoutBook();
+        String bookName = biblioteca.checkoutBookInput();
+        Library library = biblioteca.library();
+
+        Book bookToCheckout;
+        try {
+            bookToCheckout = library.books().searchByName(bookName);
+            library.checkout(bookToCheckout);
+        } catch (BookNotFoundException | BookNotAvailable e) {
+            biblioteca.onCheckoutBookUnsuccessful();
+            return;
+        }
+        biblioteca.onCheckoutBookSuccess();
     }
 }

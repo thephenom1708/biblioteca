@@ -15,6 +15,6 @@ public class BookListItem extends BaseMenuItem {
 
     @Override
     public void onSelect() {
-        biblioteca.printAvailableBooks();
+        biblioteca.printBooks(biblioteca.library().books().available());
     }
 }
