@@ -1,9 +1,9 @@
 package com.tw.pathashala69.biblioteca;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.models.Book;
-import com.tw.pathashala69.biblioteca.core.models.Books;
+import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ class BibliotecaTest {
 
     private String data;
     private Book book, book1;
-    private Books books;
+    private Borrowables borrowables;
     private Library library;
     private Biblioteca biblioteca;
     private ByteArrayOutputStream outStream;
@@ -35,7 +35,7 @@ class BibliotecaTest {
     private InputStream oldInputStream;
 
     @BeforeEach
-    void setUp() throws BookNotFoundException {
+    void setUp() throws BorrowableNotFoundException {
         data = "Harry Potter";
         ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
         outStream = new ByteArrayOutputStream();
@@ -47,19 +47,19 @@ class BibliotecaTest {
         book = mock(Book.class);
         book1 = mock(Book.class);
 
-        books = mock(Books.class);
+        borrowables = mock(Borrowables.class);
 
         library = mock(Library.class);
-        biblioteca = new Biblioteca(library, System.out);
+        biblioteca = new Biblioteca(System.out);
 
-        when(books.searchByName(data)).thenReturn(book);
-        when(books.add(book)).thenReturn(true);
-        when(books.add(book1)).thenReturn(true);
-        when(books.available()).thenReturn(books);
-        when(library.books()).thenReturn(books);
-        when(books.available()).thenReturn(books);
+        when(borrowables.searchByName(data)).thenReturn(book);
+        when(borrowables.add(book)).thenReturn(true);
+        when(borrowables.add(book1)).thenReturn(true);
+        when(borrowables.available()).thenReturn(borrowables);
+        when(library.books()).thenReturn(borrowables);
+        when(borrowables.available()).thenReturn(borrowables);
 
-        biblioteca = new Biblioteca(library, System.out);
+        biblioteca = new Biblioteca(System.out);
     }
 
     @AfterEach
@@ -78,23 +78,16 @@ class BibliotecaTest {
         assertThat(actualWelcomeMessage, is(equalTo(expectedWelcomeMessage)));
     }
 
-    @Test
-    public void shouldReturnLibrary() {
-        Library actualLibrary = biblioteca.library();
-
-        assertThat(actualLibrary, is(equalTo(library)));
-    }
-
     @Nested
     class BookList {
         @Test
         public void shouldPrintListOfBooksToConsole() {
-            Books anotherBooks = new Books(List.of(book, book1));
+            Borrowables anotherBorrowables = new Borrowables(List.of(book, book1));
             Library library = mock(Library.class);
-            Biblioteca biblioteca = new Biblioteca(library, System.out);
-            when(library.books()).thenReturn(anotherBooks);
+            Biblioteca biblioteca = new Biblioteca(System.out);
+            when(library.books()).thenReturn(anotherBorrowables);
 
-            biblioteca.printBooks(anotherBooks);
+            biblioteca.printBorrowable(anotherBorrowables);
 
             verify(book, times(1)).print(System.out);
             verify(book1, times(1)).print(System.out);
@@ -112,7 +105,7 @@ class BibliotecaTest {
 
         @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenCheckoutIsSuccessful() {
-            books.add(book);
+            borrowables.add(book);
             when(book.title()).thenReturn(data);
 
             biblioteca.onCheckoutBookSuccess();
@@ -122,8 +115,8 @@ class BibliotecaTest {
 
         @SuppressWarnings("unchecked")
         @Test
-        public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BookNotFoundException {
-            when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+        public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BorrowableNotFoundException {
+            when(borrowables.searchByName(data)).thenThrow(BorrowableNotFoundException.class);
 
             biblioteca.onCheckoutBookUnsuccessful();
 
@@ -142,7 +135,7 @@ class BibliotecaTest {
 
         @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
-            books.add(book);
+            borrowables.add(book);
             when(book.title()).thenReturn(data);
 
             biblioteca.onReturnBookSuccess();
@@ -152,8 +145,8 @@ class BibliotecaTest {
 
         @SuppressWarnings("unchecked")
         @Test
-        public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BookNotFoundException {
-            when(books.searchByName(data)).thenThrow(BookNotFoundException.class);
+        public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BorrowableNotFoundException {
+            when(borrowables.searchByName(data)).thenThrow(BorrowableNotFoundException.class);
 
             biblioteca.onReturnBookUnsuccessful();
 

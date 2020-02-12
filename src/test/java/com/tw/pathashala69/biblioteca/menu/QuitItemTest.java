@@ -1,7 +1,7 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.core.exception.BookNotFoundException;
+import com.tw.pathashala69.biblioteca.UserInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +13,12 @@ import static org.mockito.Mockito.*;
 class QuitItemTest {
 
     private QuitItem quitItem;
-    private Biblioteca biblioteca;
+    private UserInterface userInterface;
 
     @BeforeEach
     void setUp() {
-        biblioteca = mock(Biblioteca.class);
-        quitItem = new QuitItem(biblioteca);
+        userInterface = mock(Biblioteca.class);
+        quitItem = new QuitItem(userInterface);
     }
 
     @Test
@@ -32,9 +32,9 @@ class QuitItemTest {
     }
 
     @Test
-    public void shouldQuitApplicationWhenSelected() throws BookNotFoundException {
+    public void shouldQuitApplicationWhenSelected() {
         quitItem.onSelect();
 
-        verify(biblioteca, times(1)).exit();
+        verify(userInterface, times(1)).exit();
     }
 }

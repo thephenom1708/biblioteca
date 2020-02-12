@@ -5,7 +5,7 @@ import com.tw.pathashala69.biblioteca.constants.Message;
 import java.io.PrintStream;
 import java.util.Objects;
 
-public class Movie {
+public class Movie implements Borrowable {
     private final String title;
     private final int year;
     private final String director;

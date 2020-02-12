@@ -1,25 +1,25 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.core.exception.BookNotAvailable;
-import com.tw.pathashala69.biblioteca.core.exception.IllegalBookException;
+import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
+import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 
 //Job: Represents Library
 public class Library {
-    private final Books books;
+    private final Borrowables books;
 
-    public Library(Books books) {
+    public Library(Borrowables books) {
         this.books = books;
     }
 
-    public Books books() {
+    public Borrowables books() {
         return books;
     }
 
-    public void checkout(Book book) throws BookNotAvailable {
-        books.checkout(book);
+    public void checkout(Borrowable borrowable) throws BorrowableNotAvailableException {
+        books.checkout(borrowable);
     }
 
-    public void returnBook(Book book) throws IllegalBookException {
-        books.returnBook(book);
+    public void returnBorrowable(Borrowable borrowable) throws IllegalBorrowableException {
+        books.returnBorrowable(borrowable);
     }
 }

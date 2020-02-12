@@ -2,7 +2,7 @@ import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.core.models.Book;
-import com.tw.pathashala69.biblioteca.core.models.Books;
+import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
 import com.tw.pathashala69.biblioteca.io.BookParser;
 import com.tw.pathashala69.biblioteca.menu.*;
@@ -22,8 +22,9 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
 
-        Biblioteca biblioteca = new Biblioteca(new Library(getBooks()), System.out);
-        MainMenu mainMenu = mainMenu(biblioteca);
+        Biblioteca biblioteca = new Biblioteca(System.out);
+        Library library = new Library(new Borrowables(getBooks()));
+        MainMenu mainMenu = mainMenu(biblioteca, library);
 
         do {
             clearScreen();
@@ -44,12 +45,12 @@ public class BibilotecaApp {
         System.out.println("##################################################################\n");
     }
 
-    private static MainMenu mainMenu(Biblioteca biblioteca) {
-        BookListItem bookListItem = new BookListItem(biblioteca);
-        CheckoutBookItem checkoutBookItem = new CheckoutBookItem(biblioteca);
-        ReturnBookItem returnBookItem = new ReturnBookItem(biblioteca);
+    private static MainMenu mainMenu(Biblioteca biblioteca, Library library) {
+        BorrowableListItem borrowableListItem = new BorrowableListItem(biblioteca, library);
+        CheckoutBorrowableItem checkoutBorrowableItem = new CheckoutBorrowableItem(biblioteca, library);
+        ReturnBorrowableItem returnBorrowableItem = new ReturnBorrowableItem(biblioteca, library);
         QuitItem quitItem = new QuitItem(biblioteca);
-        return new MainMenu(List.of(bookListItem, checkoutBookItem, returnBookItem, quitItem));
+        return new MainMenu(List.of(borrowableListItem, checkoutBorrowableItem, returnBorrowableItem, quitItem));
     }
 
     private static void printMenu(MainMenu menu) {
@@ -67,11 +68,10 @@ public class BibilotecaApp {
         return scanner.nextLine().toUpperCase();
     }
 
-    private static Books getBooks() throws IOException {
+    private static List<Book> getBooks() throws IOException {
         ClassLoader classLoader = BibilotecaApp.class.getClassLoader();
         @SuppressWarnings("ConstantConditions") File file = new File(classLoader.getResource("io/books.csv").getFile());
-        List<Book> bookList = BookParser.parseFile(file);
-        return new Books(bookList);
+        return BookParser.parseFile(file);
     }
 
     public static void clearScreen() {

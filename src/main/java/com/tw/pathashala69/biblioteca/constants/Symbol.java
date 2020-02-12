@@ -5,4 +5,6 @@ public class Symbol {
     public static final String Q = "Q";
     public static final String CB = "CB";
     public static final String RB = "RB";
+
+    public static final String M = "M";
 }

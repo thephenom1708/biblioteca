@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.Objects;
 
 //Job: Represents Book
-public class Book {
+public class Book implements Borrowable {
     private final String title;
     private final String author;
     private final int yearOfPublication;
@@ -17,10 +17,12 @@ public class Book {
         this.yearOfPublication = yearOfPublication;
     }
 
+    @Override
     public String title() {
         return title;
     }
 
+    @Override
     public void print(PrintStream stream) {
         stream.println(this);
     }

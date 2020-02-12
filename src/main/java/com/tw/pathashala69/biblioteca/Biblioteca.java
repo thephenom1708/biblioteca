@@ -1,8 +1,7 @@
 package com.tw.pathashala69.biblioteca;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.core.models.Books;
-import com.tw.pathashala69.biblioteca.core.models.Library;
+import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.io.InputManager;
 import com.tw.pathashala69.biblioteca.io.OutputManager;
 
@@ -10,16 +9,10 @@ import java.io.PrintStream;
 
 //Job: Represents Menu for Biblioteca
 public class Biblioteca implements UserInterface {
-    private final Library library;
     private final PrintStream stream;
 
-    public Biblioteca(Library library, PrintStream stream) {
-        this.library = library;
+    public Biblioteca(PrintStream stream) {
         this.stream = stream;
-    }
-
-    public Library library() {
-        return library;
     }
 
     public static String welcome() {
@@ -41,8 +34,8 @@ public class Biblioteca implements UserInterface {
     }
 
     @Override
-    public void printBooks(Books books) {
-        books.forEach(book -> book.print(stream));
+    public void printBorrowable(Borrowables borrowables) {
+        borrowables.forEach(borrowable -> borrowable.print(stream));
     }
 
     @Override

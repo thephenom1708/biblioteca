@@ -1,7 +1,7 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.core.exception.BookNotAvailable;
-import com.tw.pathashala69.biblioteca.core.exception.IllegalBookException;
+import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
+import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,34 +13,34 @@ import static org.mockito.Mockito.*;
 class LibraryTest {
 
     private Book book;
-    private Books books;
+    private Borrowables borrowables;
     private Library library;
 
     @BeforeEach
     public void setup() {
         book = mock(Book.class);
-        books = mock(Books.class);
-        books.add(book);
+        borrowables = mock(Borrowables.class);
+        borrowables.add(book);
 
-        library = new Library(books);
+        library = new Library(borrowables);
     }
 
     @Test
     public void shouldReturnListOfAllBooksFromLibrary() {
-        assertThat(books, is(equalTo(library.books())));
+        assertThat(borrowables, is(equalTo(library.books())));
     }
 
     @Test
-    public void shouldCheckoutBook() throws BookNotAvailable {
+    public void shouldCheckoutBook() throws BorrowableNotAvailableException {
         library.checkout(book);
 
-        verify(books, times(1)).checkout(book);
+        verify(borrowables, times(1)).checkout(book);
     }
 
     @Test
-    public void shouldReturnBook() throws IllegalBookException {
-        library.returnBook(book);
+    public void shouldReturnBook() throws IllegalBorrowableException {
+        library.returnBorrowable(book);
 
-        verify(books, times(1)).returnBook(book);
+        verify(borrowables, times(1)).returnBorrowable(book);
     }
 }

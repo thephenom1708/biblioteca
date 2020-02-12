@@ -17,26 +17,26 @@ class MainMenuTest {
 
     private MainMenu mainMenu;
     private List<MenuItem> menuItems;
-    private BookListItem testBookListItem;
-    private CheckoutBookItem testCheckoutBookItem;
-    private ReturnBookItem testReturnBookItem;
+    private BorrowableListItem testBorrowableListItem;
+    private CheckoutBorrowableItem testCheckoutBorrowableItem;
+    private ReturnBorrowableItem testReturnBorrowableItem;
     private QuitItem testQuitItem;
 
     @BeforeEach
     void setUp() {
-        testBookListItem = mock(BookListItem.class);
-        testCheckoutBookItem = mock(CheckoutBookItem.class);
-        testReturnBookItem = mock(ReturnBookItem.class);
+        testBorrowableListItem = mock(BorrowableListItem.class);
+        testCheckoutBorrowableItem = mock(CheckoutBorrowableItem.class);
+        testReturnBorrowableItem = mock(ReturnBorrowableItem.class);
         testQuitItem = mock(QuitItem.class);
 
-        menuItems = List.of(testBookListItem, testCheckoutBookItem, testReturnBookItem, testQuitItem);
+        menuItems = List.of(testBorrowableListItem, testCheckoutBorrowableItem, testReturnBorrowableItem, testQuitItem);
 
-        when(testBookListItem.symbol()).thenReturn("B");
-        when(testBookListItem.present()).thenReturn("List of books");
-        when(testCheckoutBookItem.present()).thenReturn("Checkout Book");
-        when(testCheckoutBookItem.symbol()).thenReturn("CB");
-        when(testReturnBookItem.present()).thenReturn("Return Book");
-        when(testReturnBookItem.symbol()).thenReturn("RB");
+        when(testBorrowableListItem.symbol()).thenReturn("B");
+        when(testBorrowableListItem.present()).thenReturn("List of books");
+        when(testCheckoutBorrowableItem.present()).thenReturn("Checkout Book");
+        when(testCheckoutBorrowableItem.symbol()).thenReturn("CB");
+        when(testReturnBorrowableItem.present()).thenReturn("Return Book");
+        when(testReturnBorrowableItem.symbol()).thenReturn("RB");
         when(testQuitItem.symbol()).thenReturn("Q");
         when(testQuitItem.present()).thenReturn("Quit");
 
@@ -53,7 +53,7 @@ class MainMenuTest {
     public void shouldExecuteBookListItemWhenInputIsB() throws InvalidMenuOptionException {
         mainMenu.execute("B");
 
-        verify(testBookListItem, times(1)).onSelect();
+        verify(testBorrowableListItem, times(1)).onSelect();
     }
 
     @Test
@@ -61,7 +61,7 @@ class MainMenuTest {
     public void shouldExecuteCheckoutBookItemWhenInputIsCB() throws InvalidMenuOptionException {
         mainMenu.execute("CB");
 
-        verify(testCheckoutBookItem, times(1)).onSelect();
+        verify(testCheckoutBorrowableItem, times(1)).onSelect();
     }
 
     @Test
@@ -69,7 +69,7 @@ class MainMenuTest {
     public void shouldExecuteReturnBookItemWhenInputIsRB() throws InvalidMenuOptionException {
         mainMenu.execute("RB");
 
-        verify(testReturnBookItem, times(1)).onSelect();
+        verify(testReturnBorrowableItem, times(1)).onSelect();
     }
 
     @Test
