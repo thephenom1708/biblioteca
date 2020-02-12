@@ -28,4 +28,9 @@ class MovieTest {
 
         assertThat(movie, is(not(equalTo(anotherMovie))));
     }
+
+    @Test
+    public void shouldReturnTitleOfMovie() {
+        assertThat(movie.title(), is(equalTo("Bahubali")));
+    }
 }
