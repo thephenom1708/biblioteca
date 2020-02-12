@@ -1,5 +1,8 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
+import com.tw.pathashala69.biblioteca.constants.Message;
+
+import java.io.PrintStream;
 import java.util.Objects;
 
 public class Movie {
@@ -19,6 +22,10 @@ public class Movie {
         return title;
     }
 
+    public void print(PrintStream stream) {
+        stream.println(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -30,5 +37,10 @@ public class Movie {
     @Override
     public int hashCode() {
         return Objects.hash(title);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Message.MOVIE_PRINT_FORMAT, title, year, director, rating);
     }
 }
