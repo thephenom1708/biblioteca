@@ -6,8 +6,8 @@ import com.tw.pathashala69.biblioteca.view.constants.Symbol;
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.core.models.*;
 import com.tw.pathashala69.biblioteca.core.menu.*;
-import com.tw.pathashala69.biblioteca.view.io.BibliotecaBookInterface;
-import com.tw.pathashala69.biblioteca.view.io.BibliotecaMovieInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BibliotecaBookInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BibliotecaMovieInterface;
 import com.tw.pathashala69.biblioteca.view.io.BookParser;
 
 import java.io.File;

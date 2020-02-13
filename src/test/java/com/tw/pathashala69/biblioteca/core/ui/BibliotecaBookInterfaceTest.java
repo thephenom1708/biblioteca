@@ -1,11 +1,11 @@
-package com.tw.pathashala69.biblioteca.view;
+package com.tw.pathashala69.biblioteca.core.ui;
 
-import com.tw.pathashala69.biblioteca.view.constants.Message;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
-import com.tw.pathashala69.biblioteca.view.io.BibliotecaBookInterface;
+import com.tw.pathashala69.biblioteca.view.constants.Message;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -24,12 +24,12 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unchecked")
 class BibliotecaBookInterfaceTest {
 
     private String data;
     private Book book, book1;
-    private Borrowables borrowables;
-    private Library library;
+    private Borrowables<Borrowable> borrowables;
     private BibliotecaBookInterface bibliotecaBookInterface;
     private ByteArrayOutputStream outStream;
     private PrintStream oldOutStream;
@@ -50,8 +50,7 @@ class BibliotecaBookInterfaceTest {
 
         borrowables = mock(Borrowables.class);
 
-        library = mock(Library.class);
-        bibliotecaBookInterface = new BibliotecaBookInterface();
+        Library<Borrowable> library = mock(Library.class);
 
         when(borrowables.searchByName(data)).thenReturn(book);
         when(borrowables.add(book)).thenReturn(true);
@@ -79,6 +78,7 @@ class BibliotecaBookInterfaceTest {
         assertThat(actualWelcomeMessage, is(equalTo(expectedWelcomeMessage)));
     }
 
+    @SuppressWarnings("rawtypes")
     @Nested
     class BookList {
         @Test
@@ -114,7 +114,6 @@ class BibliotecaBookInterfaceTest {
             assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_SUCCESSFUL_MESSAGE));
         }
 
-        @SuppressWarnings("unchecked")
         @Test
         public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BorrowableNotFoundException {
             when(borrowables.searchByName(data)).thenThrow(BorrowableNotFoundException.class);
@@ -144,7 +143,6 @@ class BibliotecaBookInterfaceTest {
             assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESSFUL_MESSAGE));
         }
 
-        @SuppressWarnings("unchecked")
         @Test
         public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BorrowableNotFoundException {
             when(borrowables.searchByName(data)).thenThrow(BorrowableNotFoundException.class);

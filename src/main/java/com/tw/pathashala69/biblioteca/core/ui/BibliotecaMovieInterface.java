@@ -1,8 +1,7 @@
-package com.tw.pathashala69.biblioteca.view.io;
+package com.tw.pathashala69.biblioteca.core.ui;
 
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Movie;
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 
 import java.util.Scanner;
