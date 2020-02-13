@@ -25,7 +25,7 @@ public class ReturnBorrowableItem extends BaseMenuItem {
 
         Borrowable borrowableToReturn;
         try {
-            borrowableToReturn = library.books().searchByName(borrowableName);
+            borrowableToReturn = library.borrowables().searchByName(borrowableName);
             library.returnBorrowable(borrowableToReturn);
         } catch (BorrowableNotFoundException | IllegalBorrowableException e) {
             userInterface.onReturnBookUnsuccessful();

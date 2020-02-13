@@ -30,7 +30,7 @@ class ReturnBorrowableItemTest {
 
         when(borrowables.add(book)).thenReturn(true);
         when(userInterface.promptForReturnBook()).thenReturn("Harry Potter");
-        when(library.books()).thenReturn(borrowables);
+        when(library.borrowables()).thenReturn(borrowables);
 
         returnBorrowableItem = new ReturnBorrowableItem(userInterface, library);
     }

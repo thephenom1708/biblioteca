@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 
 // Job: Represents collection of books
-public class Borrowables extends ArrayList<Borrowable> {
+public class Borrowables<T extends Borrowable> extends ArrayList<Borrowable> {
     private HashMap<Borrowable, Boolean> checkoutStatus = new HashMap<>();
 
     public Borrowables() {}
 
-    public Borrowables(List<Borrowable> borrowables) {
+    public Borrowables(List<T> borrowables) {
         borrowables.forEach(borrowable -> {
             this.add(borrowable);
             checkoutStatus.put(borrowable, false);
@@ -27,8 +27,8 @@ public class Borrowables extends ArrayList<Borrowable> {
         checkoutStatus.put(borrowable, false);
     }
 
-    public Borrowables available() {
-        Borrowables availableBorrowables = new Borrowables();
+    public Borrowables<T> available() {
+        Borrowables<T> availableBorrowables = new Borrowables<>();
         this.forEach(borrowable -> {
             if (!isCheckedOut(borrowable))
                 availableBorrowables.add(borrowable);
@@ -56,7 +56,7 @@ public class Borrowables extends ArrayList<Borrowable> {
         return added;
     }
 
-    public void add(Borrowables borrowables) {
+    public void add(Borrowables<Borrowable> borrowables) {
         this.addAll(borrowables);
     }
 }

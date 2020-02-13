@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca;
 
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 
 public interface UserInterface {
@@ -7,7 +8,7 @@ public interface UserInterface {
 
     String promptForReturnBook();
 
-    void listBorrowables(Borrowables borrowables);
+    <T extends Borrowable> void listBorrowables(Borrowables<T> borrowables);
 
     void onCheckoutBookUnsuccessful();
 

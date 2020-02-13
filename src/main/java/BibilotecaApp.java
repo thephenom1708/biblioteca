@@ -22,9 +22,11 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(Biblioteca.welcome());
 
-        Biblioteca biblioteca = new Biblioteca(System.out);
-        Library library = new Library(new Borrowables(getBooks()), new Borrowables(getMovies()));
-        MainMenu mainMenu = mainMenu(biblioteca, library);
+        Biblioteca biblioteca = new Biblioteca();
+        Library<Book> booksLibrary = new Library<>(new Borrowables<>(getBooks()));
+        Library<Movie> moviesLibrary = new Library<>(new Borrowables<>(getMovies()));
+
+        MainMenu mainMenu = mainMenu(biblioteca, booksLibrary, moviesLibrary);
 
         do {
             clearScreen();
@@ -45,20 +47,20 @@ public class BibilotecaApp {
         System.out.println("##################################################################\n");
     }
 
-    private static MainMenu mainMenu(Biblioteca biblioteca, Library library) {
-        BorrowableListItem bookListItem =
-                new BookListItem(Message.BOOKS_LIST_OPTION, Symbol.B, biblioteca, library);
+    private static MainMenu mainMenu(Biblioteca biblioteca, Library<Book> booksLibrary, Library<Movie> moviesLibrary) {
+        BorrowableListItem<Book> bookListItem =
+                new BorrowableListItem<>(Message.BOOKS_LIST_OPTION, Symbol.B, biblioteca, booksLibrary);
 
-        BorrowableListItem movieListItem =
-                new MovieListItem(Message.MOVIE_LIST_OPTION, Symbol.M, biblioteca, library);
+        BorrowableListItem<Movie> movieListItem =
+                new BorrowableListItem<>(Message.MOVIE_LIST_OPTION, Symbol.M, biblioteca, moviesLibrary);
 
-        CheckoutBorrowableItem checkoutBookItem =
-                new CheckoutBorrowableItem(Message.CHECKOUT_BOOK_OPTION, Symbol.CB, biblioteca, library, bookListItem);
+        CheckoutBorrowableItem<Book> checkoutBookItem =
+                new CheckoutBorrowableItem<>(Message.CHECKOUT_BOOK_OPTION, Symbol.CB, biblioteca, booksLibrary);
 
-        CheckoutBorrowableItem checkoutMovieItem =
-                new CheckoutBorrowableItem(Message.CHECKOUT_MOVIE_OPTION, Symbol.CM, biblioteca, library, movieListItem);
+        CheckoutBorrowableItem<Movie> checkoutMovieItem =
+                new CheckoutBorrowableItem<>(Message.CHECKOUT_MOVIE_OPTION, Symbol.CM, biblioteca, moviesLibrary);
 
-        ReturnBorrowableItem returnBorrowableItem = new ReturnBorrowableItem(biblioteca, library);
+        ReturnBorrowableItem returnBorrowableItem = new ReturnBorrowableItem(biblioteca, booksLibrary);
 
         QuitItem quitItem = new QuitItem(biblioteca);
         return new MainMenu(
@@ -81,13 +83,13 @@ public class BibilotecaApp {
         return scanner.nextLine().toUpperCase();
     }
 
-    private static List<Borrowable> getBooks() throws IOException {
+    private static List<Book> getBooks() throws IOException {
         ClassLoader classLoader = BibilotecaApp.class.getClassLoader();
         @SuppressWarnings("ConstantConditions") File file = new File(classLoader.getResource("io/books.csv").getFile());
         return new ArrayList<>(BookParser.parseFile(file));
     }
 
-    private static List<Borrowable> getMovies() {
+    private static List<Movie> getMovies() {
         return List.of(
                 new Movie("Bahubali", 2015, "S. S. Rajamouli", 9.5),
                 new Movie("Singham", 2014, "Rohit Shetty", 8.3),

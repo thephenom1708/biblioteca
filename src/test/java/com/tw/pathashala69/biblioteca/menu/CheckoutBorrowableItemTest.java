@@ -5,6 +5,7 @@ import com.tw.pathashala69.biblioteca.UserInterface;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
 import org.junit.jupiter.api.AfterEach;
@@ -16,10 +17,10 @@ import static org.mockito.Mockito.*;
 class CheckoutBorrowableItemTest {
 
     private Book book;
-    private Borrowables borrowables;
-    private Library library;
+    private Borrowables<Borrowable> borrowables;
+    private Library<Borrowable> library;
     private UserInterface userInterface;
-    private CheckoutBorrowableItem checkoutBorrowableItem;
+    private CheckoutBorrowableItem<Borrowable> checkoutBorrowableItem;
 
     @BeforeEach
     void setUp() {
@@ -30,12 +31,10 @@ class CheckoutBorrowableItemTest {
 
         when(borrowables.add(book)).thenReturn(true);
         when(userInterface.promptForCheckoutBook()).thenReturn("Harry Potter");
+        when(library.borrowables()).thenReturn(borrowables);
 
-        BorrowableListItem borrowableListItem = mock(BorrowableListItem.class);
-        when(borrowableListItem.borrowables()).thenReturn(borrowables);
-
-        checkoutBorrowableItem = new CheckoutBorrowableItem("Checkout Book", "CB",
-                userInterface, library, borrowableListItem);
+        checkoutBorrowableItem = new CheckoutBorrowableItem<>("Checkout Book", "CB",
+                userInterface, library);
     }
 
     @AfterEach

@@ -4,32 +4,26 @@ import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableExcep
 import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 
 //Job: Represents Library
-public class Library {
-    private final Borrowables books;
-    private final Borrowables movies;
+public class Library<T extends Borrowable> {
+    private final Borrowables<T> borrowables;
 
-    public Library(Borrowables books, Borrowables movies) {
-        this.books = books;
-        this.movies = movies;
+    public Library(Borrowables<T> borrowables) {
+        this.borrowables = borrowables;
     }
 
-    public Borrowables books() {
-        return books;
-    }
-
-    public Borrowables movies() {
-        return movies;
+    public Borrowables<T> borrowables() {
+        return borrowables;
     }
 
     public void checkout(Borrowable borrowable) throws BorrowableNotAvailableException {
-        if (books.isCheckedOut(borrowable))
+        if (borrowables.isCheckedOut(borrowable))
             throw new BorrowableNotAvailableException();
-        books.borrowableCheckedOut(borrowable);
+        borrowables.borrowableCheckedOut(borrowable);
     }
 
     public void returnBorrowable(Borrowable borrowable) throws IllegalBorrowableException {
-        if (!books.isCheckedOut(borrowable))
+        if (!borrowables.isCheckedOut(borrowable))
             throw new IllegalBorrowableException();
-        books.borrowableAvailable(borrowable);
+        borrowables.borrowableAvailable(borrowable);
     }
 }

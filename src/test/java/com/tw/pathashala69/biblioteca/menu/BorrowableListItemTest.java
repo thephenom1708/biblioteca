@@ -2,6 +2,7 @@ package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.Biblioteca;
 import com.tw.pathashala69.biblioteca.UserInterface;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,45 +12,41 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
-class BookListItemTest {
+@SuppressWarnings("unchecked")
+class BorrowableListItemTest {
 
-    private Borrowables books;
+    private Borrowables<Borrowable> borrowables;
     private UserInterface userInterface;
-    private BorrowableListItem bookListItem;
+    private BorrowableListItem<Borrowable> borrowableListItem;
+
 
     @BeforeEach
     void setUp() {
         userInterface = mock(Biblioteca.class);
-        books = mock(Borrowables.class);
-        Library library = mock(Library.class);
+        borrowables = mock(Borrowables.class);
+        Library<Borrowable> library = mock(Library.class);
 
-        when(library.books()).thenReturn(books);
-        when(books.available()).thenReturn(books);
+        when(library.borrowables()).thenReturn(borrowables);
+        when(borrowables.available()).thenReturn(borrowables);
 
-        bookListItem = new BookListItem("List of Books", "B", userInterface, library);
+        borrowableListItem = new BorrowableListItem<>("List of Movies", "M", userInterface, library);
     }
 
     @Test
     public void shouldReturnName() {
-        assertThat(bookListItem.present(), is(equalTo("List of Books")));
+        assertThat(borrowableListItem.present(), is(equalTo("List of Movies")));
     }
 
     @Test
     public void shouldReturnSymbol() {
-        assertThat(bookListItem.symbol(), is(equalTo("B")));
-    }
-
-    @Test
-    public void shouldReturnListOfBooksFromLibrary() {
-        assertThat(bookListItem.borrowables(), is(equalTo(books)));
+        assertThat(borrowableListItem.symbol(), is(equalTo("M")));
     }
 
     @Test
     public void shouldPrintAvailableBooksOnSelection() {
-        bookListItem.onSelect();
+        borrowableListItem.onSelect();
 
-        verify(userInterface, times(1)).listBorrowables(books.available());
+        verify(userInterface, times(1)).listBorrowables(borrowables.available());
     }
 }

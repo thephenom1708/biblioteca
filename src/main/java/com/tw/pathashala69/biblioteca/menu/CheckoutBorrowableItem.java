@@ -7,17 +7,14 @@ import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Library;
 
 //Job: Represents checkout book item
-public class CheckoutBorrowableItem extends BaseMenuItem {
+public class CheckoutBorrowableItem<T extends Borrowable> extends BaseMenuItem {
     private final UserInterface userInterface;
-    private final Library library;
-    private final BorrowableListItem listItem;
+    private final Library<T> library;
 
-    public CheckoutBorrowableItem(String title, String symbol,
-                                  UserInterface userInterface, Library library, BorrowableListItem listItem) {
+    public CheckoutBorrowableItem(String title, String symbol, UserInterface userInterface, Library<T> library) {
         super(title, symbol);
         this.userInterface = userInterface;
         this.library = library;
-        this.listItem = listItem;
     }
 
     @Override
@@ -26,7 +23,7 @@ public class CheckoutBorrowableItem extends BaseMenuItem {
 
         Borrowable borrowableToCheckout;
         try {
-            borrowableToCheckout = listItem.borrowables().searchByName(borrowableName);
+            borrowableToCheckout = library.borrowables().searchByName(borrowableName);
             library.checkout(borrowableToCheckout);
         } catch (BorrowableNotFoundException | BorrowableNotAvailableException e) {
             userInterface.onCheckoutBookUnsuccessful();

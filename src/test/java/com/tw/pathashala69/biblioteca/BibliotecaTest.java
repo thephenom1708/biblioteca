@@ -50,16 +50,16 @@ class BibliotecaTest {
         borrowables = mock(Borrowables.class);
 
         library = mock(Library.class);
-        biblioteca = new Biblioteca(System.out);
+        biblioteca = new Biblioteca();
 
         when(borrowables.searchByName(data)).thenReturn(book);
         when(borrowables.add(book)).thenReturn(true);
         when(borrowables.add(book1)).thenReturn(true);
         when(borrowables.available()).thenReturn(borrowables);
-        when(library.books()).thenReturn(borrowables);
+        when(library.borrowables()).thenReturn(borrowables);
         when(borrowables.available()).thenReturn(borrowables);
 
-        biblioteca = new Biblioteca(System.out);
+        biblioteca = new Biblioteca();
     }
 
     @AfterEach
@@ -84,8 +84,8 @@ class BibliotecaTest {
         public void shouldPrintListOfBooksToConsole() {
             Borrowables anotherBorrowables = new Borrowables(List.of(book, book1));
             Library library = mock(Library.class);
-            Biblioteca biblioteca = new Biblioteca(System.out);
-            when(library.books()).thenReturn(anotherBorrowables);
+            Biblioteca biblioteca = new Biblioteca();
+            when(library.borrowables()).thenReturn(anotherBorrowables);
 
             biblioteca.listBorrowables(anotherBorrowables);
 
