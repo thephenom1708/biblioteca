@@ -3,11 +3,11 @@ package com.tw.pathashala69.biblioteca;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 
 public interface UserInterface {
-    String checkoutBookInput();
+    String promptForCheckoutBook();
 
-    String returnBookInput();
+    String promptForReturnBook();
 
-    void printBorrowable(Borrowables borrowables);
+    void listBorrowables(Borrowables borrowables);
 
     void onCheckoutBookUnsuccessful();
 

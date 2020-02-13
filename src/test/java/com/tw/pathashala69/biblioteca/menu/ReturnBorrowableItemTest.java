@@ -29,7 +29,7 @@ class ReturnBorrowableItemTest {
         userInterface = mock(Biblioteca.class);
 
         when(borrowables.add(book)).thenReturn(true);
-        when(userInterface.returnBookInput()).thenReturn("Harry Potter");
+        when(userInterface.promptForReturnBook()).thenReturn("Harry Potter");
         when(library.books()).thenReturn(borrowables);
 
         returnBorrowableItem = new ReturnBorrowableItem(userInterface, library);

@@ -29,10 +29,13 @@ class CheckoutBorrowableItemTest {
         userInterface = mock(Biblioteca.class);
 
         when(borrowables.add(book)).thenReturn(true);
-        when(userInterface.checkoutBookInput()).thenReturn("Harry Potter");
-        when(library.books()).thenReturn(borrowables);
+        when(userInterface.promptForCheckoutBook()).thenReturn("Harry Potter");
 
-        checkoutBorrowableItem = new CheckoutBorrowableItem(userInterface, library);
+        BorrowableListItem borrowableListItem = mock(BorrowableListItem.class);
+        when(borrowableListItem.borrowables()).thenReturn(borrowables);
+
+        checkoutBorrowableItem = new CheckoutBorrowableItem("Checkout Book", "CB",
+                userInterface, library, borrowableListItem);
     }
 
     @AfterEach

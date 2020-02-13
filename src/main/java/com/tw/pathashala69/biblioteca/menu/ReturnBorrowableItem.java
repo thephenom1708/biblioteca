@@ -21,7 +21,7 @@ public class ReturnBorrowableItem extends BaseMenuItem {
 
     @Override
     public void onSelect() {
-        String borrowableName = userInterface.returnBookInput();
+        String borrowableName = userInterface.promptForReturnBook();
 
         Borrowable borrowableToReturn;
         try {

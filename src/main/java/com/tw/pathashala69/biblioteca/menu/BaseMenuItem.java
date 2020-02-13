@@ -1,6 +1,6 @@
 package com.tw.pathashala69.biblioteca.menu;
 
-public class BaseMenuItem implements MenuItem {
+public abstract class BaseMenuItem implements MenuItem {
     private String title;
     private String symbol;
 
@@ -20,5 +20,5 @@ public class BaseMenuItem implements MenuItem {
     }
 
     @Override
-    public void onSelect() {}
+    public abstract void onSelect();
 }

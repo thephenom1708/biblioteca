@@ -2,10 +2,9 @@ package com.tw.pathashala69.biblioteca;
 
 import com.tw.pathashala69.biblioteca.constants.Message;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
-import com.tw.pathashala69.biblioteca.io.InputManager;
-import com.tw.pathashala69.biblioteca.io.OutputManager;
 
 import java.io.PrintStream;
+import java.util.Scanner;
 
 //Job: Represents Menu for Biblioteca
 public class Biblioteca implements UserInterface {
@@ -19,43 +18,45 @@ public class Biblioteca implements UserInterface {
         return Message.WELCOME_MESSAGE;
     }
 
+    private Scanner scanner = new Scanner(System.in);
+
     @Override
-    public String checkoutBookInput() {
+    public String promptForCheckoutBook() {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to checkout: ";
-        OutputManager.output(outputMessage, System.out);
-        return InputManager.input(System.in);
+        System.out.println(outputMessage);
+        return scanner.nextLine().trim();
     }
 
     @Override
-    public String returnBookInput() {
+    public String promptForReturnBook() {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to Return: ";
-        OutputManager.output(outputMessage, System.out);
-        return InputManager.input(System.in);
+        System.out.println(outputMessage);
+        return scanner.nextLine().trim();
     }
 
     @Override
-    public void printBorrowable(Borrowables borrowables) {
+    public void listBorrowables(Borrowables borrowables) {
         borrowables.forEach(borrowable -> borrowable.print(stream));
     }
 
     @Override
     public void onCheckoutBookUnsuccessful() {
-        OutputManager.output(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE, System.out);
+        System.out.println(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE);
     }
 
     @Override
     public void onCheckoutBookSuccess() {
-        OutputManager.output(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE, System.out);
+        System.out.println(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE);
     }
 
     @Override
     public void onReturnBookUnsuccessful() {
-        OutputManager.output(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE, System.out);
+        System.out.println(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE);
     }
 
     @Override
     public void onReturnBookSuccess() {
-        OutputManager.output(Message.RETURN_BOOK_SUCCESS_MESSAGE, System.out);
+        System.out.println(Message.RETURN_BOOK_SUCCESS_MESSAGE);
     }
 
     @Override

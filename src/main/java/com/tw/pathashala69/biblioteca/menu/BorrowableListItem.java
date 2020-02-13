@@ -1,23 +1,21 @@
 package com.tw.pathashala69.biblioteca.menu;
 
 import com.tw.pathashala69.biblioteca.UserInterface;
-import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.constants.Symbol;
-import com.tw.pathashala69.biblioteca.core.models.Library;
+import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 
 //Job: Represents view all books menu item
-public class BorrowableListItem extends BaseMenuItem {
+public abstract class BorrowableListItem extends BaseMenuItem {
     private final UserInterface userInterface;
-    private final Library library;
 
-    public BorrowableListItem(UserInterface userInterface, Library library) {
-        super(Message.BOOKS_LIST_OPTION, Symbol.B);
+    public BorrowableListItem(String title, String symbol, UserInterface userInterface) {
+        super(title, symbol);
         this.userInterface = userInterface;
-        this.library = library;
     }
 
     @Override
     public void onSelect() {
-        userInterface.printBorrowable(library.books().available());
+        userInterface.listBorrowables(borrowables().available());
     }
+
+    protected abstract Borrowables borrowables();
 }

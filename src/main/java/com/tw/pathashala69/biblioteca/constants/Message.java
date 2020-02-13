@@ -21,4 +21,5 @@ public class Message {
     public static final String BOOK_PRINT_FORMAT = "| %-41s | %-41s | %-8s |";
     public static final String MOVIE_PRINT_FORMAT = "| %-41s | %-8s | %-41s | %-6s |";
     public static final String MOVIE_LIST_OPTION = "List of Movies";
+    public static final String CHECKOUT_MOVIE_OPTION = "Checkout Movie";
 }

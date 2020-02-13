@@ -7,4 +7,5 @@ public class Symbol {
     public static final String RB = "RB";
 
     public static final String M = "M";
+    public static final String CM = "CM";
 }

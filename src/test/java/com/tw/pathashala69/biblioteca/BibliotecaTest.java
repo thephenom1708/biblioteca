@@ -87,7 +87,7 @@ class BibliotecaTest {
             Biblioteca biblioteca = new Biblioteca(System.out);
             when(library.books()).thenReturn(anotherBorrowables);
 
-            biblioteca.printBorrowable(anotherBorrowables);
+            biblioteca.listBorrowables(anotherBorrowables);
 
             verify(book, times(1)).print(System.out);
             verify(book1, times(1)).print(System.out);
@@ -98,7 +98,7 @@ class BibliotecaTest {
     class CheckoutBook {
         @Test
         public void shouldReturnHarryPotterAsCheckoutBookInput() {
-            String input = biblioteca.checkoutBookInput();
+            String input = biblioteca.promptForCheckoutBook();
 
             assertThat(input, is(equalTo("Harry Potter")));
         }
@@ -128,7 +128,7 @@ class BibliotecaTest {
     class ReturnBook {
         @Test
         public void shouldReturnHarryPotterAsReturnBookInput() {
-            String input = biblioteca.returnBookInput();
+            String input = biblioteca.promptForReturnBook();
 
             assertThat(input, is(equalTo("Harry Potter")));
         }

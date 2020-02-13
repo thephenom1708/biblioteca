@@ -13,34 +13,40 @@ import static org.mockito.Mockito.*;
 class LibraryTest {
 
     private Book book;
-    private Borrowables borrowables;
+    private Borrowables books, movies;
     private Library library;
 
     @BeforeEach
     public void setup() {
         book = mock(Book.class);
-        borrowables = mock(Borrowables.class);
-        borrowables.add(book);
+        books = mock(Borrowables.class);
+        movies = mock(Borrowables.class);
+        books.add(book);
 
-        library = new Library(borrowables);
+        library = new Library(books, movies);
     }
 
     @Test
     public void shouldReturnListOfAllBooksFromLibrary() {
-        assertThat(borrowables, is(equalTo(library.books())));
+        assertThat(books, is(equalTo(library.books())));
+    }
+
+    @Test
+    public void shouldReturnListOfAllMoviesFromLibrary() {
+        assertThat(movies, is(equalTo(library.movies())));
     }
 
     @Test
     public void shouldCheckoutBook() throws BorrowableNotAvailableException {
         library.checkout(book);
 
-        verify(borrowables, times(1)).checkout(book);
+        verify(books, times(1)).checkout(book);
     }
 
     @Test
     public void shouldReturnBook() throws IllegalBorrowableException {
         library.returnBorrowable(book);
 
-        verify(borrowables, times(1)).returnBorrowable(book);
+        verify(books, times(1)).returnBorrowable(book);
     }
 }

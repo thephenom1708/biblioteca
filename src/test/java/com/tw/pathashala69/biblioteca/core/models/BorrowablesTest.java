@@ -6,6 +6,9 @@ import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -15,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 class BorrowablesTest {
 
-    private Book book, book1;
+    private Borrowable book, book1;
     private Borrowables borrowables;
 
     @BeforeEach
@@ -28,6 +31,15 @@ class BorrowablesTest {
 
         when(book.title()).thenReturn("Harry Potter");
         when(book1.title()).thenReturn("The Alchemist");
+    }
+
+    @Test
+    public void shouldAddAnotherBorrowablesToThisBorrowables() {
+        Borrowables anotherBorrowables = new Borrowables(List.of(book, book1));
+        Borrowables expectedBorrowables = new Borrowables(List.of(book, book1, book, book1));
+        borrowables.add(anotherBorrowables);
+
+        assertThat(borrowables, is(equalTo(expectedBorrowables)));
     }
 
     @Test

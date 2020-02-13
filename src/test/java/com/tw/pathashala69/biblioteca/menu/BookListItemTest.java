@@ -11,39 +11,45 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
-class BorrowableListItemTest {
+class BookListItemTest {
 
-    private Borrowables borrowables;
+    private Borrowables books;
     private UserInterface userInterface;
-    private BorrowableListItem borrowableListItem;
+    private BorrowableListItem bookListItem;
 
     @BeforeEach
     void setUp() {
         userInterface = mock(Biblioteca.class);
-        borrowables = mock(Borrowables.class);
+        books = mock(Borrowables.class);
         Library library = mock(Library.class);
 
-        when(library.books()).thenReturn(borrowables);
-        when(borrowables.available()).thenReturn(borrowables);
+        when(library.books()).thenReturn(books);
+        when(books.available()).thenReturn(books);
 
-        borrowableListItem = new BorrowableListItem(userInterface, library);
+        bookListItem = new BookListItem("List of Books", "B", userInterface, library);
     }
 
     @Test
     public void shouldReturnName() {
-        assertThat(borrowableListItem.present(), is(equalTo("List of books")));
+        assertThat(bookListItem.present(), is(equalTo("List of Books")));
     }
 
     @Test
     public void shouldReturnSymbol() {
-        assertThat(borrowableListItem.symbol(), is(equalTo("B")));
+        assertThat(bookListItem.symbol(), is(equalTo("B")));
+    }
+
+    @Test
+    public void shouldReturnListOfBooksFromLibrary() {
+        assertThat(bookListItem.borrowables(), is(equalTo(books)));
     }
 
     @Test
     public void shouldPrintAvailableBooksOnSelection() {
-        borrowableListItem.onSelect();
+        bookListItem.onSelect();
 
-        verify(userInterface, times(1)).printBorrowable(borrowables.available());
+        verify(userInterface, times(1)).listBorrowables(books.available());
     }
 }

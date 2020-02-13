@@ -14,7 +14,7 @@ public class Borrowables extends ArrayList<Borrowable> {
 
     public Borrowables() {}
 
-    public Borrowables(List<? extends Borrowable> borrowables) {
+    public Borrowables(List<Borrowable> borrowables) {
         borrowables.forEach(borrowable -> {
             this.add(borrowable);
             checkoutStatus.put(borrowable, false);
@@ -60,5 +60,9 @@ public class Borrowables extends ArrayList<Borrowable> {
         if (added)
             checkoutStatus.put(borrowable, false);
         return added;
+    }
+
+    public void add(Borrowables borrowables) {
+        this.addAll(borrowables);
     }
 }
