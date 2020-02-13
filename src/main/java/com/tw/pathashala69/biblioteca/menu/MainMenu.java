@@ -3,6 +3,7 @@ package com.tw.pathashala69.biblioteca.menu;
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 
 import java.util.List;
+import java.util.Optional;
 
 // Job: Stores the list of all Menu Items
 public class MainMenu {
@@ -17,12 +18,9 @@ public class MainMenu {
     }
 
     public void execute(String input) throws InvalidMenuOptionException {
-        for (MenuItem item : menuItems) {
-            if (input.equalsIgnoreCase(item.symbol())) {
-                item.onSelect();
-                return;
-            }
-        }
-        throw new InvalidMenuOptionException();
+        Optional<MenuItem> first = menuItems.stream().filter(menuItem -> menuItem.symbol().
+                equalsIgnoreCase(input)).findFirst();
+        first.ifPresent(MenuItem::onSelect);
+        first.orElseThrow(InvalidMenuOptionException::new);
     }
 }
