@@ -1,38 +1,39 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.UserInterface;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
+import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unchecked")
 class ReturnBorrowableItemTest {
 
     private Book book;
-    private Borrowables borrowables;
-    private Library library;
-    private UserInterface userInterface;
-    private ReturnBorrowableItem returnBorrowableItem;
+    private Borrowables<Borrowable> borrowables;
+    private Library<Borrowable> library;
+    private UserInterface<Borrowable> userInterface;
+    private ReturnBorrowableItem<Borrowable> returnBorrowableItem;
 
     @BeforeEach
     void setUp() {
         book = mock(Book.class);
         borrowables = mock(Borrowables.class);
         library = mock(Library.class);
-        userInterface = mock(Biblioteca.class);
+        userInterface = mock(UserInterface.class);
 
         when(borrowables.add(book)).thenReturn(true);
-        when(userInterface.promptForReturnBook()).thenReturn("Harry Potter");
+        when(userInterface.promptForReturnBorrowable()).thenReturn("Harry Potter");
         when(library.borrowables()).thenReturn(borrowables);
 
-        returnBorrowableItem = new ReturnBorrowableItem(userInterface, library);
+        returnBorrowableItem = new ReturnBorrowableItem<>("Return Movie", "RM", userInterface, library);
     }
 
     @AfterEach
@@ -58,7 +59,7 @@ class ReturnBorrowableItemTest {
 
         returnBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onReturnBookSuccess();
+        verify(userInterface, times(1)).onReturnBorrowableSuccess();
     }
 
     @Test
@@ -68,7 +69,7 @@ class ReturnBorrowableItemTest {
 
         returnBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onReturnBookUnsuccessful();
+        verify(userInterface, times(1)).onReturnBorrowableUnsuccessful();
     }
 
     @Test
@@ -79,6 +80,6 @@ class ReturnBorrowableItemTest {
 
         returnBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onReturnBookUnsuccessful();
+        verify(userInterface, times(1)).onReturnBorrowableUnsuccessful();
     }
 }

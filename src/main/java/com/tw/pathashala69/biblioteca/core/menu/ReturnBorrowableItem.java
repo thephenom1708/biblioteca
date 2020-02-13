@@ -1,36 +1,34 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.UserInterface;
-import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.constants.Symbol;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Library;
+import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
 
 //Job: represents Return Book option menu item
-public class ReturnBorrowableItem extends BaseMenuItem {
-    private final UserInterface userInterface;
-    private final Library library;
+public class ReturnBorrowableItem<T extends Borrowable> extends BaseMenuItem {
+    private final UserInterface<T> userInterface;
+    private final Library<T> library;
 
-    public ReturnBorrowableItem(UserInterface userInterface, Library library) {
-        super(Message.RETURN_BOOK_OPTION, Symbol.RB);
+    public ReturnBorrowableItem(String title, String symbol, UserInterface<T> userInterface, Library<T> library) {
+        super(title, symbol);
         this.userInterface = userInterface;
         this.library = library;
     }
 
     @Override
     public void onSelect() {
-        String borrowableName = userInterface.promptForReturnBook();
+        String borrowableName = userInterface.promptForReturnBorrowable();
 
         Borrowable borrowableToReturn;
         try {
             borrowableToReturn = library.borrowables().searchByName(borrowableName);
             library.returnBorrowable(borrowableToReturn);
         } catch (BorrowableNotFoundException | IllegalBorrowableException e) {
-            userInterface.onReturnBookUnsuccessful();
+            userInterface.onReturnBorrowableUnsuccessful();
             return;
         }
-        userInterface.onReturnBookSuccess();
+        userInterface.onReturnBorrowableSuccess();
     }
 }

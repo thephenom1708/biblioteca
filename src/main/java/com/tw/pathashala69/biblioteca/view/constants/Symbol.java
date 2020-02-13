@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca.constants;
+package com.tw.pathashala69.biblioteca.view.constants;
 
 public class Symbol {
     public static final String B = "B";
@@ -8,4 +8,5 @@ public class Symbol {
 
     public static final String M = "M";
     public static final String CM = "CM";
+    public static final String RM = "RM";
 }

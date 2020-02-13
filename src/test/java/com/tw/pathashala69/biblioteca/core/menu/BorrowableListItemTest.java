@@ -1,10 +1,9 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.UserInterface;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
+import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +16,13 @@ import static org.mockito.Mockito.*;
 class BorrowableListItemTest {
 
     private Borrowables<Borrowable> borrowables;
-    private UserInterface userInterface;
+    private UserInterface<Borrowable> userInterface;
     private BorrowableListItem<Borrowable> borrowableListItem;
 
 
     @BeforeEach
     void setUp() {
-        userInterface = mock(Biblioteca.class);
+        userInterface = mock(UserInterface.class);
         borrowables = mock(Borrowables.class);
         Library<Borrowable> library = mock(Library.class);
 

@@ -1,7 +1,7 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.UserInterface;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
+import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,15 +10,16 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unchecked")
 class QuitItemTest {
 
-    private QuitItem quitItem;
-    private UserInterface userInterface;
+    private QuitItem<Borrowable> quitItem;
+    private UserInterface<Borrowable> userInterface;
 
     @BeforeEach
     void setUp() {
-        userInterface = mock(Biblioteca.class);
-        quitItem = new QuitItem(userInterface);
+        userInterface = mock(UserInterface.class);
+        quitItem = new QuitItem<>("Quit", "Q", userInterface);
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca.constants;
+package com.tw.pathashala69.biblioteca.view.constants;
 
 //Job: Represents Different Messages
 public class Message {
@@ -11,10 +11,10 @@ public class Message {
 
     public static final String BOOKS_LIST_OPTION = "List of books";
     public static final String CHECKOUT_BOOK_OPTION = "Checkout Book";
-    public static final String CHECKOUT_BOOK_SUCCESS_MESSAGE = "Checkout Successful! \nThank you! Enjoy the book";
+    public static final String CHECKOUT_BOOK_SUCCESSFUL_MESSAGE = "Checkout Successful! \nThank you! Enjoy the book";
     public static final String CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE = "Sorry, that book is not available!";
     public static final String RETURN_BOOK_OPTION = "Return Book";
-    public static final String RETURN_BOOK_SUCCESS_MESSAGE = "Thank you for returning the book!";
+    public static final String RETURN_BOOK_SUCCESSFUL_MESSAGE = "Thank you for returning the book!";
     public static final String RETURN_BOOK_UNSUCCESSFUL_MESSAGE = "That is not a valid book to return!";
 
 
@@ -22,4 +22,9 @@ public class Message {
     public static final String MOVIE_PRINT_FORMAT = "| %-41s | %-8s | %-41s | %-6s |";
     public static final String MOVIE_LIST_OPTION = "List of Movies";
     public static final String CHECKOUT_MOVIE_OPTION = "Checkout Movie";
+    public static final String RETURN_MOVIE_OPTION = "Return Movie";
+    public static final String CHECKOUT_MOVIE_UNSUCCESSFUL_MESSAGE = "Sorry, that movie is not available!";
+    public static final String CHECKOUT_MOVIE_SUCCESSFUL_MESSAGE = "Checkout Successful! \nThank you! Enjoy the movie";
+    public static final String RETURN_MOVIE_UNSUCCESSFUL_MESSAGE = "That is not a valid movie to return!";
+    public static final String RETURN_MOVIE_SUCCESSFUL_MESSAGE = "Thank you for returning the movie";
 }

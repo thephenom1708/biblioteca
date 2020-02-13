@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
 public abstract class BaseMenuItem implements MenuItem {
     private String title;

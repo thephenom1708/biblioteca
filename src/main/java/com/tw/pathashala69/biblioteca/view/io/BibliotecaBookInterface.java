@@ -1,14 +1,14 @@
-package com.tw.pathashala69.biblioteca;
+package com.tw.pathashala69.biblioteca.view.io;
 
-import com.tw.pathashala69.biblioteca.constants.Message;
-import com.tw.pathashala69.biblioteca.core.models.Borrowable;
+import com.tw.pathashala69.biblioteca.core.models.Book;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
+import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.view.constants.Message;
 
 import java.util.Scanner;
 
 //Job: Represents Menu for Biblioteca
-public class Biblioteca implements UserInterface {
-
+public class BibliotecaBookInterface implements UserInterface<Book>{
     public static String welcome() {
         return Message.WELCOME_MESSAGE;
     }
@@ -16,46 +16,47 @@ public class Biblioteca implements UserInterface {
     private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public String promptForCheckoutBook() {
+    public String promptForCheckoutBorrowable() {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to checkout: ";
         System.out.println(outputMessage);
         return scanner.nextLine().trim();
     }
 
     @Override
-    public String promptForReturnBook() {
+    public String promptForReturnBorrowable() {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to Return: ";
         System.out.println(outputMessage);
         return scanner.nextLine().trim();
     }
 
     @Override
-    public <T extends Borrowable> void listBorrowables(Borrowables<T> borrowables) {
+    public void listBorrowables(Borrowables<Book> borrowables) {
         borrowables.forEach(borrowable -> borrowable.print(System.out));
     }
 
     @Override
-    public void onCheckoutBookUnsuccessful() {
+    public void onCheckoutBorrowableUnsuccessful() {
         System.out.println(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE);
     }
 
     @Override
-    public void onCheckoutBookSuccess() {
-        System.out.println(Message.CHECKOUT_BOOK_SUCCESS_MESSAGE);
+    public void onCheckoutBorrowableSuccess() {
+        System.out.println(Message.CHECKOUT_BOOK_SUCCESSFUL_MESSAGE);
     }
 
     @Override
-    public void onReturnBookUnsuccessful() {
+    public void onReturnBorrowableUnsuccessful() {
         System.out.println(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE);
     }
 
     @Override
-    public void onReturnBookSuccess() {
-        System.out.println(Message.RETURN_BOOK_SUCCESS_MESSAGE);
+    public void onReturnBorrowableSuccess() {
+        System.out.println(Message.RETURN_BOOK_SUCCESSFUL_MESSAGE);
     }
 
     @Override
     public void exit() {
         System.exit(0);
     }
+
 }

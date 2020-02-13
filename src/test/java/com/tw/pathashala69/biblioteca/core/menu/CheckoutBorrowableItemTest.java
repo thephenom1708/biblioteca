@@ -1,13 +1,12 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.Biblioteca;
-import com.tw.pathashala69.biblioteca.UserInterface;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.models.Book;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
+import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class CheckoutBorrowableItemTest {
     private Book book;
     private Borrowables<Borrowable> borrowables;
     private Library<Borrowable> library;
-    private UserInterface userInterface;
+    private UserInterface<Borrowable> userInterface;
     private CheckoutBorrowableItem<Borrowable> checkoutBorrowableItem;
 
     @BeforeEach
@@ -27,10 +26,10 @@ class CheckoutBorrowableItemTest {
         book = mock(Book.class);
         borrowables = mock(Borrowables.class);
         library = mock(Library.class);
-        userInterface = mock(Biblioteca.class);
+        userInterface = mock(UserInterface.class);
 
         when(borrowables.add(book)).thenReturn(true);
-        when(userInterface.promptForCheckoutBook()).thenReturn("Harry Potter");
+        when(userInterface.promptForCheckoutBorrowable()).thenReturn("Harry Potter");
         when(library.borrowables()).thenReturn(borrowables);
 
         checkoutBorrowableItem = new CheckoutBorrowableItem<>("Checkout Book", "CB",
@@ -60,7 +59,7 @@ class CheckoutBorrowableItemTest {
 
         checkoutBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onCheckoutBookSuccess();
+        verify(userInterface, times(1)).onCheckoutBorrowableSuccess();
     }
 
     @Test
@@ -70,7 +69,7 @@ class CheckoutBorrowableItemTest {
 
         checkoutBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onCheckoutBookUnsuccessful();
+        verify(userInterface, times(1)).onCheckoutBorrowableUnsuccessful();
     }
 
     @Test
@@ -81,7 +80,7 @@ class CheckoutBorrowableItemTest {
 
         checkoutBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onCheckoutBookUnsuccessful();
+        verify(userInterface, times(1)).onCheckoutBorrowableUnsuccessful();
     }
 
 }

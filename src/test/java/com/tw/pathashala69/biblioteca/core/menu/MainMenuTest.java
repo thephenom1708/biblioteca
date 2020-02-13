@@ -1,4 +1,4 @@
-package com.tw.pathashala69.biblioteca.menu;
+package com.tw.pathashala69.biblioteca.core.menu;
 
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 import org.junit.jupiter.api.BeforeEach;

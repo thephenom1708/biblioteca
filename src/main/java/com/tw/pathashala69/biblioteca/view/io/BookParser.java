@@ -1,15 +1,16 @@
-package com.tw.pathashala69.biblioteca.io;
+package com.tw.pathashala69.biblioteca.view.io;
 
 import com.tw.pathashala69.biblioteca.core.models.Book;
-import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 // Job: Parse the Books from File
 public class BookParser {
-
     public static Book parse(String[] bookParameters) {
         return new Book(bookParameters[0], bookParameters[1], Integer.parseInt(bookParameters[2]));
     }

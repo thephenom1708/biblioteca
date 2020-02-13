@@ -1,6 +1,6 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.constants.Message;
+import com.tw.pathashala69.biblioteca.view.constants.Message;
 
 import java.io.PrintStream;
 import java.util.Objects;
