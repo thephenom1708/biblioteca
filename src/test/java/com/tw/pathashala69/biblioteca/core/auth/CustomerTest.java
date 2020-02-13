@@ -1,9 +1,10 @@
-package com.tw.pathashala69.biblioteca.core.models;
+package com.tw.pathashala69.biblioteca.core.auth;
 
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class CustomerTest {
@@ -29,5 +30,12 @@ class CustomerTest {
         Customer anotherCustomer = new Customer("123-4789", "password1");
 
         assertThat(customer, is(not(equalTo(anotherCustomer))));
+    }
+
+    @Test
+    public void shouldAuthenticateUserWithLibraryNumberAndPassword() {
+        Customer customer = new Customer("123-4567", "password");
+
+        assertTrue(customer.authenticate("123-4567", "password"));
     }
 }
