@@ -1,12 +1,9 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
-import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,6 +31,20 @@ class BorrowablesTest {
     }
 
     @Test
+    public void shouldSetBorrowableAsCheckedOut() {
+        borrowables.borrowableCheckedOut(book);
+
+        assertTrue(borrowables.isCheckedOut(book));
+    }
+
+    @Test
+    public void shouldSetBorrowableAsAvailable() {
+        borrowables.borrowableAvailable(book);
+
+        assertFalse(borrowables.isCheckedOut(book));
+    }
+
+    @Test
     public void shouldAddAnotherBorrowablesToThisBorrowables() {
         Borrowables anotherBorrowables = new Borrowables(List.of(book, book1));
         Borrowables expectedBorrowables = new Borrowables(List.of(book, book1, book, book1));
@@ -48,17 +59,10 @@ class BorrowablesTest {
     }
 
     @Test
-    public void shouldReturnTrueOnIsCheckedOutIfBorrowableIsCheckedOut() throws BorrowableNotAvailableException {
-        borrowables.checkout(book);
+    public void shouldReturnTrueOnIsCheckedOutIfBorrowableIsCheckedOut() {
+        borrowables.borrowableCheckedOut(book);
 
         assertTrue(borrowables.isCheckedOut(book));
-    }
-
-    @Test
-    public void shouldThrowBorrowableNotAvailableExceptionIfBorrowableIsAlreadyCheckedOut() throws BorrowableNotAvailableException {
-        borrowables.checkout(book);
-
-        assertThrows(BorrowableNotAvailableException.class, () -> borrowables.checkout(book));
     }
 
     @Test
@@ -95,16 +99,9 @@ class BorrowablesTest {
     }
 
     @Test
-    public void shouldReturnFalseOnIsCheckedOutIfBorrowableIsReturned() throws BorrowableNotAvailableException, IllegalBorrowableException {
-        borrowables.checkout(book);
-
-        borrowables.returnBorrowable(book);
+    public void shouldReturnFalseOnIsCheckedOutIfBorrowableIsReturned() {
+        borrowables.borrowableAvailable(book);
 
         assertFalse(borrowables.isCheckedOut(book));
-    }
-
-    @Test
-    public void shouldThrowIllegalBorrowableExceptionIfBorrowableWasNotCheckedOutBefore() {
-        assertThrows(IllegalBorrowableException.class, () -> borrowables.returnBorrowable(book));
     }
 }

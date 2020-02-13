@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class LibraryTest {
@@ -38,15 +39,32 @@ class LibraryTest {
 
     @Test
     public void shouldCheckoutBook() throws BorrowableNotAvailableException {
+        when(books.isCheckedOut(book)).thenReturn(false);
         library.checkout(book);
 
-        verify(books, times(1)).checkout(book);
+        verify(books, times(1)).borrowableCheckedOut(book);
     }
 
     @Test
+    public void shouldThrowBorrowableNotAvailableExceptionIfBorrowableIsAlreadyCheckedOut() {
+        when(books.isCheckedOut(book)).thenReturn(true);
+
+        assertThrows(BorrowableNotAvailableException.class, () -> library.checkout(book));
+    }
+
+
+    @Test
     public void shouldReturnBook() throws IllegalBorrowableException {
+        when(books.isCheckedOut(book)).thenReturn(true);
         library.returnBorrowable(book);
 
-        verify(books, times(1)).returnBorrowable(book);
+        verify(books, times(1)).borrowableAvailable(book);
+    }
+
+    @Test
+    public void shouldThrowIllegalBorrowableExceptionIfBorrowableWasNotCheckedOutBefore() {
+        when(books.isCheckedOut(book)).thenReturn(false);
+
+        assertThrows(IllegalBorrowableException.class, () -> library.returnBorrowable(book));
     }
 }

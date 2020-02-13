@@ -1,8 +1,6 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
-import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
-import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,15 +19,11 @@ public class Borrowables extends ArrayList<Borrowable> {
         });
     }
 
-    public void checkout(Borrowable borrowable) throws BorrowableNotAvailableException {
-        if (isCheckedOut(borrowable))
-            throw new BorrowableNotAvailableException();
+    public void borrowableCheckedOut(Borrowable borrowable) {
         checkoutStatus.put(borrowable, true);
     }
 
-    public void returnBorrowable(Borrowable borrowable) throws IllegalBorrowableException {
-        if (!isCheckedOut(borrowable))
-            throw new IllegalBorrowableException();
+    public void borrowableAvailable(Borrowable borrowable) {
         checkoutStatus.put(borrowable, false);
     }
 
