@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -37,5 +38,12 @@ class CustomerTest {
         Customer customer = new Customer("123-4567", "password");
 
         assertTrue(customer.authenticate("123-4567", "password"));
+    }
+
+    @Test
+    public void shouldNotAuthenticateUserWithWrongLibraryNumberAndPassword() {
+        Customer customer = new Customer("123-4567", "password");
+
+        assertFalse(customer.authenticate("679-1234", "password"));
     }
 }
