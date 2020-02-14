@@ -10,17 +10,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserAuthenticationTest {
 
-    private User user;
-
     @BeforeEach
     void setUp() {
-        user = mock(User.class);
-        UserAuthentication.register(user);
     }
 
     @Test
@@ -30,19 +25,21 @@ class UserAuthenticationTest {
 
     @Test
     public void shouldLoginUserWithLibraryNumberAndPassword() throws InvalidCredentialsException, UserAlreadyLoggedInException {
-        User newUser = mock(User.class);
-        UserAuthentication.register(newUser);
-        String libraryNumber = "456-4567";
+        User user = mock(User.class);
+        UserAuthentication.register(user);
+        String libraryNumber = "321-4567";
         String password = "password";
-        when(newUser.authenticate(libraryNumber, password)).thenReturn(true);
+        when(user.authenticate(libraryNumber, password)).thenReturn(true);
+        when(user.isLoggedIn()).thenReturn(false);
+        Session session = UserAuthentication.login(libraryNumber, password);
 
-        User loggedInUser = UserAuthentication.login(libraryNumber, password);
-
-        assertThat(loggedInUser, is(equalTo(newUser)));
+        assertThat(user, is(equalTo(session.user())));
     }
 
     @Test
     public void shouldThrowInvalidCredentialsExceptionWhenWrongCredentialsAreGiven() {
+        User user = mock(User.class);
+        UserAuthentication.register(user);
         String libraryNumber = "678-1234";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(false);
@@ -51,7 +48,9 @@ class UserAuthenticationTest {
     }
 
     @Test
-    public void shouldThrowUserAlreadyLoggedInExceptionWhenUserHasLoggedIn() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+    public void shouldThrowUserAlreadyLoggedInExceptionWhenUserHasLoggedIn() {
+        User user = mock(User.class);
+        UserAuthentication.register(user);
         String libraryNumber = "123-4567";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(true);

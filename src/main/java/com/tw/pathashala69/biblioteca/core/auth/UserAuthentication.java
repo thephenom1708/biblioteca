@@ -13,13 +13,15 @@ public class UserAuthentication {
         return users.add(user);
     }
 
-    public static User login(String libraryNumber, String password) throws InvalidCredentialsException, UserAlreadyLoggedInException {
+    public static Session login(String libraryNumber, String password) throws InvalidCredentialsException, UserAlreadyLoggedInException {
         for (User user : users) {
             if (user.authenticate(libraryNumber, password)) {
                 if (user.isLoggedIn())
                     throw new UserAlreadyLoggedInException();
                 user.loggedIn();
-                return user;
+                Session session = new Session();
+                session.start(user);
+                return session;
             }
         }
         throw new InvalidCredentialsException();
