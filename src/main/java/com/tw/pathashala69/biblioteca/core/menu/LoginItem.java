@@ -1,6 +1,8 @@
 package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.core.auth.User;
+import com.tw.pathashala69.biblioteca.core.auth.UserAuthentication;
+import com.tw.pathashala69.biblioteca.core.exception.InvalidCredentialsException;
+import com.tw.pathashala69.biblioteca.core.exception.UserAlreadyLoggedInException;
 import com.tw.pathashala69.biblioteca.core.ui.AuthInterface;
 
 public class LoginItem extends BaseMenuItem {
@@ -13,6 +15,14 @@ public class LoginItem extends BaseMenuItem {
 
     @Override
     public void onSelect() {
-        User credentials = authInterface.promptForLoginCredentials();
+        String[] credentials = authInterface.promptForLoginCredentials();
+
+        try {
+            UserAuthentication.login(credentials[0], credentials[1]);
+        } catch (InvalidCredentialsException e) {
+            authInterface.onInvalidLoginCredentials();
+        } catch (UserAlreadyLoggedInException e) {
+            authInterface.onUserAlreadyLoggedIn();
+        }
     }
 }
