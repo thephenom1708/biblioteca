@@ -3,7 +3,7 @@ package com.tw.pathashala69.biblioteca.core.menu;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,20 +16,20 @@ import static org.mockito.Mockito.*;
 class BorrowableListItemTest {
 
     private Borrowables<Borrowable> borrowables;
-    private UserInterface<Borrowable> userInterface;
+    private BorrowableInterface<Borrowable> borrowableInterface;
     private BorrowableListItem<Borrowable> borrowableListItem;
 
 
     @BeforeEach
     void setUp() {
-        userInterface = mock(UserInterface.class);
+        borrowableInterface = mock(BorrowableInterface.class);
         borrowables = mock(Borrowables.class);
         Library<Borrowable> library = mock(Library.class);
 
         when(library.borrowables()).thenReturn(borrowables);
         when(borrowables.available()).thenReturn(borrowables);
 
-        borrowableListItem = new BorrowableListItem<>("List of Movies", "M", userInterface, library);
+        borrowableListItem = new BorrowableListItem<>("List of Movies", "M", borrowableInterface, library);
     }
 
     @Test
@@ -46,6 +46,6 @@ class BorrowableListItemTest {
     public void shouldPrintAvailableBooksOnSelection() {
         borrowableListItem.onSelect();
 
-        verify(userInterface, times(1)).listBorrowables(borrowables.available());
+        verify(borrowableInterface, times(1)).listBorrowables(borrowables.available());
     }
 }

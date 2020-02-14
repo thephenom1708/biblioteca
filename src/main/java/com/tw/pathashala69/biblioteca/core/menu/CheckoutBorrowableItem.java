@@ -4,31 +4,31 @@ import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableExcep
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Library;
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 
 //Job: Represents checkout book item
 public class CheckoutBorrowableItem<T extends Borrowable> extends BaseMenuItem {
-    private final UserInterface<T> userInterface;
+    private final BorrowableInterface<T> borrowableInterface;
     private final Library<T> library;
 
-    public CheckoutBorrowableItem(String title, String symbol, UserInterface<T> userInterface, Library<T> library) {
+    public CheckoutBorrowableItem(String title, String symbol, BorrowableInterface<T> borrowableInterface, Library<T> library) {
         super(title, symbol);
-        this.userInterface = userInterface;
+        this.borrowableInterface = borrowableInterface;
         this.library = library;
     }
 
     @Override
     public void onSelect() {
-        String borrowableName = userInterface.promptForCheckoutBorrowable();
+        String borrowableName = borrowableInterface.promptForCheckoutBorrowable();
 
         Borrowable borrowableToCheckout;
         try {
             borrowableToCheckout = library.borrowables().searchByName(borrowableName);
             library.checkout(borrowableToCheckout);
         } catch (BorrowableNotFoundException | BorrowableNotAvailableException e) {
-            userInterface.onCheckoutBorrowableUnsuccessful();
+            borrowableInterface.onCheckoutBorrowableUnsuccessful();
             return;
         }
-        userInterface.onCheckoutBorrowableSuccess();
+        borrowableInterface.onCheckoutBorrowableSuccess();
     }
 }

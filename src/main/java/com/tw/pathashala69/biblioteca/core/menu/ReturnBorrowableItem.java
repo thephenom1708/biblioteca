@@ -4,31 +4,31 @@ import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException
 import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Library;
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 
 //Job: represents Return Book option menu item
 public class ReturnBorrowableItem<T extends Borrowable> extends BaseMenuItem {
-    private final UserInterface<T> userInterface;
+    private final BorrowableInterface<T> borrowableInterface;
     private final Library<T> library;
 
-    public ReturnBorrowableItem(String title, String symbol, UserInterface<T> userInterface, Library<T> library) {
+    public ReturnBorrowableItem(String title, String symbol, BorrowableInterface<T> borrowableInterface, Library<T> library) {
         super(title, symbol);
-        this.userInterface = userInterface;
+        this.borrowableInterface = borrowableInterface;
         this.library = library;
     }
 
     @Override
     public void onSelect() {
-        String borrowableName = userInterface.promptForReturnBorrowable();
+        String borrowableName = borrowableInterface.promptForReturnBorrowable();
 
         Borrowable borrowableToReturn;
         try {
             borrowableToReturn = library.borrowables().searchByName(borrowableName);
             library.returnBorrowable(borrowableToReturn);
         } catch (BorrowableNotFoundException | IllegalBorrowableException e) {
-            userInterface.onReturnBorrowableUnsuccessful();
+            borrowableInterface.onReturnBorrowableUnsuccessful();
             return;
         }
-        userInterface.onReturnBorrowableSuccess();
+        borrowableInterface.onReturnBorrowableSuccess();
     }
 }

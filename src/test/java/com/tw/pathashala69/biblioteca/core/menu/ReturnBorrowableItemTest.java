@@ -6,7 +6,7 @@ import com.tw.pathashala69.biblioteca.core.models.Book;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class ReturnBorrowableItemTest {
     private Book book;
     private Borrowables<Borrowable> borrowables;
     private Library<Borrowable> library;
-    private UserInterface<Borrowable> userInterface;
+    private BorrowableInterface<Borrowable> borrowableInterface;
     private ReturnBorrowableItem<Borrowable> returnBorrowableItem;
 
     @BeforeEach
@@ -27,13 +27,13 @@ class ReturnBorrowableItemTest {
         book = mock(Book.class);
         borrowables = mock(Borrowables.class);
         library = mock(Library.class);
-        userInterface = mock(UserInterface.class);
+        borrowableInterface = mock(BorrowableInterface.class);
 
         when(borrowables.add(book)).thenReturn(true);
-        when(userInterface.promptForReturnBorrowable()).thenReturn("Harry Potter");
+        when(borrowableInterface.promptForReturnBorrowable()).thenReturn("Harry Potter");
         when(library.borrowables()).thenReturn(borrowables);
 
-        returnBorrowableItem = new ReturnBorrowableItem<>("Return Movie", "RM", userInterface, library);
+        returnBorrowableItem = new ReturnBorrowableItem<>("Return Movie", "RM", borrowableInterface, library);
     }
 
     @AfterEach
@@ -59,7 +59,7 @@ class ReturnBorrowableItemTest {
 
         returnBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onReturnBorrowableSuccess();
+        verify(borrowableInterface, times(1)).onReturnBorrowableSuccess();
     }
 
     @Test
@@ -69,7 +69,7 @@ class ReturnBorrowableItemTest {
 
         returnBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onReturnBorrowableUnsuccessful();
+        verify(borrowableInterface, times(1)).onReturnBorrowableUnsuccessful();
     }
 
     @Test
@@ -80,6 +80,6 @@ class ReturnBorrowableItemTest {
 
         returnBorrowableItem.onSelect();
 
-        verify(userInterface, times(1)).onReturnBorrowableUnsuccessful();
+        verify(borrowableInterface, times(1)).onReturnBorrowableUnsuccessful();
     }
 }

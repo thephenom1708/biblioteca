@@ -1,10 +1,10 @@
-package com.tw.pathashala69.biblioteca.core.ui;
+package com.tw.pathashala69.biblioteca.view.ui;
 
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
+import com.tw.pathashala69.biblioteca.core.models.Book;
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Library;
-import com.tw.pathashala69.biblioteca.core.models.Movie;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,19 +24,20 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("unchecked")
+class BibliotecaBookInterfaceTest {
 
-class BibliotecaMovieInterfaceTest {
     private String data;
-    private Movie movie, movie1;
+    private Book book, book1;
     private Borrowables<Borrowable> borrowables;
-    private BibliotecaMovieInterface bibliotecaMovieInterface;
+    private BibliotecaBookInterface bibliotecaBookInterface;
     private ByteArrayOutputStream outStream;
     private PrintStream oldOutStream;
     private InputStream oldInputStream;
 
     @BeforeEach
     void setUp() throws BorrowableNotFoundException {
-        data = "Movie";
+        data = "Harry Potter";
         ByteArrayInputStream inStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
         outStream = new ByteArrayOutputStream();
         oldInputStream = System.in;
@@ -44,21 +45,21 @@ class BibliotecaMovieInterfaceTest {
         oldOutStream = new PrintStream(System.out);
         System.setOut(new PrintStream(outStream));
 
-        movie = mock(Movie.class);
-        movie1 = mock(Movie.class);
+        book = mock(Book.class);
+        book1 = mock(Book.class);
 
         borrowables = mock(Borrowables.class);
 
         Library<Borrowable> library = mock(Library.class);
 
-        when(borrowables.searchByName(data)).thenReturn(movie);
-        when(borrowables.add(movie)).thenReturn(true);
-        when(borrowables.add(movie1)).thenReturn(true);
+        when(borrowables.searchByName(data)).thenReturn(book);
+        when(borrowables.add(book)).thenReturn(true);
+        when(borrowables.add(book1)).thenReturn(true);
         when(borrowables.available()).thenReturn(borrowables);
         when(library.borrowables()).thenReturn(borrowables);
         when(borrowables.available()).thenReturn(borrowables);
 
-        bibliotecaMovieInterface = new BibliotecaMovieInterface();
+        bibliotecaBookInterface = new BibliotecaBookInterface();
     }
 
     @AfterEach
@@ -67,83 +68,89 @@ class BibliotecaMovieInterfaceTest {
         System.setOut(oldOutStream);
     }
 
+    @Test
+    public void shouldReturnWelcomeMessageWhenCustomerStartsApplication() {
+        String expectedWelcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book " +
+                "titles in Bangalore!";
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+        String actualWelcomeMessage = BibliotecaBookInterface.welcome();
+
+        assertThat(actualWelcomeMessage, is(equalTo(expectedWelcomeMessage)));
+    }
+
+    @SuppressWarnings("rawtypes")
     @Nested
-    class MovieList {
+    class BookList {
         @Test
         public void shouldPrintListOfBooksToConsole() {
-            Borrowables anotherBorrowables = new Borrowables(List.of(movie, movie1));
+            Borrowables anotherBorrowables = new Borrowables(List.of(book, book1));
             Library library = mock(Library.class);
             BibliotecaBookInterface bibliotecaBookInterface = new BibliotecaBookInterface();
             when(library.borrowables()).thenReturn(anotherBorrowables);
 
             bibliotecaBookInterface.listBorrowables(anotherBorrowables);
 
-            verify(movie, times(1)).print(System.out);
-            verify(movie1, times(1)).print(System.out);
+            verify(book, times(1)).print(System.out);
+            verify(book1, times(1)).print(System.out);
         }
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Nested
-    class CheckoutMovie {
+    class CheckoutBook {
         @Test
         public void shouldReturnHarryPotterAsCheckoutBookInput() {
-            String input = bibliotecaMovieInterface.promptForCheckoutBorrowable();
+            String input = bibliotecaBookInterface.promptForCheckoutBorrowable();
 
-            assertThat(input, is(equalTo("Movie")));
+            assertThat(input, is(equalTo("Harry Potter")));
         }
 
         @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenCheckoutIsSuccessful() {
-            borrowables.add(movie);
-            when(movie.title()).thenReturn(data);
+            borrowables.add(book);
+            when(book.title()).thenReturn(data);
 
-            bibliotecaMovieInterface.onCheckoutBorrowableSuccess();
+            bibliotecaBookInterface.onCheckoutBorrowableSuccess();
 
-            assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_MOVIE_SUCCESSFUL_MESSAGE));
+            assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_SUCCESSFUL_MESSAGE));
         }
 
         @Test
         public void shouldPrintUnsuccessfulMessageWhenBookIsNotFound() throws BorrowableNotFoundException {
             when(borrowables.searchByName(data)).thenThrow(BorrowableNotFoundException.class);
 
-            bibliotecaMovieInterface.onCheckoutBorrowableUnsuccessful();
+            bibliotecaBookInterface.onCheckoutBorrowableUnsuccessful();
 
-            assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_MOVIE_UNSUCCESSFUL_MESSAGE));
+            assertTrue(new String(outStream.toByteArray()).contains(Message.CHECKOUT_BOOK_UNSUCCESSFUL_MESSAGE));
         }
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Nested
-    class ReturnMovie {
+    class ReturnBook {
         @Test
         public void shouldReturnHarryPotterAsReturnBookInput() {
-            String input = bibliotecaMovieInterface.promptForReturnBorrowable();
+            String input = bibliotecaBookInterface.promptForReturnBorrowable();
 
-            assertThat(input, is(equalTo("Movie")));
+            assertThat(input, is(equalTo("Harry Potter")));
         }
 
         @Test
         public void shouldReturnTrueIfSuccessMessageIsPrintedWhenReturnIsSuccessful() {
-            borrowables.add(movie);
-            when(movie.title()).thenReturn(data);
+            borrowables.add(book);
+            when(book.title()).thenReturn(data);
 
-            bibliotecaMovieInterface.onReturnBorrowableSuccess();
+            bibliotecaBookInterface.onReturnBorrowableSuccess();
 
-            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_MOVIE_SUCCESSFUL_MESSAGE));
+            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_SUCCESSFUL_MESSAGE));
         }
 
         @Test
         public void shouldPrintUnsuccessfulMessageWhenBookDoesNotBelongToLibrary() throws BorrowableNotFoundException {
             when(borrowables.searchByName(data)).thenThrow(BorrowableNotFoundException.class);
 
-            bibliotecaMovieInterface.onReturnBorrowableUnsuccessful();
+            bibliotecaBookInterface.onReturnBorrowableUnsuccessful();
 
-            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_MOVIE_UNSUCCESSFUL_MESSAGE));
+            assertTrue(new String(outStream.toByteArray()).contains(Message.RETURN_BOOK_UNSUCCESSFUL_MESSAGE));
         }
 
     }
-
 }

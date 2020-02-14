@@ -1,12 +1,13 @@
-package com.tw.pathashala69.biblioteca.core.ui;
+package com.tw.pathashala69.biblioteca.view.ui;
 
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Movie;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 
 import java.util.Scanner;
 
-public class BibliotecaMovieInterface implements UserInterface<Movie> {
+public class BibliotecaMovieInterface implements BorrowableInterface<Movie> {
     private Scanner scanner = new Scanner(System.in);
 
     @Override

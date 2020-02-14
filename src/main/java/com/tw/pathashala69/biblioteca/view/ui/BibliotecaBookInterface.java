@@ -1,13 +1,14 @@
-package com.tw.pathashala69.biblioteca.core.ui;
+package com.tw.pathashala69.biblioteca.view.ui;
 
 import com.tw.pathashala69.biblioteca.core.models.Book;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 
 import java.util.Scanner;
 
 //Job: Represents Menu for Biblioteca
-public class BibliotecaBookInterface implements UserInterface<Book>{
+public class BibliotecaBookInterface implements BorrowableInterface<Book> {
     public static String welcome() {
         return Message.WELCOME_MESSAGE;
     }

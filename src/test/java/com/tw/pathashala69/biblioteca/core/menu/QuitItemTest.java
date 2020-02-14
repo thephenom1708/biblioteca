@@ -1,7 +1,7 @@
 package com.tw.pathashala69.biblioteca.core.menu;
 
 import com.tw.pathashala69.biblioteca.core.models.Borrowable;
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +14,12 @@ import static org.mockito.Mockito.*;
 class QuitItemTest {
 
     private QuitItem<Borrowable> quitItem;
-    private UserInterface<Borrowable> userInterface;
+    private BorrowableInterface<Borrowable> borrowableInterface;
 
     @BeforeEach
     void setUp() {
-        userInterface = mock(UserInterface.class);
-        quitItem = new QuitItem<>("Quit", "Q", userInterface);
+        borrowableInterface = mock(BorrowableInterface.class);
+        quitItem = new QuitItem<>("Quit", "Q", borrowableInterface);
     }
 
     @Test
@@ -36,6 +36,6 @@ class QuitItemTest {
     public void shouldQuitApplicationWhenSelected() {
         quitItem.onSelect();
 
-        verify(userInterface, times(1)).exit();
+        verify(borrowableInterface, times(1)).exit();
     }
 }

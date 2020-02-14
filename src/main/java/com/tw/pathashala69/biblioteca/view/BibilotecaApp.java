@@ -1,14 +1,14 @@
 package com.tw.pathashala69.biblioteca.view;
 
-import com.tw.pathashala69.biblioteca.core.ui.UserInterface;
+import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 import com.tw.pathashala69.biblioteca.view.constants.Symbol;
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.core.models.*;
 import com.tw.pathashala69.biblioteca.core.menu.*;
-import com.tw.pathashala69.biblioteca.core.ui.BibliotecaBookInterface;
-import com.tw.pathashala69.biblioteca.core.ui.BibliotecaMovieInterface;
 import com.tw.pathashala69.biblioteca.view.io.BookParser;
+import com.tw.pathashala69.biblioteca.view.ui.BibliotecaBookInterface;
+import com.tw.pathashala69.biblioteca.view.ui.BibliotecaMovieInterface;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +26,8 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(BibliotecaBookInterface.welcome());
 
-        UserInterface<Book> bibliotecaBookInterface = new BibliotecaBookInterface();
-        UserInterface<Movie> bibliotecaMovieInterface = new BibliotecaMovieInterface();
+        BorrowableInterface<Book> bibliotecaBookInterface = new BibliotecaBookInterface();
+        BorrowableInterface<Movie> bibliotecaMovieInterface = new BibliotecaMovieInterface();
 
         Library<Book> booksLibrary = new Library<>(new Borrowables<>(getBooks()));
         Library<Movie> moviesLibrary = new Library<>(new Borrowables<>(getMovies()));
@@ -47,8 +47,8 @@ public class BibilotecaApp {
         } while (true);
     }
 
-    private static MainMenu mainMenu(UserInterface<Book> bibliotecaBookInterface,
-                                     UserInterface<Movie> bibliotecaMovieInterface, Library<Book> booksLibrary,
+    private static MainMenu mainMenu(BorrowableInterface<Book> bibliotecaBookInterface,
+                                     BorrowableInterface<Movie> bibliotecaMovieInterface, Library<Book> booksLibrary,
                                      Library<Movie> moviesLibrary) {
         BorrowableListItem<Book> bookListItem =
                 new BorrowableListItem<>(Message.BOOKS_LIST_OPTION, Symbol.B, bibliotecaBookInterface, booksLibrary);
