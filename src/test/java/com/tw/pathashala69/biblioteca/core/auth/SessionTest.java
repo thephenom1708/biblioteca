@@ -12,10 +12,17 @@ class SessionTest {
     @Test
     public void shouldStartSessionForUser() {
         User user = mock(User.class);
-        Session session = new Session();
-
-        session.start(user);
+        Session session = new Session(user);
 
         assertThat(session.user(), is(equalTo(user)));
+    }
+
+    @Test
+    public void shouldDestroySessionForUser() {
+        Session session = new Session(mock(User.class));
+
+        session.destroy();
+
+        assertThat(session.user(), is(equalTo(null)));
     }
 }

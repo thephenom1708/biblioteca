@@ -19,8 +19,7 @@ public class UserAuthentication {
                 if (user.isLoggedIn())
                     throw new UserAlreadyLoggedInException();
                 user.loggedIn();
-                Session session = new Session();
-                session.start(user);
+                Session session = new Session(user);
                 return session;
             }
         }
