@@ -1,6 +1,7 @@
 package com.tw.pathashala69.biblioteca.core.auth;
 
 import com.tw.pathashala69.biblioteca.core.exception.InvalidCredentialsException;
+import com.tw.pathashala69.biblioteca.core.exception.UserAlreadyLoggedInException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +13,14 @@ public class UserAuthentication {
         return users.add(user);
     }
 
-    public static User login(String libraryNumber, String password) throws InvalidCredentialsException {
+    public static User login(String libraryNumber, String password) throws InvalidCredentialsException, UserAlreadyLoggedInException {
         for (User user : users) {
-            if (user.authenticate(libraryNumber, password))
+            if (user.authenticate(libraryNumber, password)) {
+                if (user.isLoggedIn())
+                    throw new UserAlreadyLoggedInException();
+                user.loggedIn();
                 return user;
+            }
         }
         throw new InvalidCredentialsException();
     }

@@ -5,10 +5,12 @@ import java.util.Objects;
 public abstract class User {
     private final String libraryNumber;
     private final String password;
+    private boolean isLoggedIn;
 
     public User(String libraryNumber, String password) {
         this.libraryNumber = libraryNumber;
         this.password = password;
+        this.isLoggedIn = false;
     }
 
     public String libraryNumber() {
@@ -30,5 +32,13 @@ public abstract class User {
 
     public boolean authenticate(String libraryNumber, String password) {
         return libraryNumber.equals(this.libraryNumber) && password.equals(this.password);
+    }
+
+    public void loggedIn() {
+        isLoggedIn = true;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
     }
 }

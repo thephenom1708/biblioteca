@@ -1,6 +1,7 @@
 package com.tw.pathashala69.biblioteca.core.auth;
 
 import com.tw.pathashala69.biblioteca.core.exception.InvalidCredentialsException;
+import com.tw.pathashala69.biblioteca.core.exception.UserAlreadyLoggedInException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,14 +29,16 @@ class UserAuthenticationTest {
     }
 
     @Test
-    public void shouldLoginUserWithLibraryNumberAndPassword() throws InvalidCredentialsException {
-        String libraryNumber = "123-4567";
+    public void shouldLoginUserWithLibraryNumberAndPassword() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        User newUser = mock(User.class);
+        UserAuthentication.register(newUser);
+        String libraryNumber = "456-4567";
         String password = "password";
-        when(user.authenticate(libraryNumber, password)).thenReturn(true);
+        when(newUser.authenticate(libraryNumber, password)).thenReturn(true);
 
         User loggedInUser = UserAuthentication.login(libraryNumber, password);
 
-        assertThat(loggedInUser, is(equalTo(user)));
+        assertThat(loggedInUser, is(equalTo(newUser)));
     }
 
     @Test
@@ -45,5 +48,15 @@ class UserAuthenticationTest {
         when(user.authenticate(libraryNumber, password)).thenReturn(false);
 
         assertThrows(InvalidCredentialsException.class, () -> UserAuthentication.login(libraryNumber, password));
+    }
+
+    @Test
+    public void shouldThrowUserAlreadyLoggedInExceptionWhenUserHasLoggedIn() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        String libraryNumber = "123-4567";
+        String password = "password";
+        when(user.authenticate(libraryNumber, password)).thenReturn(true);
+        when(user.isLoggedIn()).thenReturn(true);
+
+        assertThrows(UserAlreadyLoggedInException.class, () -> UserAuthentication.login(libraryNumber, password));
     }
 }
