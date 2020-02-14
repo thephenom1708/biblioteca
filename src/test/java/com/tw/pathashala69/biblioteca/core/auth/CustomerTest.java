@@ -46,12 +46,4 @@ class CustomerTest {
 
         assertFalse(customer.authenticate("679-1234", "password"));
     }
-
-    @Test
-    public void shouldCheckWhetherCustomerIsLoggedInOrNot() {
-        Customer customer = new Customer("123-4567", "password");
-        customer.loggedIn();
-
-        assertTrue(customer.isLoggedIn());
-    }
 }

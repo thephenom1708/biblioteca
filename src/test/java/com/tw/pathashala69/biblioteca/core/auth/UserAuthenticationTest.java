@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UserAuthenticationTest {
@@ -30,7 +29,6 @@ class UserAuthenticationTest {
         String libraryNumber = "321-4567";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(true);
-        when(user.isLoggedIn()).thenReturn(false);
         Session session = UserAuthentication.login(libraryNumber, password);
 
         assertThat(user, is(equalTo(session.user())));
@@ -48,14 +46,24 @@ class UserAuthenticationTest {
     }
 
     @Test
-    public void shouldThrowUserAlreadyLoggedInExceptionWhenUserHasLoggedIn() {
+    public void shouldThrowUserAlreadyLoggedInExceptionWhenUserHasLoggedIn() throws InvalidCredentialsException, UserAlreadyLoggedInException {
         User user = mock(User.class);
         UserAuthentication.register(user);
         String libraryNumber = "123-4567";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(true);
-        when(user.isLoggedIn()).thenReturn(true);
+        UserAuthentication.login(libraryNumber, password);
 
         assertThrows(UserAlreadyLoggedInException.class, () -> UserAuthentication.login(libraryNumber, password));
+    }
+
+    @Test
+    public void shouldDestroySessionAndLogoutUser() {
+        User user = mock(User.class);
+        UserAuthentication.register(user);
+
+        UserAuthentication.logout(user);
+
+        assertFalse(UserAuthentication.isLoggedIn(user));
     }
 }
