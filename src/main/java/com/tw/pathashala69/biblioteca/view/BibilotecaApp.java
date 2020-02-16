@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.view;
 
+import com.tw.pathashala69.biblioteca.core.auth.UserAuthentication;
 import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 import com.tw.pathashala69.biblioteca.view.constants.Symbol;
@@ -32,11 +33,14 @@ public class BibilotecaApp {
         Library<Book> booksLibrary = new Library<>(new Borrowables<>(getBooks()));
         Library<Movie> moviesLibrary = new Library<>(new Borrowables<>(getMovies()));
 
-        MainMenu mainMenu = mainMenu(bibliotecaBookInterface, bibliotecaMovieInterface, booksLibrary, moviesLibrary);
+        UserAuthentication userAuth = new UserAuthentication();
+
+        MainMenu mainMenu;
 
         do {
             clearScreen();
             menuTitle();
+            mainMenu = userAuth.userPrivilege().menu();
             printMenu(mainMenu);
             String input = userInput();
             try {
@@ -47,9 +51,9 @@ public class BibilotecaApp {
         } while (true);
     }
 
-    private static MainMenu mainMenu(BorrowableInterface<Book> bibliotecaBookInterface,
-                                     BorrowableInterface<Movie> bibliotecaMovieInterface, Library<Book> booksLibrary,
-                                     Library<Movie> moviesLibrary) {
+    private static MainMenu guestMainMenu(BorrowableInterface<Book> bibliotecaBookInterface,
+                                          BorrowableInterface<Movie> bibliotecaMovieInterface, Library<Book> booksLibrary,
+                                          Library<Movie> moviesLibrary) {
         BorrowableListItem<Book> bookListItem =
                 new BorrowableListItem<>(Message.BOOKS_LIST_OPTION, Symbol.B, bibliotecaBookInterface, booksLibrary);
 
