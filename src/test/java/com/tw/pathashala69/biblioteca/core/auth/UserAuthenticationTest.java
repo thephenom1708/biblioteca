@@ -8,8 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserAuthenticationTest {
 
@@ -26,6 +25,7 @@ class UserAuthenticationTest {
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(true);
         UserAuthentication userAuthentication = new UserAuthentication();
+
         Session session = userAuthentication.login(libraryNumber, password);
 
         assertThat(user, is(equalTo(session.user())));
@@ -63,16 +63,22 @@ class UserAuthenticationTest {
         when(user.authenticate("789-0123", "password")).thenReturn(true);
         UserAuthentication userAuthentication = new UserAuthentication();
         Session session = userAuthentication.login("789-0123", "password");
+
         userAuthentication.logout();
 
         assertFalse(userAuthentication.isLoggedIn(session.user()));
     }
+
     @Test
-    public void shouldReturnUserPrivilegeLevelGUESTForDefaultUser() {
+    public void shouldReturnUserPrivilegeLevelForActiveSession() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        User user = mock(User.class);
+        UserAuthentication.register(user);
+        when(user.authenticate("790-0123", "password")).thenReturn(true);
         UserAuthentication userAuthentication = new UserAuthentication();
+        userAuthentication.login("790-0123", "password");
 
-        UserPrivilege expectedUserPrivilege = UserPrivilege.GUEST;
+        userAuthentication.userPrivilege();
 
-        assertThat(userAuthentication.userPrivilege(), is(equalTo(expectedUserPrivilege)));
+        verify(user, times(1)).privilege();
     }
 }

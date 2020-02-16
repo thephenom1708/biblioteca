@@ -40,6 +40,6 @@ public class UserAuthentication {
     }
 
     public UserPrivilege userPrivilege() {
-        return UserPrivilege.GUEST;
+        return activeSession.user().privilege();
     }
 }
