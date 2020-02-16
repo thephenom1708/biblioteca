@@ -26,4 +26,11 @@ class LogoutItemTest {
 
         verify(userAuth, times(1)).logout();
     }
+
+    @Test
+    public void shouldPerformUIOperationOnLogout() {
+        logoutItem.onSelect();
+
+        verify(authInterface, times(1)).onLogout();
+    }
 }

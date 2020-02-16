@@ -16,5 +16,6 @@ public class LogoutItem extends BaseMenuItem {
     @Override
     public void onSelect() {
         userAuth.logout();
+        authInterface.onLogout();
     }
 }
