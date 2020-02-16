@@ -7,10 +7,12 @@ import com.tw.pathashala69.biblioteca.core.ui.AuthInterface;
 
 public class LoginItem extends BaseMenuItem {
     private final AuthInterface authInterface;
+    private final UserAuthentication userAuth;
 
-    public LoginItem(String title, String symbol, AuthInterface authInterface) {
+    public LoginItem(String title, String symbol, AuthInterface authInterface, UserAuthentication userAuth) {
         super(title, symbol);
         this.authInterface = authInterface;
+        this.userAuth = userAuth;
     }
 
     @Override
@@ -18,11 +20,11 @@ public class LoginItem extends BaseMenuItem {
         String[] credentials = authInterface.promptForLoginCredentials();
 
         try {
-            UserAuthentication.login(credentials[0], credentials[1]);
+            userAuth.login(credentials[0], credentials[1]);
         } catch (InvalidCredentialsException e) {
-            authInterface.onInvalidLoginCredentials();
+
         } catch (UserAlreadyLoggedInException e) {
-            authInterface.onUserAlreadyLoggedIn();
+
         }
     }
 }

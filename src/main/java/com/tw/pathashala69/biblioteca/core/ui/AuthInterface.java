@@ -6,4 +6,6 @@ public interface AuthInterface extends UserInterface {
     void onInvalidLoginCredentials();
 
     void onUserAlreadyLoggedIn();
+
+    void onLogout();
 }

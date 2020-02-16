@@ -2,20 +2,16 @@ package com.tw.pathashala69.biblioteca.core.auth;
 
 import com.tw.pathashala69.biblioteca.core.exception.InvalidCredentialsException;
 import com.tw.pathashala69.biblioteca.core.exception.UserAlreadyLoggedInException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class UserAuthenticationTest {
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     public void shouldRegisterNewUser() {
@@ -29,7 +25,8 @@ class UserAuthenticationTest {
         String libraryNumber = "321-4567";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(true);
-        Session session = UserAuthentication.login(libraryNumber, password);
+        UserAuthentication userAuthentication = new UserAuthentication();
+        Session session = userAuthentication.login(libraryNumber, password);
 
         assertThat(user, is(equalTo(session.user())));
     }
@@ -41,8 +38,9 @@ class UserAuthenticationTest {
         String libraryNumber = "678-1234";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(false);
+        UserAuthentication userAuthentication = new UserAuthentication();
 
-        assertThrows(InvalidCredentialsException.class, () -> UserAuthentication.login(libraryNumber, password));
+        assertThrows(InvalidCredentialsException.class, () -> userAuthentication.login(libraryNumber, password));
     }
 
     @Test
@@ -52,18 +50,21 @@ class UserAuthenticationTest {
         String libraryNumber = "123-4567";
         String password = "password";
         when(user.authenticate(libraryNumber, password)).thenReturn(true);
-        UserAuthentication.login(libraryNumber, password);
+        UserAuthentication userAuthentication = new UserAuthentication();
+        userAuthentication.login(libraryNumber, password);
 
-        assertThrows(UserAlreadyLoggedInException.class, () -> UserAuthentication.login(libraryNumber, password));
+        assertThrows(UserAlreadyLoggedInException.class, () -> userAuthentication.login(libraryNumber, password));
     }
 
     @Test
-    public void shouldDestroySessionAndLogoutUser() {
+    public void shouldDestroySessionAndLogoutUser() throws InvalidCredentialsException, UserAlreadyLoggedInException {
         User user = mock(User.class);
         UserAuthentication.register(user);
+        when(user.authenticate("789-0123", "password")).thenReturn(true);
+        UserAuthentication userAuthentication = new UserAuthentication();
+        Session session = userAuthentication.login("789-0123", "password");
+        userAuthentication.logout();
 
-        UserAuthentication.logout(user);
-
-        assertFalse(UserAuthentication.isLoggedIn(user));
+        assertFalse(userAuthentication.isLoggedIn(session.user()));
     }
 }

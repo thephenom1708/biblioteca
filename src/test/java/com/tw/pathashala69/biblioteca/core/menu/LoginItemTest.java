@@ -1,46 +1,45 @@
 package com.tw.pathashala69.biblioteca.core.menu;
 
 import com.tw.pathashala69.biblioteca.core.auth.Session;
-import com.tw.pathashala69.biblioteca.core.auth.User;
+import com.tw.pathashala69.biblioteca.core.auth.UserAuthentication;
+import com.tw.pathashala69.biblioteca.core.exception.InvalidCredentialsException;
+import com.tw.pathashala69.biblioteca.core.exception.UserAlreadyLoggedInException;
 import com.tw.pathashala69.biblioteca.core.ui.AuthInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 class LoginItemTest {
 
+    private String[] credentials;
     private AuthInterface authInterface;
+    private UserAuthentication userAuth;
     private LoginItem loginItem;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        Session session = mock(Session.class);
         authInterface = mock(AuthInterface.class);
-        loginItem = new LoginItem("Login", "L", authInterface);
+        userAuth = mock(UserAuthentication.class);
+        loginItem = new LoginItem("Login", "L", authInterface, userAuth);
+
+        credentials = new String[]{ "123-4567", "password" };
+        when(authInterface.promptForLoginCredentials()).thenReturn(credentials);
+        when(userAuth.login(credentials[0], credentials[1])).thenReturn(session);
     }
 
     @Test
     public void shouldPromptForCredentialsToUser() {
-        String[] credentials = new String[]{ "123-4567", "password" };
-        when(authInterface.promptForLoginCredentials()).thenReturn(credentials);
-
         loginItem.onSelect();
 
         verify(authInterface, times(1)).promptForLoginCredentials();
     }
 
     @Test
-    public void shouldLoginUserWithInputCredentials() {
-        String[] credentials = new String[]{ "123-4567", "password" };
-        User user = mock(User.class);
-        Session expectedSession = mock(Session.class);
-        when(expectedSession.user()).thenReturn(user);
+    public void shouldLoginUserWithInputCredentials() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        loginItem.onSelect();
 
-        when(authInterface.promptForLoginCredentials()).thenReturn(credentials);
-
-        assertThat(expectedSession, is(equalTo(expectedSession)));
+        verify(userAuth, times(1)).login(credentials[0], credentials[1]);
     }
 }
