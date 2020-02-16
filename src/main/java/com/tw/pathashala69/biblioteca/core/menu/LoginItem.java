@@ -24,7 +24,7 @@ public class LoginItem extends BaseMenuItem {
         } catch (InvalidCredentialsException e) {
             authInterface.onInvalidLoginCredentials();
         } catch (UserAlreadyLoggedInException e) {
-
+            authInterface.onUserAlreadyLoggedIn();
         }
     }
 }

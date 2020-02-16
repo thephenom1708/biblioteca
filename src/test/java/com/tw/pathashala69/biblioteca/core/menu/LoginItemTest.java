@@ -54,4 +54,14 @@ class LoginItemTest {
 
         verify(authInterface, times(1)).onInvalidLoginCredentials();
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void shouldPerformUIOperationOnUserAlreadyLoggedIn() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        when(userAuth.login(credentials[0], credentials[1])).thenThrow(UserAlreadyLoggedInException.class);
+
+        loginItem.onSelect();
+
+        verify(authInterface, times(1)).onUserAlreadyLoggedIn();
+    }
 }
