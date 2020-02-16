@@ -38,4 +38,8 @@ public class UserAuthentication {
     public Boolean isLoggedIn(User user) {
         return logInStatus.get(user);
     }
+
+    public UserPrivilege userPrivilege() {
+        return UserPrivilege.GUEST;
+    }
 }

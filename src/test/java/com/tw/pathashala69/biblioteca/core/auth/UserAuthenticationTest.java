@@ -67,4 +67,12 @@ class UserAuthenticationTest {
 
         assertFalse(userAuthentication.isLoggedIn(session.user()));
     }
+    @Test
+    public void shouldReturnUserPrivilegeLevelGUESTForDefaultUser() {
+        UserAuthentication userAuthentication = new UserAuthentication();
+
+        UserPrivilege expectedUserPrivilege = UserPrivilege.GUEST;
+
+        assertThat(userAuthentication.userPrivilege(), is(equalTo(expectedUserPrivilege)));
+    }
 }
