@@ -22,7 +22,7 @@ public class LoginItem extends BaseMenuItem {
         try {
             userAuth.login(credentials[0], credentials[1]);
         } catch (InvalidCredentialsException e) {
-
+            authInterface.onInvalidLoginCredentials();
         } catch (UserAlreadyLoggedInException e) {
 
         }

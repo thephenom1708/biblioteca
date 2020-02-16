@@ -42,4 +42,16 @@ class LoginItemTest {
 
         verify(userAuth, times(1)).login(credentials[0], credentials[1]);
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void shouldPerformUIOperationOnInvalidLoginCredentials() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        String[] invalidCredentials = new String[]{"345-7890", "password"};
+        when(authInterface.promptForLoginCredentials()).thenReturn(invalidCredentials);
+        when(userAuth.login(invalidCredentials[0], invalidCredentials[1])).thenThrow(InvalidCredentialsException.class);
+
+        loginItem.onSelect();
+
+        verify(authInterface, times(1)).onInvalidLoginCredentials();
+    }
 }
