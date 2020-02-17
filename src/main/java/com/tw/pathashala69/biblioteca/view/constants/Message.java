@@ -32,4 +32,6 @@ public class Message {
 
     public static final String LIBRARY_NUMBER_PROMPT_MESSAGE = "Enter your Library Number: ";
     public static final String PASSWORD_PROMPT_MESSAGE = "Enter your Password: ";
+    public static final String INVALID_CREDENTIALS_MESSAGE = "Invalid Credentials! Please try again!";
+    public static final String ALREADY_LOGGED_IN_MESSAGE = "Oops! This user has already logged in!";
 }

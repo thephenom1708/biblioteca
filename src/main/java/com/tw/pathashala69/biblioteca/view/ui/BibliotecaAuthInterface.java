@@ -22,12 +22,11 @@ public class BibliotecaAuthInterface implements AuthInterface {
 
     @Override
     public void onInvalidLoginCredentials() {
-
+        System.out.println(Message.INVALID_CREDENTIALS_MESSAGE);
     }
 
     @Override
     public void onUserAlreadyLoggedIn() {
-
     }
 
     @Override

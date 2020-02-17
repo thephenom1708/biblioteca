@@ -69,4 +69,11 @@ class BibliotecaAuthInterfaceTest {
 
         assertThat(expectedCredentials, is(equalTo(actualCredentials)));
     }
+
+    @Test
+    public void shouldDisplayMessageOnInvalidLoginCredentials() {
+        authInterface.onInvalidLoginCredentials();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.INVALID_CREDENTIALS_MESSAGE));
+    }
 }
