@@ -83,4 +83,12 @@ class BibliotecaAuthInterfaceTest {
 
         assertTrue(new String(outStream.toByteArray()).contains(Message.ALREADY_LOGGED_IN_MESSAGE));
     }
+
+    @Test
+    public void shouldDisplayMessageOnLogout() {
+        authInterface.onLogout();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.LOGOUT_MESSAGE));
+
+    }
 }

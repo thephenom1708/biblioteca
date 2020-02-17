@@ -32,6 +32,6 @@ public class BibliotecaAuthInterface implements AuthInterface {
 
     @Override
     public void onLogout() {
-
+        System.out.println(Message.LOGOUT_MESSAGE);
     }
 }
