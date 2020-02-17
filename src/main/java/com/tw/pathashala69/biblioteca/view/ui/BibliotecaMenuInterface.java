@@ -43,10 +43,16 @@ public class BibliotecaMenuInterface implements MenuInterface {
 
     @Override
     public MainMenu guestMenu() {
+        return new MainMenu(List.of(bookListItem, movieListItem, loginItem, quitItem));
+    }
+
+    @Override
+    public MainMenu customerMenu() {
         return new MainMenu(
                 List.of(
-                        bookListItem, movieListItem,
-                        loginItem, quitItem
-                ));
+                        bookListItem, movieListItem, checkoutBookItem, checkoutMovieItem,
+                        returnBookItem, returnMovieItem, logoutItem, quitItem
+                )
+        );
     }
 }
