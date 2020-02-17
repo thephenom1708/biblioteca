@@ -27,4 +27,6 @@ public class Message {
     public static final String CHECKOUT_MOVIE_SUCCESSFUL_MESSAGE = "Checkout Successful! \nThank you! Enjoy the movie";
     public static final String RETURN_MOVIE_UNSUCCESSFUL_MESSAGE = "That is not a valid movie to return!";
     public static final String RETURN_MOVIE_SUCCESSFUL_MESSAGE = "Thank you for returning the movie";
+    public static final String LOGIN_OPTION = "Login";
+    public static final String LOGOUT_OPTION = "Logout";
 }

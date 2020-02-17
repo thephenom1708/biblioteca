@@ -9,4 +9,6 @@ public class Symbol {
     public static final String M = "M";
     public static final String CM = "CM";
     public static final String RM = "RM";
+    public static final String L = "L";
+    public static final String LO = "LO";
 }

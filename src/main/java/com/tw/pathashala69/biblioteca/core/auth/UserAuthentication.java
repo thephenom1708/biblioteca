@@ -8,9 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserAuthentication {
+    public static final String GUEST_LIBRARY_NUMBER = "000-0000";
+    public static final String GUEST_PASSWORD = "000";
+
     private static final List<User> users = new ArrayList<>();
     private static final HashMap<User, Boolean> logInStatus = new HashMap<>();
-    private Session activeSession;
+    private Session activeSession = new Session(new Guest(GUEST_LIBRARY_NUMBER, GUEST_PASSWORD, UserPrivilege.GUEST));
 
     public static boolean register(User user) {
         logInStatus.put(user, false);

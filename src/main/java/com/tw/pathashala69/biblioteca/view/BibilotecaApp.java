@@ -1,15 +1,17 @@
 package com.tw.pathashala69.biblioteca.view;
 
 import com.tw.pathashala69.biblioteca.core.auth.UserAuthentication;
+import com.tw.pathashala69.biblioteca.core.ui.AppInterface;
+import com.tw.pathashala69.biblioteca.core.ui.AuthInterface;
 import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
+import com.tw.pathashala69.biblioteca.core.ui.MenuInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 import com.tw.pathashala69.biblioteca.view.constants.Symbol;
 import com.tw.pathashala69.biblioteca.core.exception.InvalidMenuOptionException;
 import com.tw.pathashala69.biblioteca.core.models.*;
 import com.tw.pathashala69.biblioteca.core.menu.*;
 import com.tw.pathashala69.biblioteca.view.io.BookParser;
-import com.tw.pathashala69.biblioteca.view.ui.BibliotecaBookInterface;
-import com.tw.pathashala69.biblioteca.view.ui.BibliotecaMovieInterface;
+import com.tw.pathashala69.biblioteca.view.ui.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,33 +29,16 @@ public class BibilotecaApp {
     private static void startApplication() throws IOException {
         System.out.println(BibliotecaBookInterface.welcome());
 
+        AppInterface appInterface = new BibliotecaAppInterface();
         BorrowableInterface<Book> bibliotecaBookInterface = new BibliotecaBookInterface();
         BorrowableInterface<Movie> bibliotecaMovieInterface = new BibliotecaMovieInterface();
+        AuthInterface authInterface = new BibliotecaAuthInterface();
 
         Library<Book> booksLibrary = new Library<>(new Borrowables<>(getBooks()));
         Library<Movie> moviesLibrary = new Library<>(new Borrowables<>(getMovies()));
-
         UserAuthentication userAuth = new UserAuthentication();
 
-        MainMenu mainMenu;
 
-        do {
-            clearScreen();
-            menuTitle();
-            mainMenu = userAuth.userPrivilege().menu();
-            printMenu(mainMenu);
-            String input = userInput();
-            try {
-                mainMenu.execute(input);
-            } catch (InvalidMenuOptionException e) {
-                System.out.println(Message.INVALID_OPTION_MESSAGE);
-            }
-        } while (true);
-    }
-
-    private static MainMenu guestMainMenu(BorrowableInterface<Book> bibliotecaBookInterface,
-                                          BorrowableInterface<Movie> bibliotecaMovieInterface, Library<Book> booksLibrary,
-                                          Library<Movie> moviesLibrary) {
         BorrowableListItem<Book> bookListItem =
                 new BorrowableListItem<>(Message.BOOKS_LIST_OPTION, Symbol.B, bibliotecaBookInterface, booksLibrary);
 
@@ -72,12 +57,34 @@ public class BibilotecaApp {
         ReturnBorrowableItem<Movie> returnMovieItem =
                 new ReturnBorrowableItem<>(Message.RETURN_MOVIE_OPTION, Symbol.RM, bibliotecaMovieInterface, moviesLibrary);
 
-        QuitItem quitItem = new QuitItem(Message.QUIT_OPTION, Symbol.Q, bibliotecaBookInterface);
-        return new MainMenu(
-                List.of(
-                        bookListItem, movieListItem, checkoutBookItem,
-                        checkoutMovieItem, returnBookItem, returnMovieItem, quitItem
-                ));
+        LoginItem loginItem = new LoginItem(Message.LOGIN_OPTION, Symbol.L, authInterface, userAuth);
+
+        LogoutItem logoutItem = new LogoutItem(Message.LOGOUT_OPTION, Symbol.LO, authInterface, userAuth);
+
+        QuitItem quitItem = new QuitItem(Message.QUIT_OPTION, Symbol.Q, appInterface);
+
+        MenuInterface menuInterface = new BibliotecaMenuInterface
+                (
+                        bookListItem, movieListItem,
+                        checkoutBookItem, checkoutMovieItem,
+                        returnBookItem, returnMovieItem,
+                        loginItem, logoutItem, quitItem
+                );
+
+        MainMenu mainMenu;
+
+        do {
+            clearScreen();
+            menuTitle();
+            mainMenu = userAuth.userPrivilege().menu(menuInterface);
+            printMenu(mainMenu);
+            String input = userInput();
+            try {
+                mainMenu.execute(input);
+            } catch (InvalidMenuOptionException e) {
+                System.out.println(Message.INVALID_OPTION_MESSAGE);
+            }
+        } while (true);
     }
 
     private static void menuTitle() {

@@ -48,9 +48,4 @@ public class BibliotecaMovieInterface implements BorrowableInterface<Movie> {
     public void onReturnBorrowableSuccess() {
         System.out.println(Message.RETURN_MOVIE_SUCCESSFUL_MESSAGE);
     }
-
-    @Override
-    public void exit() {
-        System.exit(0);
-    }
 }

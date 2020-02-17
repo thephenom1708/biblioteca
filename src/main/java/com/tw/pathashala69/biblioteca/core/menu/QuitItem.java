@@ -1,19 +1,18 @@
 package com.tw.pathashala69.biblioteca.core.menu;
 
-import com.tw.pathashala69.biblioteca.core.models.Borrowable;
-import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
+import com.tw.pathashala69.biblioteca.core.ui.AppInterface;
 
-public class QuitItem<T extends Borrowable> extends BaseMenuItem {
+public class QuitItem extends BaseMenuItem {
 
-    private final BorrowableInterface<T> borrowableInterface;
+    private final AppInterface appInterface;
 
-    public QuitItem(String title, String symbol, BorrowableInterface<T> borrowableInterface) {
+    public QuitItem(String title, String symbol, AppInterface appInterface) {
         super(title, symbol);
-        this.borrowableInterface = borrowableInterface;
+        this.appInterface = appInterface;
     }
 
     @Override
     public void onSelect() {
-        borrowableInterface.exit();
+        appInterface.exit();
     }
 }

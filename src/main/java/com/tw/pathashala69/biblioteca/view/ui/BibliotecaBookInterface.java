@@ -16,6 +16,11 @@ public class BibliotecaBookInterface implements BorrowableInterface<Book> {
     private Scanner scanner = new Scanner(System.in);
 
     @Override
+    public void listBorrowables(Borrowables<Book> borrowables) {
+        borrowables.forEach(borrowable -> borrowable.print(System.out));
+    }
+
+    @Override
     public String promptForCheckoutBorrowable() {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to checkout: ";
         System.out.println(outputMessage);
@@ -27,11 +32,6 @@ public class BibliotecaBookInterface implements BorrowableInterface<Book> {
         String outputMessage = Message.ENTER_INPUT_MESSAGE + " " + "Book Name to Return: ";
         System.out.println(outputMessage);
         return scanner.nextLine().trim();
-    }
-
-    @Override
-    public void listBorrowables(Borrowables<Book> borrowables) {
-        borrowables.forEach(borrowable -> borrowable.print(System.out));
     }
 
     @Override
@@ -53,10 +53,4 @@ public class BibliotecaBookInterface implements BorrowableInterface<Book> {
     public void onReturnBorrowableSuccess() {
         System.out.println(Message.RETURN_BOOK_SUCCESSFUL_MESSAGE);
     }
-
-    @Override
-    public void exit() {
-        System.exit(0);
-    }
-
 }

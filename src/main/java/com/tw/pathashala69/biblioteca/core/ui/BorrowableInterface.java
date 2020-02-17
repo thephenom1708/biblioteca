@@ -17,6 +17,4 @@ public interface BorrowableInterface<T extends Borrowable> extends UserInterface
     void onReturnBorrowableUnsuccessful();
 
     void onReturnBorrowableSuccess();
-
-    void exit();
 }
