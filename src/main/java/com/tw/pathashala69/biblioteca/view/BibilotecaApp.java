@@ -49,6 +49,12 @@ public class BibilotecaApp {
         BorrowableListItem<Movie> movieListItem =
                 new BorrowableListItem<>(Message.MOVIE_LIST_OPTION, Symbol.M, bibliotecaMovieInterface, moviesLibrary);
 
+        CheckedOutBorrowablesItem<Book> checkedOutBooksItem =
+                new CheckedOutBorrowablesItem<>(Message.CHECKED_OUT_BOOKS_LIST_OPTION, Symbol.COB, bibliotecaBookInterface, booksLibrary);
+
+        CheckedOutBorrowablesItem<Movie> checkedOutMoviesItem =
+                new CheckedOutBorrowablesItem<>(Message.CHECKED_OUT_MOVIE_LIST_OPTION, Symbol.COM, bibliotecaMovieInterface, moviesLibrary);
+
         CheckoutBorrowableItem<Book> checkoutBookItem =
                 new CheckoutBorrowableItem<>(Message.CHECKOUT_BOOK_OPTION, Symbol.CB, bibliotecaBookInterface,
                         booksLibrary, userAuth);
@@ -72,6 +78,7 @@ public class BibilotecaApp {
         MenuInterface menuInterface = new BibliotecaMenuInterface
                 (
                         bookListItem, movieListItem,
+                        checkedOutBooksItem, checkedOutMoviesItem,
                         checkoutBookItem, checkoutMovieItem,
                         returnBookItem, returnMovieItem,
                         loginItem, logoutItem, quitItem

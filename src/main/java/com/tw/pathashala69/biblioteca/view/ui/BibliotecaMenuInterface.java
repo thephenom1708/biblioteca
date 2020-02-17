@@ -10,6 +10,8 @@ import java.util.List;
 public class BibliotecaMenuInterface implements MenuInterface {
     private final BorrowableListItem<Book> bookListItem;
     private final BorrowableListItem<Movie> movieListItem;
+    private final CheckedOutBorrowablesItem<Book> checkedOutBooksItem;
+    private final CheckedOutBorrowablesItem<Movie> checkedOutMoviesItem;
     private final CheckoutBorrowableItem<Book> checkoutBookItem;
     private final CheckoutBorrowableItem<Movie> checkoutMovieItem;
     private final ReturnBorrowableItem<Book> returnBookItem;
@@ -22,6 +24,8 @@ public class BibliotecaMenuInterface implements MenuInterface {
             (
                     BorrowableListItem<Book> bookListItem,
                     BorrowableListItem<Movie> movieListItem,
+                    CheckedOutBorrowablesItem<Book> checkedOutBooksItem,
+                    CheckedOutBorrowablesItem<Movie> checkedOutMoviesItem,
                     CheckoutBorrowableItem<Book> checkoutBookItem,
                     CheckoutBorrowableItem<Movie> checkoutMovieItem,
                     ReturnBorrowableItem<Book> returnBookItem,
@@ -32,6 +36,8 @@ public class BibliotecaMenuInterface implements MenuInterface {
             ) {
         this.bookListItem = bookListItem;
         this.movieListItem = movieListItem;
+        this.checkedOutBooksItem = checkedOutBooksItem;
+        this.checkedOutMoviesItem = checkedOutMoviesItem;
         this.checkoutBookItem = checkoutBookItem;
         this.checkoutMovieItem = checkoutMovieItem;
         this.returnBookItem = returnBookItem;
@@ -58,6 +64,12 @@ public class BibliotecaMenuInterface implements MenuInterface {
 
     @Override
     public MainMenu librarianMenu() {
-        return new MainMenu(List.of(bookListItem, movieListItem, logoutItem, quitItem));
+        return new MainMenu(
+                List.of(
+                        bookListItem, movieListItem,
+                        checkedOutBooksItem, checkedOutMoviesItem,
+                        logoutItem, quitItem
+                )
+        );
     }
 }

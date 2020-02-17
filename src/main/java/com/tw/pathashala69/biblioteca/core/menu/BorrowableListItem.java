@@ -6,8 +6,8 @@ import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 
 //Job: Represents view all books menu item
 public class BorrowableListItem<T extends Borrowable> extends BaseMenuItem {
-    private final BorrowableInterface<T> borrowableInterface;
-    private final Library<T> library;
+    protected final BorrowableInterface<T> borrowableInterface;
+    protected final Library<T> library;
 
     public BorrowableListItem(String title, String symbol, BorrowableInterface<T> borrowableInterface, Library<T> library) {
         super(title, symbol);

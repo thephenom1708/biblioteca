@@ -5,6 +5,7 @@ import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -87,6 +88,16 @@ class BorrowablesTest {
     @Test
     public void shouldReturnListOfAvailableBorrowables() {
         assertThat(borrowables, is(equalTo(borrowables.available())));
+    }
+
+    @Test
+    public void shouldReturnCheckedOutBorrowablesAndUserMapping() {
+        borrowables.borrowableCheckOut(book, user);
+        HashMap<Borrowable, User> expectedMapping = new HashMap<>(){{
+            put(book, user);
+        }};
+
+        assertThat(borrowables.checkedOut(), is(equalTo(expectedMapping)));
     }
 
     @Test

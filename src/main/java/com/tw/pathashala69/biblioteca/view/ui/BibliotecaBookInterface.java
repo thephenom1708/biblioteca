@@ -1,10 +1,13 @@
 package com.tw.pathashala69.biblioteca.view.ui;
 
+import com.tw.pathashala69.biblioteca.core.auth.User;
 import com.tw.pathashala69.biblioteca.core.models.Book;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 //Job: Represents Menu for Biblioteca
@@ -18,6 +21,11 @@ public class BibliotecaBookInterface implements BorrowableInterface<Book> {
     @Override
     public void listBorrowables(Borrowables<Book> borrowables) {
         borrowables.forEach(borrowable -> borrowable.print(System.out));
+    }
+
+    @Override
+    public void listCheckedOutBorrowables(HashMap<Borrowable, User> borrowableUserHashMap) {
+
     }
 
     @Override

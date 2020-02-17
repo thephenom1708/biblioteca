@@ -1,10 +1,13 @@
 package com.tw.pathashala69.biblioteca.view.ui;
 
+import com.tw.pathashala69.biblioteca.core.auth.User;
+import com.tw.pathashala69.biblioteca.core.models.Borrowable;
 import com.tw.pathashala69.biblioteca.core.models.Borrowables;
 import com.tw.pathashala69.biblioteca.core.models.Movie;
 import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import com.tw.pathashala69.biblioteca.view.constants.Message;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class BibliotecaMovieInterface implements BorrowableInterface<Movie> {
@@ -13,6 +16,11 @@ public class BibliotecaMovieInterface implements BorrowableInterface<Movie> {
     @Override
     public void listBorrowables(Borrowables<Movie> borrowables) {
         borrowables.forEach(borrowable -> borrowable.print(System.out));
+    }
+
+    @Override
+    public void listCheckedOutBorrowables(HashMap<Borrowable, User> borrowableUserHashMap) {
+
     }
 
     @Override

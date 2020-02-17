@@ -39,6 +39,10 @@ public class Borrowables<T extends Borrowable> extends ArrayList<Borrowable> {
         return availableBorrowables;
     }
 
+    public HashMap<Borrowable, User> checkedOut() {
+        return userBorrowableMapping;
+    }
+
     public Borrowable searchByName(String title) throws BorrowableNotFoundException {
         for (Borrowable borrowable : this) {
             if (borrowable.title().equals(title))

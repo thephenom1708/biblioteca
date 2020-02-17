@@ -11,4 +11,6 @@ public class Symbol {
     public static final String RM = "RM";
     public static final String L = "L";
     public static final String LO = "LO";
+    public static final String COB = "COB";
+    public static final String COM = "COM";
 }

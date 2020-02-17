@@ -18,6 +18,8 @@ class BibliotecaMenuInterfaceTest {
 
     private BorrowableListItem<Book> bookListItem;
     private BorrowableListItem<Movie> movieListItem;
+    private CheckedOutBorrowablesItem<Book> checkedOutBooksItem;
+    private CheckedOutBorrowablesItem<Movie> checkedOutMoviesItem;
     private CheckoutBorrowableItem<Book> checkoutBookItem;
     private CheckoutBorrowableItem<Movie> checkoutMovieItem;
     private ReturnBorrowableItem<Book> returnBookItem;
@@ -32,6 +34,8 @@ class BibliotecaMenuInterfaceTest {
     void setUp() {
         bookListItem = mock(BorrowableListItem.class);
         movieListItem = mock(BorrowableListItem.class);
+        checkedOutBooksItem = mock(CheckedOutBorrowablesItem.class);
+        checkedOutMoviesItem = mock(CheckedOutBorrowablesItem.class);
         checkoutBookItem = mock(CheckoutBorrowableItem.class);
         checkoutMovieItem = mock(CheckoutBorrowableItem.class);
         returnBookItem = mock(ReturnBorrowableItem.class);
@@ -43,6 +47,7 @@ class BibliotecaMenuInterfaceTest {
         bibliotecaMenuInterface = new BibliotecaMenuInterface
                 (
                         bookListItem, movieListItem,
+                        checkedOutBooksItem, checkedOutMoviesItem,
                         checkoutBookItem, checkoutMovieItem,
                         returnBookItem, returnMovieItem,
                         loginItem, logoutItem, quitItem
@@ -71,7 +76,9 @@ class BibliotecaMenuInterfaceTest {
     public void shouldReturnLibrarianMainMenu() {
         MainMenu expectedMenu = new MainMenu(
                 List.of(
-                        bookListItem, movieListItem, logoutItem, quitItem
+                        bookListItem, movieListItem,
+                        checkedOutBooksItem, checkedOutMoviesItem,
+                        logoutItem, quitItem
                 ));
 
         assertThat(bibliotecaMenuInterface.librarianMenu().menuItems(), is(equalTo(expectedMenu.menuItems())));

@@ -43,9 +43,9 @@ class BorrowableListItemTest {
     }
 
     @Test
-    public void shouldPrintAvailableBooksOnSelection() {
+    public void shouldPerformListingOperationForAvailableBorrowables() {
         borrowableListItem.onSelect();
 
-        verify(borrowableInterface, times(1)).listBorrowables(borrowables.available());
+        verify(borrowableInterface, times(1)).listBorrowables(borrowables);
     }
 }
