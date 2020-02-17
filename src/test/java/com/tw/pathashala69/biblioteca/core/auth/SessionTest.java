@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class SessionTest {
 
@@ -18,11 +19,13 @@ class SessionTest {
     }
 
     @Test
-    public void shouldDestroySessionForUser() {
+    public void shouldSetUserAsGUESTWhenSessionIsDestroyed() {
+        User expectedUser = mock(User.class);
+        when(expectedUser.privilege()).thenReturn(UserPrivilege.GUEST);
         Session session = new Session(mock(User.class));
 
         session.destroy();
 
-        assertThat(session.user(), is(equalTo(null)));
+        assertThat(session.user().privilege(), is(equalTo(expectedUser.privilege())));
     }
 }
