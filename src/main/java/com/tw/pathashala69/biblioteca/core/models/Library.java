@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
+import com.tw.pathashala69.biblioteca.core.auth.User;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotAvailableException;
 import com.tw.pathashala69.biblioteca.core.exception.IllegalBorrowableException;
 
@@ -15,10 +16,10 @@ public class Library<T extends Borrowable> {
         return borrowables;
     }
 
-    public void checkout(Borrowable borrowable) throws BorrowableNotAvailableException {
+    public void checkout(Borrowable borrowable, User user) throws BorrowableNotAvailableException {
         if (borrowables.isCheckedOut(borrowable))
             throw new BorrowableNotAvailableException();
-        borrowables.borrowableCheckedOut(borrowable);
+        borrowables.borrowableCheckOut(borrowable, user);
     }
 
     public void returnBorrowable(Borrowable borrowable) throws IllegalBorrowableException {

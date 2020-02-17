@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
+import com.tw.pathashala69.biblioteca.core.auth.User;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 // Job: Represents collection of books
 public class Borrowables<T extends Borrowable> extends ArrayList<Borrowable> {
     private HashMap<Borrowable, Boolean> checkoutStatus = new HashMap<>();
+    private HashMap<Borrowable, User> userBorrowableMapping = new HashMap<>();
 
     public Borrowables() {}
 
@@ -19,8 +21,9 @@ public class Borrowables<T extends Borrowable> extends ArrayList<Borrowable> {
         });
     }
 
-    public void borrowableCheckedOut(Borrowable borrowable) {
+    public void borrowableCheckOut(Borrowable borrowable, User user) {
         checkoutStatus.put(borrowable, true);
+        userBorrowableMapping.put(borrowable, user);
     }
 
     public void borrowableAvailable(Borrowable borrowable) {
@@ -42,6 +45,10 @@ public class Borrowables<T extends Borrowable> extends ArrayList<Borrowable> {
                 return borrowable;
         }
         throw new BorrowableNotFoundException();
+    }
+
+    public User checkedOutUser(Borrowable borrowable) {
+        return userBorrowableMapping.get(borrowable);
     }
 
     boolean isCheckedOut(Borrowable borrowable) {

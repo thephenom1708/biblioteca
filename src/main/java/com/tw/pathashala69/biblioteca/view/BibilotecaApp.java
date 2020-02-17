@@ -50,10 +50,12 @@ public class BibilotecaApp {
                 new BorrowableListItem<>(Message.MOVIE_LIST_OPTION, Symbol.M, bibliotecaMovieInterface, moviesLibrary);
 
         CheckoutBorrowableItem<Book> checkoutBookItem =
-                new CheckoutBorrowableItem<>(Message.CHECKOUT_BOOK_OPTION, Symbol.CB, bibliotecaBookInterface, booksLibrary);
+                new CheckoutBorrowableItem<>(Message.CHECKOUT_BOOK_OPTION, Symbol.CB, bibliotecaBookInterface,
+                        booksLibrary, userAuth);
 
         CheckoutBorrowableItem<Movie> checkoutMovieItem =
-                new CheckoutBorrowableItem<>(Message.CHECKOUT_MOVIE_OPTION, Symbol.CM, bibliotecaMovieInterface, moviesLibrary);
+                new CheckoutBorrowableItem<>(Message.CHECKOUT_MOVIE_OPTION, Symbol.CM, bibliotecaMovieInterface,
+                        moviesLibrary, userAuth);
 
         ReturnBorrowableItem<Book> returnBookItem =
                 new ReturnBorrowableItem<>(Message.RETURN_BOOK_OPTION, Symbol.RB, bibliotecaBookInterface, booksLibrary);

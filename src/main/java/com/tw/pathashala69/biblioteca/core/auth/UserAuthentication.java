@@ -45,4 +45,8 @@ public class UserAuthentication {
     public UserPrivilege userPrivilege() {
         return activeSession.user().privilege();
     }
+
+    public Session activeSession() {
+        return activeSession;
+    }
 }

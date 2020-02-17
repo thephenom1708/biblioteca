@@ -1,5 +1,6 @@
 package com.tw.pathashala69.biblioteca.core.models;
 
+import com.tw.pathashala69.biblioteca.core.auth.User;
 import com.tw.pathashala69.biblioteca.core.exception.BorrowableNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,9 +18,11 @@ class BorrowablesTest {
 
     private Borrowable book, book1;
     private Borrowables borrowables;
+    private User user;
 
     @BeforeEach
     void setUp() {
+        user = mock(User.class);
         borrowables = new Borrowables();
         book = mock(Book.class);
         book1 = mock(Book.class);
@@ -32,7 +35,7 @@ class BorrowablesTest {
 
     @Test
     public void shouldSetBorrowableAsCheckedOut() {
-        borrowables.borrowableCheckedOut(book);
+        borrowables.borrowableCheckOut(book, user);
 
         assertTrue(borrowables.isCheckedOut(book));
     }
@@ -60,9 +63,16 @@ class BorrowablesTest {
 
     @Test
     public void shouldReturnTrueOnIsCheckedOutIfBorrowableIsCheckedOut() {
-        borrowables.borrowableCheckedOut(book);
+        borrowables.borrowableCheckOut(book, user);
 
         assertTrue(borrowables.isCheckedOut(book));
+    }
+
+    @Test
+    public void shouldReturnUserWhoCheckedOutBorrowable() {
+        borrowables.borrowableCheckOut(book, user);
+
+        assertThat(borrowables.checkedOutUser(book), is(equalTo(user)));
     }
 
     @Test

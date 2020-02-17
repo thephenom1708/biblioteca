@@ -81,4 +81,17 @@ class UserAuthenticationTest {
 
         verify(user, times(1)).privilege();
     }
+
+    @Test
+    public void shouldReturnActiveSession() throws InvalidCredentialsException, UserAlreadyLoggedInException {
+        User user = mock(User.class);
+        UserAuthentication.register(user);
+        when(user.authenticate("799-0123", "password")).thenReturn(true);
+        UserAuthentication userAuthentication = new UserAuthentication();
+        Session expectedSession = userAuthentication.login("799-0123", "password");
+
+        userAuthentication.userPrivilege();
+
+        assertThat(userAuthentication.activeSession(), is(equalTo(expectedSession)));
+    }
 }
