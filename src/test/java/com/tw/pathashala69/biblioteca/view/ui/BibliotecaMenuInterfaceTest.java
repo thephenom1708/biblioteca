@@ -1,13 +1,8 @@
 package com.tw.pathashala69.biblioteca.view.ui;
 
-import com.tw.pathashala69.biblioteca.core.auth.UserAuthentication;
 import com.tw.pathashala69.biblioteca.core.menu.*;
 import com.tw.pathashala69.biblioteca.core.models.Book;
-import com.tw.pathashala69.biblioteca.core.models.Library;
 import com.tw.pathashala69.biblioteca.core.models.Movie;
-import com.tw.pathashala69.biblioteca.core.ui.AppInterface;
-import com.tw.pathashala69.biblioteca.core.ui.AuthInterface;
-import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,14 +15,6 @@ import static org.mockito.Mockito.mock;
 
 @SuppressWarnings("unchecked")
 class BibliotecaMenuInterfaceTest {
-
-    private AppInterface appInterface;
-    private BorrowableInterface<Book> bibliotecaBookInterface;
-    private BorrowableInterface<Movie> bibliotecaMovieInterface;
-    private AuthInterface authInterface;
-    private Library<Book> booksLibrary;
-    private Library<Movie> moviesLibrary;
-    private UserAuthentication userAuth;
 
     private BorrowableListItem<Book> bookListItem;
     private BorrowableListItem<Movie> movieListItem;
@@ -43,14 +30,6 @@ class BibliotecaMenuInterfaceTest {
 
     @BeforeEach
     void setUp() {
-        appInterface = mock(AppInterface.class);
-        bibliotecaBookInterface = mock(BorrowableInterface.class);
-        bibliotecaMovieInterface = mock(BorrowableInterface.class);
-        authInterface = mock(AuthInterface.class);
-        booksLibrary = mock(Library.class);
-        moviesLibrary = mock(Library.class);
-        userAuth = mock(UserAuthentication.class);
-
         bookListItem = mock(BorrowableListItem.class);
         movieListItem = mock(BorrowableListItem.class);
         checkoutBookItem = mock(CheckoutBorrowableItem.class);

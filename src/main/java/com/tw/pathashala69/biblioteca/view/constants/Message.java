@@ -29,4 +29,7 @@ public class Message {
     public static final String RETURN_MOVIE_SUCCESSFUL_MESSAGE = "Thank you for returning the movie";
     public static final String LOGIN_OPTION = "Login";
     public static final String LOGOUT_OPTION = "Logout";
+
+    public static final String LIBRARY_NUMBER_PROMPT_MESSAGE = "Enter your Library Number: ";
+    public static final String PASSWORD_PROMPT_MESSAGE = "Enter your Password: ";
 }
