@@ -55,4 +55,9 @@ public class BibliotecaMenuInterface implements MenuInterface {
                 )
         );
     }
+
+    @Override
+    public MainMenu librarianMenu() {
+        return new MainMenu(List.of(bookListItem, movieListItem, logoutItem, quitItem));
+    }
 }

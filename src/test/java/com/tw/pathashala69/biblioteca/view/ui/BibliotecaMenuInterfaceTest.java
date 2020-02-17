@@ -87,4 +87,14 @@ class BibliotecaMenuInterfaceTest {
 
         assertThat(bibliotecaMenuInterface.customerMenu().menuItems(), is(equalTo(expectedMenu.menuItems())));
     }
+
+    @Test
+    public void shouldReturnLibrarianMainMenu() {
+        MainMenu expectedMenu = new MainMenu(
+                List.of(
+                        bookListItem, movieListItem, logoutItem, quitItem
+                ));
+
+        assertThat(bibliotecaMenuInterface.librarianMenu().menuItems(), is(equalTo(expectedMenu.menuItems())));
+    }
 }

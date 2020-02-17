@@ -6,4 +6,6 @@ public interface MenuInterface extends UserInterface {
     MainMenu guestMenu();
 
     MainMenu customerMenu();
+
+    MainMenu librarianMenu();
 }
