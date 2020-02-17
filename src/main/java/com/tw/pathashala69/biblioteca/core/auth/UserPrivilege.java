@@ -14,14 +14,14 @@ public enum UserPrivilege {
     CUSTOMER {
         @Override
         public MainMenu menu(MenuInterface menuInterface) {
-            return null;
+            return menuInterface.customerMenu();
         }
     },
 
     LIBRARIAN {
         @Override
         public MainMenu menu(MenuInterface menuInterface) {
-            return null;
+            return menuInterface.librarianMenu();
         }
     };
 

@@ -1,6 +1,9 @@
 package com.tw.pathashala69.biblioteca.view;
 
+import com.tw.pathashala69.biblioteca.core.auth.Customer;
+import com.tw.pathashala69.biblioteca.core.auth.Librarian;
 import com.tw.pathashala69.biblioteca.core.auth.UserAuthentication;
+import com.tw.pathashala69.biblioteca.core.auth.UserPrivilege;
 import com.tw.pathashala69.biblioteca.core.ui.AppInterface;
 import com.tw.pathashala69.biblioteca.core.ui.AuthInterface;
 import com.tw.pathashala69.biblioteca.core.ui.BorrowableInterface;
@@ -36,8 +39,9 @@ public class BibilotecaApp {
 
         Library<Book> booksLibrary = new Library<>(new Borrowables<>(getBooks()));
         Library<Movie> moviesLibrary = new Library<>(new Borrowables<>(getMovies()));
-        UserAuthentication userAuth = new UserAuthentication();
 
+        UserAuthentication userAuth = new UserAuthentication();
+        registerUsers();
 
         BorrowableListItem<Book> bookListItem =
                 new BorrowableListItem<>(Message.BOOKS_LIST_OPTION, Symbol.B, bibliotecaBookInterface, booksLibrary);
@@ -72,7 +76,6 @@ public class BibilotecaApp {
                 );
 
         MainMenu mainMenu;
-
         do {
             clearScreen();
             menuTitle();
@@ -120,6 +123,24 @@ public class BibilotecaApp {
                 new Movie("Singham", 2014, "Rohit Shetty", 8.3),
                 new Movie("Interstellar", 2007, "Christopher Nolan", 10.0)
             );
+    }
+
+    private static void registerUsers() {
+        Customer customer1 = new Customer("222-4567", "password1", UserPrivilege.CUSTOMER);
+        Customer customer2 = new Customer("333-4567", "password2", UserPrivilege.CUSTOMER);
+        Customer customer3 = new Customer("444-4567", "password3", UserPrivilege.CUSTOMER);
+
+        Librarian librarian1 = new Librarian("100-2222", "pass123", UserPrivilege.LIBRARIAN);
+        Librarian librarian2 = new Librarian("100-3333", "pass456", UserPrivilege.LIBRARIAN);
+        Librarian librarian3 = new Librarian("100-4444", "pass789", UserPrivilege.LIBRARIAN);
+
+        UserAuthentication.register(customer1);
+        UserAuthentication.register(customer2);
+        UserAuthentication.register(customer3);
+
+        UserAuthentication.register(librarian1);
+        UserAuthentication.register(librarian2);
+        UserAuthentication.register(librarian3);
     }
 
     public static void clearScreen() {

@@ -23,4 +23,22 @@ class UserPrivilegeTest {
 
         verify(menuInterface, times(1)).guestMenu();
     }
+
+    @Test
+    public void shouldReturnMenuForCUSTOMER() {
+        UserPrivilege customerPrivilege = UserPrivilege.CUSTOMER;
+
+        customerPrivilege.menu(menuInterface);
+
+        verify(menuInterface, times(1)).customerMenu();
+    }
+
+    @Test
+    public void shouldReturnMenuForLIBRARIAN() {
+        UserPrivilege librarianPrivilege = UserPrivilege.LIBRARIAN;
+
+        librarianPrivilege.menu(menuInterface);
+
+        verify(menuInterface, times(1)).librarianMenu();
+    }
 }
