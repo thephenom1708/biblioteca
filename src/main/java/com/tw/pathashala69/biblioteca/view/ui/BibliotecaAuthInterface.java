@@ -27,6 +27,7 @@ public class BibliotecaAuthInterface implements AuthInterface {
 
     @Override
     public void onUserAlreadyLoggedIn() {
+        System.out.println(Message.ALREADY_LOGGED_IN_MESSAGE);
     }
 
     @Override

@@ -76,4 +76,11 @@ class BibliotecaAuthInterfaceTest {
 
         assertTrue(new String(outStream.toByteArray()).contains(Message.INVALID_CREDENTIALS_MESSAGE));
     }
+
+    @Test
+    public void shouldDisplayMessageOnUserAlreadyLoggedIn() {
+        authInterface.onUserAlreadyLoggedIn();
+
+        assertTrue(new String(outStream.toByteArray()).contains(Message.ALREADY_LOGGED_IN_MESSAGE));
+    }
 }
