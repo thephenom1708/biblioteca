@@ -3,5 +3,5 @@ build
 .gradle
 gradle
 gradlew.bat
-.DS_Store
+*DS_Store
 out
